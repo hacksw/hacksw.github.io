@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<head>
+  <meta charset="utf-8">
+  <title>debain 手动安装ipsec+L2TP VPN 服务器</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="ubuntu,debain 手动安装ipsec+L2TP VPN 服务器">
+  <meta name="description" content="试了下Ipsec l2tp访问速度比pptp快">
+   
+
+  <meta name="og:type" content="article">
+  <meta name="og:site_name" content="Jamling's Blog and Project Site">
+  <meta name="og:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="og:title" content="debain 手动安装ipsec+L2TP VPN 服务器">
+  <meta name="og:url" content="http://www.5cc.xyz/2015/09/28/debain-e6-89-8b-e5-8a-a8-e5-ae-89-e8-a3-85ipsecl2tp-vpn-e6-9c-8d-e5-8a-a1-e5-99-a8/">
+  <meta name="og:description" content="试了下Ipsec l2tp访问速度比pptp快">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="Jamling's Blog and Project Site">
+  <meta name="twitter:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="twitter:title" content="debain 手动安装ipsec+L2TP VPN 服务器">
+  <meta name="twitter:creator" content="@JamlingLi">
+  <meta name="twitter:description" content="试了下Ipsec l2tp访问速度比pptp快">
+
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.5cc.xyz/2015/09/28/debain-e6-89-8b-e5-8a-a8-e5-ae-89-e8-a3-85ipsecl2tp-vpn-e6-9c-8d-e5-8a-a1-e5-99-a8/index.html">
+  <!-- Alternative links -->
+  <!-- CSS and JS-->
+  <script src="//cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/sidr/2.2.1/jquery.sidr.min.js"></script>
+<script src="/js/jquery.bootstrap-autohidingnavbar.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/sidr/2.2.1/stylesheets/jquery.sidr.dark.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.css">
+<script src="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.js"></script>
+<script src="//cdn.bootcss.com/zclip/1.1.2/jquery.zclip.min.js"></script>
+<link rel="stylesheet" href="/css/nova_font.css">
+<link rel="stylesheet" href="/css/bs/nova.css">
+
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="Tell YOU">
+  <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+  <!-- header -->
+  <header>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse_" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/" id="logo"><img src="/image/logo.png" height="50"></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+        <li><a href="/" class="main-nav">Home</a></li><li><a href="/p/" class="main-nav">Projects</a></li><li><a href="/categories/" class="main-nav">Category</a></li><li><a href="/archives/" class="main-nav">Archives</a></li><li><a href="/donate/" class="main-nav">Donate</a></li><li><a href="/about/" class="main-nav">About</a></li>
+        </ul>
+        <!-- search input -->
+        
+
+<!-- 百度站内搜索（已通过站点验证） -->
+<form class="navbar-form navbar-left" role="search"
+  action="//search.ieclipse.cn/cse/search">
+  <div class="form-group search">
+    <input type="text" name="q" id="bdcsMain" class="form-control primary" aria-label="..." placeholder="Search">
+    <input type="hidden" name="s" value="11812712506721118476">
+    <input type="hidden" name="nsid" value="0">
+    <!-- 
+    <input name="tn" type="hidden" value="SE_zzsearchcode_shhzc78w">
+    <input name="cl" type="hidden" value="3">
+    <input name="ct" type="hidden" value="2097152">
+    <input name="si" type="hidden" value="ieclipse.cn">
+    <input name="ie" type="hidden" value="utf-8">
+    -->
+  </div>
+</form>
+
+        <ul class="nav navbar-nav navbar-right">
+        </ul>
+      </div>
+    </div>
+
+    <script>
+        <!-- mobile -->
+    	$('.navbar-toggle').sidr({
+	      name: 'sidr-main',
+	      source: '#bs-example-navbar-collapse-1'
+	    });
+    	$('body').click(function(){
+    	  $.sidr('close', 'sidr-main');
+    	});
+    	
+    	$(".navbar-fixed-top").autoHidingNavbar({
+    	  // see next for specifications
+    	});
+    </script>
+  </nav>
+</header>
+
+  <!-- main -->
+  
+<div class="container container-fluid">
+<div class="row">
+  <div class="col-sx-12 col-sm-8 col-md-9 col-lg-9">
+    
+    
+    <article class="article post" itemscope="itemscope" itemtype="http://schema.org/Article">
+  <header class="article-header">
+    <div class="page-path"><span class="post-category"><span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>Path: <a class="category-item" href="/">Blog</a><a class="category-item" href="/categories/ubuntu/">ubuntu</a></span></div>
+    <div class="divider"></div>
+      <h1 class="article-title" itemprop="name">debain 手动安装ipsec+L2TP VPN 服务器</h1>
+    <div class="post-header clearfix">
+      <span class="post-date"><span class="hidden-xs icon nova-calendar">Post at: </span>
+      <time datetime="2015-09-28T14:02:03.000Z" itemprop="datePublished"><time datetime="2015-09-28T14:02:03.000Z">2015-09-28</time></time>
+      </span>
+      
+      <span class="post-share">
+        <a href="#share" class="icon nova-share"><span class="hidden-xs">Share</span><span class="jiathis_counter_style"></span></a>
+        <a href="#comment" class="icon nova-bubbles"><span class="ds-thread-count" data-thread-key="7e1fbd1bf86bedb881a42d51634ec2f1"></span><!-- <span class="hidden-xs">Comment</span> --></a>
+        <a href="#like" class="icon nova-heart2-full"><span class="count"></span><span class="hidden-xs">Like</span></a>
+        <a href="#" class="icon nova-eye"><span class="count"></span><span class="hidden-xs">Views</span></a>
+      </span>
+    </div>
+    <div class="divider"></div>
+  </header>
+  <div class="article-content" itemprop="articleBody" id="post-content">
+    <p><strong><span style="color: #ff0000;">试了下Ipsec l2tp访问速度比pptp快</span></strong></p>
+<p>最近想用conoha 买个vps 架设vpn 但是查了下好多都说封了pptp协议 不知道怎么搞 查了下好多说是ipsec l2tp没封百度查了好多方面的资料 都是centos 这个没测试 因为我比较习惯debain 新手啊不懂搞了好久都不成功 刚好手头有一个美国的15元一个月的vps 先拿来架设测试下 下面就是详细过程 先上张成功图</p>
+<p><a href="http://dg2016.duapp.com/wp-content/uploads/2015/09/2.png" target="_blank" rel="external"><img src="http://dg2016.duapp.com/wp-content/uploads/2015/09/2-300x230.png" alt="2"></a><a href="http://dg2016.duapp.com/wp-content/uploads/2015/09/3.png" target="_blank" rel="external"><img src="http://dg2016.duapp.com/wp-content/uploads/2015/09/3-300x210.png" alt="3"></a>这是拨号注意</p>
+<p>&nbsp;</p>
+<p><a href="http://dg2016.duapp.com/wp-content/uploads/2015/09/1.png" target="_blank" rel="external"><img src="http://dg2016.duapp.com/wp-content/uploads/2015/09/1-300x274.png" alt="1"></a></p>
+<p>这里刚才开拨号出现789错误 查了下说什么册注册列表好麻烦</p>
+<p>直接在 我的电脑右键—》管理—》服务和应用程序—-》服务 里面把<span style="color: #ff0000;">ipsec servers启动</span>就可以正常了</p>
+<p>下面开记录</p>
+<p>1.安装openswan</p>
+<p><pre>apt-get  install openswan #（安装过程中如问到: Use an X.509 certificate for this host, 回答NO.）</pre><br>2. mv /etc/ipsec.conf /etc/ipsec.conf.bak</p>
+<p>vi /etc/ipsec.conf</p>
+<p><pre># /etc/ipsec.conf<br>version 2.0 # conforms to second version of ipsec.conf specification</pre></p>
+<p>config setup<br> nat_traversal=yes<br> virtual_private=%v4:192.168.0.0/16,%v4:10.0.0.0/8,%v4:172.16.0.0/12,%v4:25.0.0.0/8,%v4:!10.254.253.0/24<br> protostack=netkey</p>
+<p> #protostack=mast # used for SAref + MAST only<br> interfaces=”%defaultroute”<br> oe=off</p>
+<p>conn l2tp-psk<br> authby=secret<br> pfs=no<br> auto=add<br> rekey=no</p>
+<h1 id="overlapip-yes-for-SAref-MAST"><a href="#overlapip-yes-for-SAref-MAST" class="headerlink" title="overlapip=yes # for SAref + MAST"></a>overlapip=yes # for SAref + MAST</h1><h1 id="sareftrack-yes-for-SAref-MAST"><a href="#sareftrack-yes-for-SAref-MAST" class="headerlink" title="sareftrack=yes # for SAref + MAST"></a>sareftrack=yes # for SAref + MAST</h1><p> type=transport<br> left=xx.xx.xx.xx #你自己的外网ip<br> leftprotoport=17/1701<br> #</p>
+<h1 id="The-remote-user"><a href="#The-remote-user" class="headerlink" title="The remote user."></a>The remote user.</h1><p> #<br> right=%any<br> rightprotoport=17/%any<br>一行一次</p>
+<ol>
+<li>用文字编辑器打开 /etc/ipsec.secrets</li>
+</ol>
+<p>mv /etc/ipsec.secrets /etc/ipsec.secrets.bak &amp;&amp; vi /etc/ipsec.secrets</p>
+<p><pre>xx.xx.xx.xx %any: PSK “test” #你外网的ip test是共享认证密钥</pre><br>4.运行以下命令：</p>
+<p><pre>for each in /proc/sys/net/ipv4/conf/*<br>do<br>    echo 0 &gt; $each/accept_redirects<br>    echo 0 &gt; $each/send_redirects<br>done</pre><br>一行一次</p>
+<p>5. 检查一下 IPSec 能否正常工作：</p>
+<p><pre>sudo ipsec verify</pre><br>如果在结果中看到「Opportunistic Encryption Support」被禁用了，没关系，其他项 OK 即可。</p>
+<p>6.重启 openswan:</p>
+<p><pre>sudo /etc/init.d/ipsec restart</pre><br>7.安装 L2TP。常用的 L2TP 后台软件包是 xl2tpd，它和 openswan 是同一帮人写的。</p>
+<p>运行以下命令：</p>
+<p><pre>sudo aptitude install xl2tpd</pre><br><span style="color: #ff0000;"> 如果没有找到安装包可以到<a href="http://pkgs.org/" target="_blank" rel="external">http://pkgs.org/</a> （这个好像要挂带理才能正常查看到下载包的地址）去查找 比如我在kail linux下就查找到包</span></p>
+<p><span style="color: #ff0000;"><a href="http://ftp.br.debian.org/debian/pool/main/x/xl2tpd/xl2tpd_1.3.1+dfsg-1_i386.deb" target="_blank" rel="external">http://ftp.br.debian.org/debian/pool/main/x/xl2tpd/xl2tpd_1.3.1+dfsg-1_i386.deb</a></span></p>
+<p>&nbsp;</p>
+<p>8.用文字编辑器打开 /etc/xl2tpd/xl2tpd.conf，改成这样：</p>
+<p><pre>[global]<br>ipsec saref = yes</pre></p>
+<p>[lns default]<br>ip range = 10.1.2.2-10.1.2.255<br>local ip = 10.1.2.1<br>;require chap = yes<br>refuse chap = yes<br>refuse pap = yes<br>require authentication = yes<br>ppp debug = yes<br>pppoptfile = /etc/ppp/options.xl2tpd<br>length bit = yes<br>这里要注意的是 ip range 一项里的 IP 地址不能和你正在用的 IP 地址重合，也不可与网络上的其他 IP 地址冲突</p>
+<p>9.安装 ppp。这是用来管理 VPN 用户的。</p>
+<p><pre>sudo aptitude install ppp <span style="color: #ff0000;">#这个可以不用安装一般都默认有安装的</span></pre><br>10.检查一下 /etc/ppp 目录里有没有 options.xl2tpd 这个文件，没有的话就建一个，文件内容如下：</p>
+<p><pre>require-mschap-v2<br>ms-dns 208.67.222.222<br>ms-dns 208.67.220.220<br>asyncmap 0<br>auth<br>crtscts<br>lock<br>hide-password<br>modem<br>debug<br>name l2tpd<br>proxyarp<br>lcp-echo-interval 30<br>lcp-echo-failure 4</pre><br>注意 ms-dns 两行我填的是 OpenDNS。如果你想用其他的 DNS 服务器（例如谷歌的公共 DNS），请自行更换。我直接用这个也没关系</p>
+<p>11.现在可以添加一个 VPN 用户了。用文字编辑器打开 /etc/ppp/chap-secrets:</p>
+<p><pre># user      server      password            ip<br>test        l2tpd       testpassword        <em></em></pre><br>如果你之前设置过 PPTP VPN，chap-secrets 文件里可能已经有了其他用户的列表。你只要把 test l2tpd testpassword  这样加到后面即可。</p>
+<p>12. 重启 xl2tpd:</p>
+<p><pre>/etc/init.d/xl2tpd restart</pre><br>13.设置 iptables 的数据包转发：</p>
+<p><pre>iptables –table nat –append POSTROUTING –jump MASQUERADE<br>echo 1 &gt; /proc/sys/net/ipv4/ip_forward</pre></p>
+<ol>
+<li><strong>配置sysctl参数</strong></li>
+</ol>
+<p>sudo mv /etc/sysctl.conf /etc/sysctl.conf.bak</p>
+<p>sudo vim /etc/sysctl.conf</p>
+<p><pre># /etc/sysct.conf</pre></p>
+<h1 id="only-values-specific-for-ipsec-l2tp-functioning-are-shown-here-merge-with-existing-file"><a href="#only-values-specific-for-ipsec-l2tp-functioning-are-shown-here-merge-with-existing-file" class="headerlink" title="only values specific for ipsec/l2tp functioning are shown here. merge with existing file"></a>only values specific for ipsec/l2tp functioning are shown here. merge with existing file</h1><p>net.ipv4.ip_forward = 1<br>net.ipv4.conf.default.rp_filter = 0<br>net.ipv4.conf.default.accept_source_route = 0<br>net.ipv4.conf.all.send_redirects = 0<br>net.ipv4.conf.default.send_redirects = 0<br>net.ipv4.icmp_ignore_bogus_error_responses = 1<br>sysctl -p 加载配置</p>
+<p>15.因为某种原因，openswan 在服务器重启后无法正常自动，所以我们可以在 /etc/rc.local 文件里写入如下语句：</p>
+<p><pre>iptables –table nat –append POSTROUTING –jump MASQUERADE<br>echo 1 &gt; /proc/sys/net/ipv4/ip_forward<br>for each in /proc/sys/net/ipv4/conf/*<br>do<br>    echo 0 &gt; $each/accept_redirects<br>    echo 0 &gt; $each/send_redirects<br>done<br>/etc/init.d/ipsec restart</pre></p>
+<p>##############################################################<br>这个可以试试下面的脚本试试看出错不</p>
+<p>#!/bin/sh -e<br>iptables -t nat -A POSTROUTING -s 10.1.1.0/24 -o eth0 -j MASQUERADE</p>
+<p><div>(以上脚本执行有一个错误 我没管他)到这里，设置工作已经基本完成。你可以用 iPhone 或 iPad 试着连一下</div><br>如果连接成功，上网也没问题的话，恭喜你，大功告成。如果连不上，恐怕还得多做一步。</p>
+<p>Ubuntu 9.10 自带的 openswan 版本是 2.6.22, Debian Lenny 带的版本是 2.4.12。这两个版本的 openswan 都有问题。我们的测试结果表明，2.6.24 版的 openswan 可以在上述两版的 Linux 操作系统下正常工作。所以如果做完以上十四步还是连不上的话，请考虑从源码编译 openswan 2.6.24 ：</p>
+<p><pre>sudo aptitude install libgmp3-dev gawk flex bison<br>wget <a href="http://www.openswan.org/download/openswan-2.6.24.tar.gz" target="_blank" rel="external">http://www.openswan.org/download/openswan-2.6.24.tar.gz</a><br>tar xf openswan-2.6.24.tar.gz<br>cd openswan-2.6.24<br>make programs<br>sudo make install</pre><br>编译需要一段时间。你的 Linux 内核版本需要高于 2.6.6。</p>
+<p>然后可以删除原先通过 aptitude 安装的 openswan，并重启之：</p>
+<p><pre>sudo aptitude remove openswan<br>sudo /etc/init.d/ipsec restart</pre></p>
+<div>
+
+<p>为防复制错误我这在上传了我的修改文</p>
+<p><a href="http://dg2016.duapp.com/wp-content/uploads/2015/09/config.zip" target="_blank" rel="external">config下载</a></p>
+<p></p></div><br>&nbsp;<p></p>
+
+  </div>
+  <footer class="article-footer">
+    <time class="article-footer-updated" datetime="2016-09-15T14:57:53.000Z" itemprop="dateModified">
+        Last updated:  <span class="">2016-09-15</span>
+    </time>
+    
+  <!-- JiaThis Button BEGIN -->
+  <div class="jiathis_style clearfix"><a id="share" href="#share"></a>
+      <span class="jiathis_txt icon nova-share">Share：</span>
+      <a class="jiathis_button_tsina">Weibo</a>
+      <a class="jiathis_button_weixin">Wechat</a>
+      <a class="jiathis_button_twitter">Twitter</a>
+      <a class="jiathis_button_copy">Copy Link</a>
+      <a class="jiathis_button_ishare">One Share</a>
+      <a href="http://www.jiathis.com/share?uid=2064663" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">More</a>
+<!--       <a class="jiathis_counter_style"></a> -->
+  </div>
+  <!-- JiaThis Button END -->
+  <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2064663" charset="utf-8" async="async"></script>
+
+  </footer>
+  <span itemprop="author publisher" itemscope="itemscope" itemtype="http://schema.org/Organization">
+    <meta content="http://www.5cc.xyz" itemprop="url">
+    <meta content="Jamling's Blog and Project Site" itemprop="name">
+    <meta content="/image/logo.png" itemprop="logo">
+  </span>
+</article>
+<div>
+  <nav><ul class="pager"><li class="previous"><a href="/2015/09/29/e6-90-ac-e7-93-a6-e5-b7-a5shadowsocks-e6-9c-8d-e5-8a-a1-e5-99-a8tcp-e4-bc-98-e5-8c-96/"><span aria-hidden="true">&larr;</span><span class="hidden-xs">搬瓦工shadowsocks服务器TCP优化</span></a></li><li class="next"><a href="/2015/08/18/lazagne-e6-9c-ac-e5-9c-b0-e5-af-86-e7-a0-81-e7-b4-a2-e6-a3-80/"><span aria-hidden="true">&rarr;</span><span class="hidden-xs">LaZagne(本地密码索检)</span></a></li></ul></nav>
+  
+<!-- Button trigger modal -->
+<blockquote class="donate"><!--
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#DonateModal">
+    Donate
+  </button>-->
+  <p>
+  <a href="#" role="button" data-toggle="modal" data-target="#DonateModal"><img src="/image/donate_button.png">
+  <span>Dear reader, if you feel this good, could you rewark me a `bread` as awark? Thank you very much~</span></a>
+  </p>
+</blockquote>
+<!-- Modal -->
+<div class="modal fade" id="DonateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Donate</h4>
+      </div>
+      <div class="modal-body"><!--
+        <table>
+        <thead>
+          <th class="text-center">支付宝</th>
+          <th class="text-center">微信支付</th>
+        </thead>
+        <tr>
+          <td><img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+          <td><img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+        </tr>
+        </table>-->
+        <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">支付宝</span>
+            <img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="donate" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">微信支付</span>
+            <img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="donate" />
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a name="comment"></a>
+
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="7e1fbd1bf86bedb881a42d51634ec2f1" data-title="debain 手动安装ipsec+L2TP VPN 服务器" data-url="http://www.5cc.xyz/2015/09/28/debain-e6-89-8b-e5-8a-a8-e5-ae-89-e8-a3-85ipsecl2tp-vpn-e6-9c-8d-e5-8a-a1-e5-99-a8/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"ieclipse"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+
+</div>
+
+    
+  </div>
+  <!-- aside -->
+  <div class="col-sx-12 col-sm-4 col-md-3 col-lg-3">
+    <aside>
+    </aside>
+  </div>
+</div>
+</div>
+  <!-- footer -->
+  <footer id="footer">
+  <div class="divider"></div>
+  <div>&nbsp;</div>
+  <div class="inner text-center">
+    <div id="footer-copyright">
+      &copy; 2016 <a href="http://ieclipse.cn/" target="_blank">Any_冰</a> powered by <a href="http://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Jamling/hexo-theme-nova" target="_blank">Nova</a><br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div>
+      <a href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备15019510号</a>
+    </div>
+  </div>
+</footer>
+
+  <!-- fixed action bar -->
+  
+  <div class="fab" style="bottom: 45px; right: 24px;">
+    <ul class="top-expand" id="top-expand">
+      <li><a class="fab-item large red" href="#top"><i class="icon nova-top"></i></a></li>
+      <li><a class="fab-item large yellow " href="http://www.jiathis.com/share?uid=2064663" target="_blank"><i class="icon nova-share"></i></a></li>
+    </ul>
+    <a class="fab-item large red " onclick="$('#top-expand').toggle();">
+      <i class="icon nova-list-ul"></i>
+    </a>
+  </div>
+  <!-- after footer, some 3rd script place here -->
+    <script type="text/javascript">
+    var hljs_labels = {
+        left: "Code",
+        right: ":",
+        copy: "Copy to clipboard"
+    }
+    </script>
+    <script src="/js/hljs.js"></script>
+    <script src="/js/script.js"></script>
+    
+    <!-- 安装自动推送JS代码的网页，在页面被访问时，页面URL将立即被推送给百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    
+    <!-- 新建的搜索框代码，建立使用你自己的代码替换-->
+<script type="text/javascript">
+(function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=11812712506721118476' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();
+</script>
+    
+<!-- LeanClound官方Javascript SDK -->
+<script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
+<script>
+  AV.init({
+    appId : 'rYUER9KxmGUXSpfEtu7wCFMo-gzGzoHsz',
+    appKey : 'k7hzTkcS0blxgry4VT9rJjYj'
+  });
+
+  var lc_config = {
+    pageId : '7e1fbd1bf86bedb881a42d51634ec2f1',
+    url : 'http://www.5cc.xyz/2015/09/28/debain-e6-89-8b-e5-8a-a8-e5-ae-89-e8-a3-85ipsecl2tp-vpn-e6-9c-8d-e5-8a-a1-e5-99-a8/' || '2015/09/28/debain-e6-89-8b-e5-8a-a8-e5-ae-89-e8-a3-85ipsecl2tp-vpn-e6-9c-8d-e5-8a-a1-e5-99-a8/',
+    title : 'debain 手动安装ipsec+L2TP VPN 服务器'
+  };
+  
+  var lc_table = 'Counter' || 'Counter';
+
+  (function() {
+    var query = new AV.Query(lc_table);
+    query.select(['-ACL']);
+    query.equalTo('pageId', lc_config.pageId);
+    query.first({
+      success: function(results) {
+        // results is an array of AV.Object.
+        if (typeof results === 'undefined') {
+          insert(results);
+          return;
+        }
+        console.log(results._serverData);
+        update(results);
+        show(results);
+      },
+      error: function(error) {
+        // error is an instance of AV.Error.
+        console.log(error);
+      }
+    });
+
+    function insert(data) {
+      if (!data) {
+        console.log('data is null new object');
+        var M = AV.Object.extend(lc_table);
+        data = new M();
+        data.set('views', 1);
+      }
+      for ( var key in lc_config) {
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log('created objectId is ' + data.id);
+      }, function(error) {
+        console.log("create object failed");
+        console.log(error);
+      });
+    }
+
+    function update(data) {
+      data.increment('views', 1);
+      for ( var key in lc_config) {
+        if (key !== 'pageId')
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log("update to " + data.get('views'));
+      }, function(error) {
+        console.log("update object failed");
+        console.log(error);
+      });
+    }
+    
+    function show(data) {
+      $(".post-share .nova-eye .count").html(data.get('views'));
+    }
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<head>
+  <meta charset="utf-8">
+  <title>Ubuntu下OpenVPN客户端配置教程</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="linux mint,Ubuntu下OpenVPN客户端配置教程">
+  <meta name="description" content="一般来说，提供Web服务的Linux服务器是很少需要连接OpenVPN的，但是个人Linux计算机在很多时候就需要连接OpenVPN了。比如以Linux为开发环境，需要连接公司的OpenVPN等等。">
+   
+
+  <meta name="og:type" content="article">
+  <meta name="og:site_name" content="Jamling's Blog and Project Site">
+  <meta name="og:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="og:title" content="Ubuntu下OpenVPN客户端配置教程">
+  <meta name="og:url" content="http://www.5cc.xyz/2015/04/26/ubuntu-e4-b8-8bopenvpn-e5-ae-a2-e6-88-b7-e7-ab-af-e9-85-8d-e7-bd-ae-e6-95-99-e7-a8-8b/">
+  <meta name="og:description" content="一般来说，提供Web服务的Linux服务器是很少需要连接OpenVPN的，但是个人Linux计算机在很多时候就需要连接OpenVPN了。比如以Linux为开发环境，需要连接公司的OpenVPN等等。">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="Jamling's Blog and Project Site">
+  <meta name="twitter:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="twitter:title" content="Ubuntu下OpenVPN客户端配置教程">
+  <meta name="twitter:creator" content="@JamlingLi">
+  <meta name="twitter:description" content="一般来说，提供Web服务的Linux服务器是很少需要连接OpenVPN的，但是个人Linux计算机在很多时候就需要连接OpenVPN了。比如以Linux为开发环境，需要连接公司的OpenVPN等等。">
+
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.5cc.xyz/2015/04/26/ubuntu-e4-b8-8bopenvpn-e5-ae-a2-e6-88-b7-e7-ab-af-e9-85-8d-e7-bd-ae-e6-95-99-e7-a8-8b/index.html">
+  <!-- Alternative links -->
+  <!-- CSS and JS-->
+  <script src="//cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/sidr/2.2.1/jquery.sidr.min.js"></script>
+<script src="/js/jquery.bootstrap-autohidingnavbar.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/sidr/2.2.1/stylesheets/jquery.sidr.dark.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.css">
+<script src="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.js"></script>
+<script src="//cdn.bootcss.com/zclip/1.1.2/jquery.zclip.min.js"></script>
+<link rel="stylesheet" href="/css/nova_font.css">
+<link rel="stylesheet" href="/css/bs/nova.css">
+
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="Tell YOU">
+  <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+  <!-- header -->
+  <header>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse_" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/" id="logo"><img src="/image/logo.png" height="50"></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+        <li><a href="/" class="main-nav">Home</a></li><li><a href="/p/" class="main-nav">Projects</a></li><li><a href="/categories/" class="main-nav">Category</a></li><li><a href="/archives/" class="main-nav">Archives</a></li><li><a href="/donate/" class="main-nav">Donate</a></li><li><a href="/about/" class="main-nav">About</a></li>
+        </ul>
+        <!-- search input -->
+        
+
+<!-- 百度站内搜索（已通过站点验证） -->
+<form class="navbar-form navbar-left" role="search"
+  action="//search.ieclipse.cn/cse/search">
+  <div class="form-group search">
+    <input type="text" name="q" id="bdcsMain" class="form-control primary" aria-label="..." placeholder="Search">
+    <input type="hidden" name="s" value="11812712506721118476">
+    <input type="hidden" name="nsid" value="0">
+    <!-- 
+    <input name="tn" type="hidden" value="SE_zzsearchcode_shhzc78w">
+    <input name="cl" type="hidden" value="3">
+    <input name="ct" type="hidden" value="2097152">
+    <input name="si" type="hidden" value="ieclipse.cn">
+    <input name="ie" type="hidden" value="utf-8">
+    -->
+  </div>
+</form>
+
+        <ul class="nav navbar-nav navbar-right">
+        </ul>
+      </div>
+    </div>
+
+    <script>
+        <!-- mobile -->
+    	$('.navbar-toggle').sidr({
+	      name: 'sidr-main',
+	      source: '#bs-example-navbar-collapse-1'
+	    });
+    	$('body').click(function(){
+    	  $.sidr('close', 'sidr-main');
+    	});
+    	
+    	$(".navbar-fixed-top").autoHidingNavbar({
+    	  // see next for specifications
+    	});
+    </script>
+  </nav>
+</header>
+
+  <!-- main -->
+  
+<div class="container container-fluid">
+<div class="row">
+  <div class="col-sx-12 col-sm-8 col-md-9 col-lg-9">
+    
+    
+    <article class="article post" itemscope="itemscope" itemtype="http://schema.org/Article">
+  <header class="article-header">
+    <div class="page-path"><span class="post-category"><span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>Path: <a class="category-item" href="/">Blog</a><a class="category-item" href="/categories/linux-mint/">linux mint</a></span></div>
+    <div class="divider"></div>
+      <h1 class="article-title" itemprop="name">Ubuntu下OpenVPN客户端配置教程</h1>
+    <div class="post-header clearfix">
+      <span class="post-date"><span class="hidden-xs icon nova-calendar">Post at: </span>
+      <time datetime="2015-04-26T14:10:04.000Z" itemprop="datePublished"><time datetime="2015-04-26T14:10:04.000Z">2015-04-26</time></time>
+      </span>
+      
+      <span class="post-share">
+        <a href="#share" class="icon nova-share"><span class="hidden-xs">Share</span><span class="jiathis_counter_style"></span></a>
+        <a href="#comment" class="icon nova-bubbles"><span class="ds-thread-count" data-thread-key="3d15ee850227b399cf1b9128685efe5e"></span><!-- <span class="hidden-xs">Comment</span> --></a>
+        <a href="#like" class="icon nova-heart2-full"><span class="count"></span><span class="hidden-xs">Like</span></a>
+        <a href="#" class="icon nova-eye"><span class="count"></span><span class="hidden-xs">Views</span></a>
+      </span>
+    </div>
+    <div class="divider"></div>
+  </header>
+  <div class="article-content" itemprop="articleBody" id="post-content">
+    <p>一般来说，提供Web服务的Linux服务器是很少需要连接OpenVPN的，但是个人Linux计算机在很多时候就需要连接OpenVPN了。比如以Linux为开发环境，需要连接公司的OpenVPN等等。</p>
+<p>本文将以<a href="http://www.linuxidc.com/topicnews.aspx?tid=2" title="Ubuntu" target="_blank" rel="external">Ubuntu</a>系统为例，介绍在终端下连接远程OpenVPN服务的方法。</p>
+<h4 id="安装OpenVPN"><a href="#安装OpenVPN" class="headerlink" title="安装OpenVPN"></a>安装OpenVPN</h4><p>首先需要安装OpenVPN客户端。一般来说直接使用apt-get即可。执行如下命令安装：</p>
+<p><div id="highlighter_928430" class="syntaxhighlighter  "></div></p>
+<p><div class="lines"></div></p>
+<p><div class="line alt1"></div></p>
+<p><table></table></p>
+<p><tbody></tbody></p>
+<p><tr></tr></p>
+<p><td class="number"><code>1</code></td></p>
+<p><td class="content"><code>[root@www ~]``# apt-get install openvpn</code></td><br><br><br><br><br><br><br>稍等片刻将自动安装好openvpn需要的软件包。安装完成后，应该出现</p>
+<p>/etc/openvpn/</p>
+<p>文件夹。</p>
+<h4 id="配置OpenVPN"><a href="#配置OpenVPN" class="headerlink" title="配置OpenVPN"></a>配置OpenVPN</h4><p>作为客户端，OpenVPN并没有特定的配置文件，而是由服务器提供方给出一个配置文件。对于认证，OpenVPN提供了两种认证方法：基于用户名/密码的认证与SSL证书认证。用户名/密码的认证方法无法（或较难）限制一个账号同时连接多个客户端，而采用证书，则可保证同一证书同一时间只能有一个客户端连接。当然，这些都是由服务器端决定的，不需要客户端进行选择。</p>
+<p>首先将OpenVPN服务器提供商发给你的配置文件解压，并将所有文件都复制到 /etc/openvpn/中。</p>
+<p>这些文件中至少包含一个.ovpn文件，需要手动创建该文件，如：client.ovpn；如果服务器需要证书认证，则应该还存在另外三个证书文件。</p>
+<p>看懂OpenVPN配置格式。下面是一个.ovpn配置示例：</p>
+<blockquote>
+<p>client</p>
+<p>dev tap</p>
+<p>proto tcp-client</p>
+<p>remote 192.168.135.75 1194</p>
+<p>resolv-retry infinite</p>
+<p>nobind</p>
+<p>mute-replay-warnings</p>
+<p>redirect-gateway</p>
+<p>ca /etc/openvpn/ca.crt</p>
+<p>cert /etc/openvpn/client.crt</p>
+<p>key /etc/openvpn/client.key</p>
+<p>comp-lzo</p>
+<p>verb 4<br>一般来说，红色的内容可能需要你进行修改。将红色的内容修改成这三个文件的实际位置。然后保存即可。</p>
+</blockquote>
+<h4 id="连接OpenVPN"><a href="#连接OpenVPN" class="headerlink" title="连接OpenVPN"></a>连接OpenVPN</h4><p>在配置好.ovpn文件后，执行</p>
+<blockquote>
+<p>openvpn /etc/openvpn/client.ovpn<br>即可连接服务器了（注意该目录下对应文件的权限）。注意，上面的参数应该换成你的配置文件实际位置。</p>
+</blockquote>
+<p>此时，终端会回显很多连接日志。如果连接不成功，则可以通过这些日志来确定出错位置。如果要断开，只需要通过Ctrl+C强制终止即可。</p>
+<p>上面的命令在实际中并不方便，因为它要占用一个独立的终端。在测试成功后，使用以下命令即可在后台连接OpenVPN：</p>
+<blockquote>
+<p>openvpn /etc/openvpn/client.ovpn &gt; /dev/null &amp;<br>值得称赞的是，openvpn非常智能，在连接异常中断、无法连接服务器、断网的情况下，它会自动重连。因此，如果希望开机即自动连接OpenVPN，或者是VPN常年在线，则可将上述命令行加入<br>/etc/rc.local<br>中。注意，命令末尾的&amp;符号不能省略，否则将可能阻塞系统的正常启动。</p>
+</blockquote>
+
+  </div>
+  <footer class="article-footer">
+    <time class="article-footer-updated" datetime="2016-09-15T14:57:53.000Z" itemprop="dateModified">
+        Last updated:  <span class="">2016-09-15</span>
+    </time>
+    
+  <!-- JiaThis Button BEGIN -->
+  <div class="jiathis_style clearfix"><a id="share" href="#share"></a>
+      <span class="jiathis_txt icon nova-share">Share：</span>
+      <a class="jiathis_button_tsina">Weibo</a>
+      <a class="jiathis_button_weixin">Wechat</a>
+      <a class="jiathis_button_twitter">Twitter</a>
+      <a class="jiathis_button_copy">Copy Link</a>
+      <a class="jiathis_button_ishare">One Share</a>
+      <a href="http://www.jiathis.com/share?uid=2064663" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">More</a>
+<!--       <a class="jiathis_counter_style"></a> -->
+  </div>
+  <!-- JiaThis Button END -->
+  <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2064663" charset="utf-8" async="async"></script>
+
+  </footer>
+  <span itemprop="author publisher" itemscope="itemscope" itemtype="http://schema.org/Organization">
+    <meta content="http://www.5cc.xyz" itemprop="url">
+    <meta content="Jamling's Blog and Project Site" itemprop="name">
+    <meta content="/image/logo.png" itemprop="logo">
+  </span>
+</article>
+<div>
+  <nav><ul class="pager"><li class="previous"><a href="/2015/04/26/linux-e4-b8-ad-e4-bb-bb-e6-84-8f-e8-bd-af-e4-bb-b6-e9-80-9a-e8-bf-87-e4-bb-a3-e7-90-86-e4-b8-8a-e7-bd-91-ef-bc-88-e9-9d-9evpn-ef-bc-89/"><span aria-hidden="true">&larr;</span><span class="hidden-xs">Linux中任意软件通过代理上网（非vpn）</span></a></li><li class="next"><a href="/2015/04/26/centos6-4-e5-ae-89-e8-a3-85-e6-90-ad-e5-bb-bapptp-vpn-e6-9c-8d-e5-8a-a1/"><span aria-hidden="true">&rarr;</span><span class="hidden-xs">centos6.4安装搭建pptp vpn服务</span></a></li></ul></nav>
+  
+<!-- Button trigger modal -->
+<blockquote class="donate"><!--
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#DonateModal">
+    Donate
+  </button>-->
+  <p>
+  <a href="#" role="button" data-toggle="modal" data-target="#DonateModal"><img src="/image/donate_button.png">
+  <span>Dear reader, if you feel this good, could you rewark me a `bread` as awark? Thank you very much~</span></a>
+  </p>
+</blockquote>
+<!-- Modal -->
+<div class="modal fade" id="DonateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Donate</h4>
+      </div>
+      <div class="modal-body"><!--
+        <table>
+        <thead>
+          <th class="text-center">支付宝</th>
+          <th class="text-center">微信支付</th>
+        </thead>
+        <tr>
+          <td><img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+          <td><img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+        </tr>
+        </table>-->
+        <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">支付宝</span>
+            <img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="donate" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">微信支付</span>
+            <img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="donate" />
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a name="comment"></a>
+
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="3d15ee850227b399cf1b9128685efe5e" data-title="Ubuntu下OpenVPN客户端配置教程" data-url="http://www.5cc.xyz/2015/04/26/ubuntu-e4-b8-8bopenvpn-e5-ae-a2-e6-88-b7-e7-ab-af-e9-85-8d-e7-bd-ae-e6-95-99-e7-a8-8b/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"ieclipse"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+
+</div>
+
+    
+  </div>
+  <!-- aside -->
+  <div class="col-sx-12 col-sm-4 col-md-3 col-lg-3">
+    <aside>
+    </aside>
+  </div>
+</div>
+</div>
+  <!-- footer -->
+  <footer id="footer">
+  <div class="divider"></div>
+  <div>&nbsp;</div>
+  <div class="inner text-center">
+    <div id="footer-copyright">
+      &copy; 2016 <a href="http://ieclipse.cn/" target="_blank">Any_冰</a> powered by <a href="http://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Jamling/hexo-theme-nova" target="_blank">Nova</a><br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div>
+      <a href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备15019510号</a>
+    </div>
+  </div>
+</footer>
+
+  <!-- fixed action bar -->
+  
+  <div class="fab" style="bottom: 45px; right: 24px;">
+    <ul class="top-expand" id="top-expand">
+      <li><a class="fab-item large red" href="#top"><i class="icon nova-top"></i></a></li>
+      <li><a class="fab-item large yellow " href="http://www.jiathis.com/share?uid=2064663" target="_blank"><i class="icon nova-share"></i></a></li>
+    </ul>
+    <a class="fab-item large red " onclick="$('#top-expand').toggle();">
+      <i class="icon nova-list-ul"></i>
+    </a>
+  </div>
+  <!-- after footer, some 3rd script place here -->
+    <script type="text/javascript">
+    var hljs_labels = {
+        left: "Code",
+        right: ":",
+        copy: "Copy to clipboard"
+    }
+    </script>
+    <script src="/js/hljs.js"></script>
+    <script src="/js/script.js"></script>
+    
+    <!-- 安装自动推送JS代码的网页，在页面被访问时，页面URL将立即被推送给百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    
+    <!-- 新建的搜索框代码，建立使用你自己的代码替换-->
+<script type="text/javascript">
+(function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=11812712506721118476' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();
+</script>
+    
+<!-- LeanClound官方Javascript SDK -->
+<script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
+<script>
+  AV.init({
+    appId : 'rYUER9KxmGUXSpfEtu7wCFMo-gzGzoHsz',
+    appKey : 'k7hzTkcS0blxgry4VT9rJjYj'
+  });
+
+  var lc_config = {
+    pageId : '3d15ee850227b399cf1b9128685efe5e',
+    url : 'http://www.5cc.xyz/2015/04/26/ubuntu-e4-b8-8bopenvpn-e5-ae-a2-e6-88-b7-e7-ab-af-e9-85-8d-e7-bd-ae-e6-95-99-e7-a8-8b/' || '2015/04/26/ubuntu-e4-b8-8bopenvpn-e5-ae-a2-e6-88-b7-e7-ab-af-e9-85-8d-e7-bd-ae-e6-95-99-e7-a8-8b/',
+    title : 'Ubuntu下OpenVPN客户端配置教程'
+  };
+  
+  var lc_table = 'Counter' || 'Counter';
+
+  (function() {
+    var query = new AV.Query(lc_table);
+    query.select(['-ACL']);
+    query.equalTo('pageId', lc_config.pageId);
+    query.first({
+      success: function(results) {
+        // results is an array of AV.Object.
+        if (typeof results === 'undefined') {
+          insert(results);
+          return;
+        }
+        console.log(results._serverData);
+        update(results);
+        show(results);
+      },
+      error: function(error) {
+        // error is an instance of AV.Error.
+        console.log(error);
+      }
+    });
+
+    function insert(data) {
+      if (!data) {
+        console.log('data is null new object');
+        var M = AV.Object.extend(lc_table);
+        data = new M();
+        data.set('views', 1);
+      }
+      for ( var key in lc_config) {
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log('created objectId is ' + data.id);
+      }, function(error) {
+        console.log("create object failed");
+        console.log(error);
+      });
+    }
+
+    function update(data) {
+      data.increment('views', 1);
+      for ( var key in lc_config) {
+        if (key !== 'pageId')
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log("update to " + data.get('views'));
+      }, function(error) {
+        console.log("update object failed");
+        console.log(error);
+      });
+    }
+    
+    function show(data) {
+      $(".post-share .nova-eye .count").html(data.get('views'));
+    }
+  })();
+</script>
+
+</body>
+</html>

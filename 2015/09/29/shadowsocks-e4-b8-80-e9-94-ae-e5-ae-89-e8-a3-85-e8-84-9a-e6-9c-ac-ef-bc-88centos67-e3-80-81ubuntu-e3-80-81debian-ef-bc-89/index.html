@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<head>
+  <meta charset="utf-8">
+  <title>Shadowsocks一键安装脚本（CentOS6,7、Ubuntu、Debian）</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="便宜vps,Shadowsocks一键安装脚本（CentOS6,7、Ubuntu、Debian）">
+  <meta name="description" content="简单理解的话，Shadowsocks是将以前通过SSH创建的Socks5协议拆开成Server端和client端，下面这个原理图能简单介绍其翻墙原理，基本上和利用SSH tunnel大致类似：">
+   
+
+  <meta name="og:type" content="article">
+  <meta name="og:site_name" content="Jamling's Blog and Project Site">
+  <meta name="og:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="og:title" content="Shadowsocks一键安装脚本（CentOS6,7、Ubuntu、Debian）">
+  <meta name="og:url" content="http://www.5cc.xyz/2015/09/29/shadowsocks-e4-b8-80-e9-94-ae-e5-ae-89-e8-a3-85-e8-84-9a-e6-9c-ac-ef-bc-88centos67-e3-80-81ubuntu-e3-80-81debian-ef-bc-89/">
+  <meta name="og:description" content="简单理解的话，Shadowsocks是将以前通过SSH创建的Socks5协议拆开成Server端和client端，下面这个原理图能简单介绍其翻墙原理，基本上和利用SSH tunnel大致类似：">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="Jamling's Blog and Project Site">
+  <meta name="twitter:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="twitter:title" content="Shadowsocks一键安装脚本（CentOS6,7、Ubuntu、Debian）">
+  <meta name="twitter:creator" content="@JamlingLi">
+  <meta name="twitter:description" content="简单理解的话，Shadowsocks是将以前通过SSH创建的Socks5协议拆开成Server端和client端，下面这个原理图能简单介绍其翻墙原理，基本上和利用SSH tunnel大致类似：">
+
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.5cc.xyz/2015/09/29/shadowsocks-e4-b8-80-e9-94-ae-e5-ae-89-e8-a3-85-e8-84-9a-e6-9c-ac-ef-bc-88centos67-e3-80-81ubuntu-e3-80-81debian-ef-bc-89/index.html">
+  <!-- Alternative links -->
+  <!-- CSS and JS-->
+  <script src="//cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/sidr/2.2.1/jquery.sidr.min.js"></script>
+<script src="/js/jquery.bootstrap-autohidingnavbar.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/sidr/2.2.1/stylesheets/jquery.sidr.dark.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.css">
+<script src="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.js"></script>
+<script src="//cdn.bootcss.com/zclip/1.1.2/jquery.zclip.min.js"></script>
+<link rel="stylesheet" href="/css/nova_font.css">
+<link rel="stylesheet" href="/css/bs/nova.css">
+
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="Tell YOU">
+  <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+  <!-- header -->
+  <header>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse_" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/" id="logo"><img src="/image/logo.png" height="50"></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+        <li><a href="/" class="main-nav">Home</a></li><li><a href="/p/" class="main-nav">Projects</a></li><li><a href="/categories/" class="main-nav">Category</a></li><li><a href="/archives/" class="main-nav">Archives</a></li><li><a href="/donate/" class="main-nav">Donate</a></li><li><a href="/about/" class="main-nav">About</a></li>
+        </ul>
+        <!-- search input -->
+        
+
+<!-- 百度站内搜索（已通过站点验证） -->
+<form class="navbar-form navbar-left" role="search"
+  action="//search.ieclipse.cn/cse/search">
+  <div class="form-group search">
+    <input type="text" name="q" id="bdcsMain" class="form-control primary" aria-label="..." placeholder="Search">
+    <input type="hidden" name="s" value="11812712506721118476">
+    <input type="hidden" name="nsid" value="0">
+    <!-- 
+    <input name="tn" type="hidden" value="SE_zzsearchcode_shhzc78w">
+    <input name="cl" type="hidden" value="3">
+    <input name="ct" type="hidden" value="2097152">
+    <input name="si" type="hidden" value="ieclipse.cn">
+    <input name="ie" type="hidden" value="utf-8">
+    -->
+  </div>
+</form>
+
+        <ul class="nav navbar-nav navbar-right">
+        </ul>
+      </div>
+    </div>
+
+    <script>
+        <!-- mobile -->
+    	$('.navbar-toggle').sidr({
+	      name: 'sidr-main',
+	      source: '#bs-example-navbar-collapse-1'
+	    });
+    	$('body').click(function(){
+    	  $.sidr('close', 'sidr-main');
+    	});
+    	
+    	$(".navbar-fixed-top").autoHidingNavbar({
+    	  // see next for specifications
+    	});
+    </script>
+  </nav>
+</header>
+
+  <!-- main -->
+  
+<div class="container container-fluid">
+<div class="row">
+  <div class="col-sx-12 col-sm-8 col-md-9 col-lg-9">
+    
+    
+    <article class="article post" itemscope="itemscope" itemtype="http://schema.org/Article">
+  <header class="article-header">
+    <div class="page-path"><span class="post-category"><span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>Path: <a class="category-item" href="/">Blog</a><a class="category-item" href="/categories/便宜vps/">便宜vps</a></span></div>
+    <div class="divider"></div>
+      <h1 class="article-title" itemprop="name">Shadowsocks一键安装脚本（CentOS6,7、Ubuntu、Debian）</h1>
+    <div class="post-header clearfix">
+      <span class="post-date"><span class="hidden-xs icon nova-calendar">Post at: </span>
+      <time datetime="2015-09-29T15:30:40.000Z" itemprop="datePublished"><time datetime="2015-09-29T15:30:40.000Z">2015-09-29</time></time>
+      </span>
+      
+      <span class="post-share">
+        <a href="#share" class="icon nova-share"><span class="hidden-xs">Share</span><span class="jiathis_counter_style"></span></a>
+        <a href="#comment" class="icon nova-bubbles"><span class="ds-thread-count" data-thread-key="1367c3d21ca15c7a9b2b161b4d39b191"></span><!-- <span class="hidden-xs">Comment</span> --></a>
+        <a href="#like" class="icon nova-heart2-full"><span class="count"></span><span class="hidden-xs">Like</span></a>
+        <a href="#" class="icon nova-eye"><span class="count"></span><span class="hidden-xs">Views</span></a>
+      </span>
+    </div>
+    <div class="divider"></div>
+  </header>
+  <div class="article-content" itemprop="articleBody" id="post-content">
+    <p>简单理解的话，Shadowsocks是将以前通过SSH创建的Socks5协议拆开成Server端和client端，下面这个原理图能简单介绍其翻墙原理，基本上和利用SSH tunnel大致类似：</p>
+<div align="center"><img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/what-is-shadowsocks.png" alt=""></div>
+
+<ol>
+<li>PC客户端（即你的电脑）发出请求基于Socks5协议跟SS-Local端进行通讯，由于这个SS-Local一般是本机或路由器等局域网的其他机器，不经过GFW，所以解决GFW通过特征分析进行干扰的问题。</li>
+<li>SS-Local和SS-Server两端通过多种可选的加密方法进行通讯，经过GFW的时候因为是常规的TCP包，没有明显特征码GFW也无法对通讯数据进行解密，因此通讯放行。</li>
+<li>SS-Server将收到的加密数据进行解密，还原初始请求，再发送到用户需要访问的服务网站，获取响应原路再返回SS-04，返回途中依然使用了加密，使得流量是普通TCP包，并成功穿过GFW防火墙。<br>因此，Shadowsocks的优点在于它解决了GFW通过分析流量特征从而干扰的问题，这是它优于SSH和VPN翻墙的地方。</li>
+</ol>
+<h3 id="安装使用说明"><a href="#安装使用说明" class="headerlink" title="安装使用说明"></a>安装使用说明</h3><p>Shadowsocks服务端有<span class="wp_keywordlink"><a href="https://blog.linuxeye.com/category/Python" title="Python" target="_blank" rel="external">Python</a></span>、libev、go版本，从系统占用资源和多用户配置方面来考虑，我选择使用Python来作为Shadowsocks的服务端，网上已经有很多比较好的一键安装脚本，如teddysun，但对多用户配置还需要手工更改配置文件（iptables、/etc<br>/shadowsocks.json）。于是，自己写一个，包含安装、添加用户和卸载功能，并整合到《<a href="http://oneinstack.com/" target="_blank" rel="external">OneinStack</a>》和《<a href="https://blog.linuxeye.com/31.html" target="_blank" rel="external">lnmp一键安装包</a>》中。</p>
+<p>7月8号之前一键安装包，怎么使用该脚本？</p>
+<pre class="prettyprint linenums">cd lnmp #如果使用oneinstack（cd oneinstack)
+wget http://mirrors.linuxeye.com/lnmp/shadowsocks.sh
+chmod +x shadowsocks.sh
+./shadowsocks.sh install #安装、添加用户、卸载和后面一样
+</pre>
+
+<h4 id="Shadowsocks安装"><a href="#Shadowsocks安装" class="headerlink" title="Shadowsocks安装"></a>Shadowsocks安装</h4><pre class="prettyprint linenums">wget http://mirrors.linuxeye.com/oneinstack.tar.gz
+tar xzf oneinstack.tar.gz
+cd oneinstack
+./shadowsocks.sh install
+</pre>
+<div align="center">![](https://blog.linuxeye.com/wp-content/uploads/2015/07/Shadowsocks_install.jpg)</div>
+出现如下即安装成功：
+<pre class="prettyprint linenums">Your Server IP: You_Server_IP
+Your Server Port: 9001
+Your Password: oneinstack
+Your Local IP: 127.0.0.1
+Your Local Port: 1080
+Your Encryption Method: aes-256-cfb
+</pre>
+
+<h4 id="Shadowsocks添加用户"><a href="#Shadowsocks添加用户" class="headerlink" title="Shadowsocks添加用户"></a>Shadowsocks添加用户</h4><pre class="prettyprint linenums">./shadowsocks.sh adduser</pre>
+<div align="center">![](https://blog.linuxeye.com/wp-content/uploads/2015/07/Shadowsocks_adduser.jpg)</div>
+
+#### Shadowsocks卸载
+
+<pre class="prettyprint lang-bsh">./shadowsocks.sh uninstall</pre>
+<div align="center">![](https://blog.linuxeye.com/wp-content/uploads/2015/07/Shadowsocks_uninstall.jpg)</div>
+
+#### Shadowsocks服务管理
+
+<pre class="prettyprint lang-bsh">
+service shadowsocks start   #启动
+service shadowsocks stop      #关闭
+service shadowsocks restart  #重启
+service shadowsocks status   #状态</pre>
+
+<h3 id="本地客户端"><a href="#本地客户端" class="headerlink" title="本地客户端"></a>本地客户端</h3><p>Windows 和 OS X 下的 GUI 客户端可以下载shadowsocks-gui，下载地址</p>
+<p><a href="http://sourceforge.net/projects/shadowsocksgui/files/dist" target="_blank" rel="external">http://sourceforge.net/projects/shadowsocksgui/files/dist</a></p>
+<p>目前最新版本为<a href="http://sourceforge.net/projects/shadowsocksgui/files/dist/Shadowsocks-win-2.3.1.zip/download" target="_blank" rel="external">Shadowsocks-win-2.3.1.zip</a>和<a href="http://sourceforge.net/projects/shadowsocksgui/files/dist/ShadowsocksX-2.6.3.dmg/download" target="_blank" rel="external">ShadowsocksX-2.6.3.dmg</a></p>
+<p>如果无法打开，请使用备份地址</p>
+<p><strong>Win：</strong></p>
+<p>.NET Framework 3.5 版本，适合 Windows 7 用户，链接：<a href="http://pan.baidu.com/s/1kTKjIxp" target="_blank" rel="external">http://pan.baidu.com/s/1kTKjIxp</a> 密码：j3xd</p>
+<p>.NET Framework 4.0 版本，适合 Windows 8.1 用户，链接：<a href="http://pan.baidu.com/s/1jUnFK" target="_blank" rel="external">http://pan.baidu.com/s/1jUnFK</a> 密码：8220</p>
+<p><strong>OS X：</strong></p>
+<p>链接：<a href="http://pan.baidu.com/s/1mglBIBY" target="_blank" rel="external">http://pan.baidu.com/s/1mglBIBY</a> 密码：2cqe</p>
+<p>针对两个系统，OS X 和 Windows，以及手机 iOS 和 Android 客户端。</p>
+<h4 id="OS-X-下设置使用方法"><a href="#OS-X-下设置使用方法" class="headerlink" title="OS X 下设置使用方法"></a>OS X 下设置使用方法</h4><p>Mac 下使用极其方便，因为 GUI 已经集成了系统 Pac，所以无需设置任何科学上网的姿势，直接运行ShadowsocksX，然后输入服务商提供给你的账号信息，保存运行后，即可在所有浏览器里直接科学上网，如图：</p>
+<p><img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/Shadowsocks-GUI-Mac-Menu.png" alt=""></p>
+<p><img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/Shadowsocks-GUI-Mac-Screenshot.png" alt=""></p>
+<h4 id="Windows-下设置使用方法"><a href="#Windows-下设置使用方法" class="headerlink" title="Windows 下设置使用方法"></a>Windows 下设置使用方法</h4><p>解压Shadowsocks-win-2.3.1.zip，打开shadowsocks.exe</p>
+<p>然后输入服务商提供给你的账号信息，如图：</p>
+<p><img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/Shadowsocks-win-Menu.png" alt=""></p>
+<p>点击OK保存，成功后会在桌面右下方显示 Shadowsocks logo 的图标，然后右键点击 Enable 运行</p>
+<p><img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/Shadowsocks-win-Screenshot.png" alt=""></p>
+<p>由于 Windows 系统的复杂性，我们需要单独对浏览器进行设置，本文只介绍 Chrome 和 Firefox 这两款优秀的浏览器，至于其他的浏览器，如 IE 等，本文不会介绍。</p>
+<p><strong>① Chrome 下的 Proxy SwitchySharp 插件</strong></p>
+<p><a href="https://chrome.google.com/webstore/detail/proxy-switchysharp/dpplabbmogkhghncfbfdeeokoefdjegm?hl=zh-CN" target="_blank" rel="external">https://chrome.google.com/webstore/detail/proxy-switchysharp/dpplabbmogkhghncfbfdeeokoefdjegm?hl=zh-CN</a></p>
+<p>如果您无法访问，也可以下载这个 .crx 文件</p>
+<p>链接：<a href="http://pan.baidu.com/s/1jGmvMPg" target="_blank" rel="external">http://pan.baidu.com/s/1jGmvMPg</a> 密码：if2e</p>
+<p>下载完成后在设置&gt;&gt;扩展，直接把该 .crx 文件拖入窗口然后安装即可</p>
+<p>然后打开 Proxy SwitchySharp 的设置，新建一个情景，命名为 Shadowsocks，并设置好端口，模式为 socks5 如图：</p>
+<p><img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/SwitchySharps-Option.jpg" alt=""></p>
+<p>再点切换规则，由于可能大概无法访问 Google，我们就启用切换规则，然后在 URL 模式里输入 <em>google</em> 统配好 Google 的所有域名，选择好模式匹配为通配符，情景模式为 Shadowsocks</p>
+<p>然后把在线规则列表打钩，输入URL为：<a href="https://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt" target="_blank" rel="external">https://autoproxy-gfwlist.googlecode.com/svn/trunk/gfwlist.txt</a></p>
+<p>勾选AutoProxy 兼容列表，然后点立即更新，更新完成后保存即可，如图：</p>
+<p><img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/SwitchySharps-Choose-Rules.jpg" alt=""></p>
+<p>如果不想用插件，直接全局代理，就把桌面的快捷方式 chrome.exe 右键 属性 &gt;&gt; 修改 Chrome.exe 运行参数，在目标那一栏，最后的引号后面加上</p>
+<p><pre class="prettyprint lang-bsh"><span class="pun">–</span><span class="pln">proxy</span><span class="pun">-</span><span class="pln">server</span><span class="pun">=</span><span class="str">“socks5://127.0.0.1:1080”</span> <span class="pun">–</span><span class="pln">host</span><span class="pun">-</span><span class="pln">resolver</span><span class="pun">-</span><span class="pln">rules</span><span class="pun">=</span><span class="str">“MAP * 0.0.0.0 , EXCLUDE localhost”</span></pre><br>就是说修改为类似（1080 为你设置的本地端口，如果设置了不同的端口请自行修改）</p>
+<p><pre class="prettyprint lang-bsh"><span class="str">“C:\Program Files (x86)\Google\Chrome\Application\chrome.exe”</span><span class="pun">–</span><span class="pln">proxy</span><span class="pun">-</span><span class="pln">server</span><span class="pun">=</span><span class="str">“socks5://127.0.0.1:1080”</span> <span class="pun">–</span><span class="pln">host</span><span class="pun">-</span><span class="pln">resolver</span><span class="pun">-</span><span class="pln">rules</span><span class="pun">=</span><span class="str">“MAP * 0.0.0.0 , EXCLUDE localhost”</span></pre><br>然后运行 Chrome 即可</p>
+<p><strong>② Firefox 下的 AutoProxy 20131215 修复版</strong></p>
+<p>由于 AutoProxy 的作者没有更新，新的版本无法在 Firefox 27.0 以后进行代理规则设置，所以我们用 xthunder 作者 的修复版，下载链接：<a href="http://xthunder.googlecode.com/files/autoproxy20131215.xpi" target="_blank" rel="external">http://xthunder.googlecode.com/files/autoproxy20131215.xpi</a></p>
+<p>如果您无法访问，也可以访问此链接：<a href="http://pan.baidu.com/s/1c0rrGDq" target="_blank" rel="external">http://pan.baidu.com/s/1c0rrGDq</a> 密码：9abj</p>
+<p>下载好这个 .xpi 文件后，直接拖入任何 Firefox 窗口，然后安装重启浏览器即可。之后点击右上方新出现的小地球图标，进行设置</p>
+<p>点击首选项</p>
+<p><img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/AutoProxy-Menu.jpg" alt=""></p>
+<p>依次点击代理服务器&gt;&gt;编辑代理服务器</p>
+<p><img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/AutoProxy-Choose-Proxy-Server.jpg" alt=""></p>
+<p>新增加一个名称为Shadowsocks设置好本地的端口，类型为socks5</p>
+<p><img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/AutoProxy-Edit-Proxy-Server.jpg" alt=""></p>
+<p>然后点击代理规则&gt;&gt;增加代理规则</p>
+<p><img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/AutoProxy-Add-List.jpg" alt=""></p>
+<p>订阅 GFW List</p>
+<p><img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/AutoProxy-Add-List-2.jpg" alt=""></p>
+<p>然后保存，可以设置全局代理，也可以设置自动代理，推荐使用自动代理，只针对某一批网站走代理，然后右上方的小地球图标会变成蓝色（自动模式）或绿色（全局模式）</p>
+<p><img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/AutoProxy-Works.jpg" alt=""> <img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/AutoProxy-Works-2.jpg" alt=""></p>
+<h4 id="Android-以及-iOS-客户端"><a href="#Android-以及-iOS-客户端" class="headerlink" title="Android 以及 iOS 客户端"></a>Android 以及 iOS 客户端</h4><p>如果需要局部科学上网，那么你的 Android 需要 root，如果木有 root，那么就只能全局上网</p>
+<p>Android 客户端下载地址请摸我：</p>
+<p><a href="https://play.google.com/store/apps/details?id=com.github.shadowsocks" target="_blank" rel="external">https://play.google.com/store/apps/details?id=com.github.shadowsocks</a></p>
+<p>如果您无法访问，也可以摸摸这个：</p>
+<p><a href="http://apps.evozi.com/apk-downloader/?id=com.github.shadowsocks" target="_blank" rel="external">http://apps.evozi.com/apk-downloader/?id=com.github.shadowsocks</a></p>
+<p>设置账号信息和电脑上基本一致：</p>
+<p><img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/Shadowsocks-Android.jpg" alt=""></p>
+<p>iOS 非越狱的话，可以直接安装 Shadowsocks 的 app，下载地址请访问：</p>
+<p><a href="https://itunes.apple.com/us/app/shadowsocks/id665729974?ls=1&amp;mt=8" target="_blank" rel="external">https://itunes.apple.com/us/app/shadowsocks/id665729974?ls=1&amp;mt=8</a></p>
+<p>这是个自带 SS 的浏览器，设置账号信息等大同小异，点击右上方的+号，然后设置你的账号：</p>
+<p><img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/Shadowsocks-iOS.png" alt=""></p>
+<p>iOS 越狱了的话，直接在 Cydia 里搜索 Shadowsocks ，然后安装</p>
+<p><img src="https://blog.linuxeye.com/wp-content/uploads/2015/07/Shadowsocks-iOS-Jail.jpg" alt=""></p>
+<p>客户端信息参考：<a href="http://ttt.tt/150/" target="_blank" rel="external">http://ttt.tt/150/</a></p>
+
+  </div>
+  <footer class="article-footer">
+    <time class="article-footer-updated" datetime="2016-09-15T14:57:53.000Z" itemprop="dateModified">
+        Last updated:  <span class="">2016-09-15</span>
+    </time>
+    
+  <!-- JiaThis Button BEGIN -->
+  <div class="jiathis_style clearfix"><a id="share" href="#share"></a>
+      <span class="jiathis_txt icon nova-share">Share：</span>
+      <a class="jiathis_button_tsina">Weibo</a>
+      <a class="jiathis_button_weixin">Wechat</a>
+      <a class="jiathis_button_twitter">Twitter</a>
+      <a class="jiathis_button_copy">Copy Link</a>
+      <a class="jiathis_button_ishare">One Share</a>
+      <a href="http://www.jiathis.com/share?uid=2064663" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">More</a>
+<!--       <a class="jiathis_counter_style"></a> -->
+  </div>
+  <!-- JiaThis Button END -->
+  <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2064663" charset="utf-8" async="async"></script>
+
+  </footer>
+  <span itemprop="author publisher" itemscope="itemscope" itemtype="http://schema.org/Organization">
+    <meta content="http://www.5cc.xyz" itemprop="url">
+    <meta content="Jamling's Blog and Project Site" itemprop="name">
+    <meta content="/image/logo.png" itemprop="logo">
+  </span>
+</article>
+<div>
+  <nav><ul class="pager"><li class="previous"><a href="/2015/09/30/debianubuntu-e5-ae-89-e8-a3-85-net-speeder/"><span aria-hidden="true">&larr;</span><span class="hidden-xs">Debian/Ubuntu 安装 net-speeder</span></a></li><li class="next"><a href="/2015/09/29/centos-7-e5-ae-89-e8-a3-85-l2tpipsec-vpn/"><span aria-hidden="true">&rarr;</span><span class="hidden-xs">Centos 7 安装 l2tp/ipsec vpn</span></a></li></ul></nav>
+  
+<!-- Button trigger modal -->
+<blockquote class="donate"><!--
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#DonateModal">
+    Donate
+  </button>-->
+  <p>
+  <a href="#" role="button" data-toggle="modal" data-target="#DonateModal"><img src="/image/donate_button.png">
+  <span>Dear reader, if you feel this good, could you rewark me a `bread` as awark? Thank you very much~</span></a>
+  </p>
+</blockquote>
+<!-- Modal -->
+<div class="modal fade" id="DonateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Donate</h4>
+      </div>
+      <div class="modal-body"><!--
+        <table>
+        <thead>
+          <th class="text-center">支付宝</th>
+          <th class="text-center">微信支付</th>
+        </thead>
+        <tr>
+          <td><img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+          <td><img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+        </tr>
+        </table>-->
+        <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">支付宝</span>
+            <img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="donate" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">微信支付</span>
+            <img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="donate" />
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a name="comment"></a>
+
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="1367c3d21ca15c7a9b2b161b4d39b191" data-title="Shadowsocks一键安装脚本（CentOS6,7、Ubuntu、Debian）" data-url="http://www.5cc.xyz/2015/09/29/shadowsocks-e4-b8-80-e9-94-ae-e5-ae-89-e8-a3-85-e8-84-9a-e6-9c-ac-ef-bc-88centos67-e3-80-81ubuntu-e3-80-81debian-ef-bc-89/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"ieclipse"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+
+</div>
+
+    
+  </div>
+  <!-- aside -->
+  <div class="col-sx-12 col-sm-4 col-md-3 col-lg-3">
+    <aside>
+    </aside>
+  </div>
+</div>
+</div>
+  <!-- footer -->
+  <footer id="footer">
+  <div class="divider"></div>
+  <div>&nbsp;</div>
+  <div class="inner text-center">
+    <div id="footer-copyright">
+      &copy; 2016 <a href="http://ieclipse.cn/" target="_blank">Any_冰</a> powered by <a href="http://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Jamling/hexo-theme-nova" target="_blank">Nova</a><br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div>
+      <a href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备15019510号</a>
+    </div>
+  </div>
+</footer>
+
+  <!-- fixed action bar -->
+  
+  <div class="fab" style="bottom: 45px; right: 24px;">
+    <ul class="top-expand" id="top-expand">
+      <li><a class="fab-item large red" href="#top"><i class="icon nova-top"></i></a></li>
+      <li><a class="fab-item large yellow " href="http://www.jiathis.com/share?uid=2064663" target="_blank"><i class="icon nova-share"></i></a></li>
+    </ul>
+    <a class="fab-item large red " onclick="$('#top-expand').toggle();">
+      <i class="icon nova-list-ul"></i>
+    </a>
+  </div>
+  <!-- after footer, some 3rd script place here -->
+    <script type="text/javascript">
+    var hljs_labels = {
+        left: "Code",
+        right: ":",
+        copy: "Copy to clipboard"
+    }
+    </script>
+    <script src="/js/hljs.js"></script>
+    <script src="/js/script.js"></script>
+    
+    <!-- 安装自动推送JS代码的网页，在页面被访问时，页面URL将立即被推送给百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    
+    <!-- 新建的搜索框代码，建立使用你自己的代码替换-->
+<script type="text/javascript">
+(function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=11812712506721118476' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();
+</script>
+    
+<!-- LeanClound官方Javascript SDK -->
+<script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
+<script>
+  AV.init({
+    appId : 'rYUER9KxmGUXSpfEtu7wCFMo-gzGzoHsz',
+    appKey : 'k7hzTkcS0blxgry4VT9rJjYj'
+  });
+
+  var lc_config = {
+    pageId : '1367c3d21ca15c7a9b2b161b4d39b191',
+    url : 'http://www.5cc.xyz/2015/09/29/shadowsocks-e4-b8-80-e9-94-ae-e5-ae-89-e8-a3-85-e8-84-9a-e6-9c-ac-ef-bc-88centos67-e3-80-81ubuntu-e3-80-81debian-ef-bc-89/' || '2015/09/29/shadowsocks-e4-b8-80-e9-94-ae-e5-ae-89-e8-a3-85-e8-84-9a-e6-9c-ac-ef-bc-88centos67-e3-80-81ubuntu-e3-80-81debian-ef-bc-89/',
+    title : 'Shadowsocks一键安装脚本（CentOS6,7、Ubuntu、Debian）'
+  };
+  
+  var lc_table = 'Counter' || 'Counter';
+
+  (function() {
+    var query = new AV.Query(lc_table);
+    query.select(['-ACL']);
+    query.equalTo('pageId', lc_config.pageId);
+    query.first({
+      success: function(results) {
+        // results is an array of AV.Object.
+        if (typeof results === 'undefined') {
+          insert(results);
+          return;
+        }
+        console.log(results._serverData);
+        update(results);
+        show(results);
+      },
+      error: function(error) {
+        // error is an instance of AV.Error.
+        console.log(error);
+      }
+    });
+
+    function insert(data) {
+      if (!data) {
+        console.log('data is null new object');
+        var M = AV.Object.extend(lc_table);
+        data = new M();
+        data.set('views', 1);
+      }
+      for ( var key in lc_config) {
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log('created objectId is ' + data.id);
+      }, function(error) {
+        console.log("create object failed");
+        console.log(error);
+      });
+    }
+
+    function update(data) {
+      data.increment('views', 1);
+      for ( var key in lc_config) {
+        if (key !== 'pageId')
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log("update to " + data.get('views'));
+      }, function(error) {
+        console.log("update object failed");
+        console.log(error);
+      });
+    }
+    
+    function show(data) {
+      $(".post-share .nova-eye .count").html(data.get('views'));
+    }
+  })();
+</script>
+
+</body>
+</html>

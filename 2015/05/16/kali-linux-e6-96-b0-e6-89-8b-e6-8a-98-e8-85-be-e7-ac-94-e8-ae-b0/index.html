@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-CN" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<head>
+  <meta charset="utf-8">
+  <title>Kali Linux 新手折腾笔记</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="记录,Kali Linux 新手折腾笔记">
+  <meta name="description" content="&nbsp;">
+   
+
+  <meta name="og:type" content="article">
+  <meta name="og:site_name" content="Jamling's Blog and Project Site">
+  <meta name="og:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="og:title" content="Kali Linux 新手折腾笔记">
+  <meta name="og:url" content="http://www.5cc.xyz/2015/05/16/kali-linux-e6-96-b0-e6-89-8b-e6-8a-98-e8-85-be-e7-ac-94-e8-ae-b0/">
+  <meta name="og:description" content="&nbsp;">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="Jamling's Blog and Project Site">
+  <meta name="twitter:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="twitter:title" content="Kali Linux 新手折腾笔记">
+  <meta name="twitter:creator" content="@JamlingLi">
+  <meta name="twitter:description" content="&nbsp;">
+
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.5cc.xyz/2015/05/16/kali-linux-e6-96-b0-e6-89-8b-e6-8a-98-e8-85-be-e7-ac-94-e8-ae-b0/index.html">
+  <!-- Alternative links -->
+  <!-- CSS and JS-->
+  <script src="//cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/sidr/2.2.1/jquery.sidr.min.js"></script>
+<script src="/js/jquery.bootstrap-autohidingnavbar.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/sidr/2.2.1/stylesheets/jquery.sidr.dark.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.css">
+<script src="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.js"></script>
+<script src="//cdn.bootcss.com/zclip/1.1.2/jquery.zclip.min.js"></script>
+<link rel="stylesheet" href="/css/nova_font.css">
+<link rel="stylesheet" href="/css/bs/nova.css">
+
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="Tell YOU">
+  <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+  <!-- header -->
+  <header>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse_" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/" id="logo"><img src="/image/logo.png" height="50"></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+        <li><a href="/" class="main-nav">Home</a></li><li><a href="/p/" class="main-nav">Projects</a></li><li><a href="/categories/" class="main-nav">Category</a></li><li><a href="/archives/" class="main-nav">Archives</a></li><li><a href="/donate/" class="main-nav">Donate</a></li><li><a href="/about/" class="main-nav">About</a></li>
+        </ul>
+        <!-- search input -->
+        
+
+<!-- 百度站内搜索（已通过站点验证） -->
+<form class="navbar-form navbar-left" role="search"
+  action="//search.ieclipse.cn/cse/search">
+  <div class="form-group search">
+    <input type="text" name="q" id="bdcsMain" class="form-control primary" aria-label="..." placeholder="Search">
+    <input type="hidden" name="s" value="11812712506721118476">
+    <input type="hidden" name="nsid" value="0">
+    <!-- 
+    <input name="tn" type="hidden" value="SE_zzsearchcode_shhzc78w">
+    <input name="cl" type="hidden" value="3">
+    <input name="ct" type="hidden" value="2097152">
+    <input name="si" type="hidden" value="ieclipse.cn">
+    <input name="ie" type="hidden" value="utf-8">
+    -->
+  </div>
+</form>
+
+        <ul class="nav navbar-nav navbar-right">
+        </ul>
+      </div>
+    </div>
+
+    <script>
+        <!-- mobile -->
+    	$('.navbar-toggle').sidr({
+	      name: 'sidr-main',
+	      source: '#bs-example-navbar-collapse-1'
+	    });
+    	$('body').click(function(){
+    	  $.sidr('close', 'sidr-main');
+    	});
+    	
+    	$(".navbar-fixed-top").autoHidingNavbar({
+    	  // see next for specifications
+    	});
+    </script>
+  </nav>
+</header>
+
+  <!-- main -->
+  
+<div class="container container-fluid">
+<div class="row">
+  <div class="col-sx-12 col-sm-8 col-md-9 col-lg-9">
+    
+    
+    <article class="article post" itemscope="itemscope" itemtype="http://schema.org/Article">
+  <header class="article-header">
+    <div class="page-path"><span class="post-category"><span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>Path: <a class="category-item" href="/">Blog</a><a class="category-item" href="/categories/记录/">记录</a></span></div>
+    <div class="divider"></div>
+      <h1 class="article-title" itemprop="name">Kali Linux 新手折腾笔记</h1>
+    <div class="post-header clearfix">
+      <span class="post-date"><span class="hidden-xs icon nova-calendar">Post at: </span>
+      <time datetime="2015-05-16T09:29:21.000Z" itemprop="datePublished"><time datetime="2015-05-16T09:29:21.000Z">2015-05-16</time></time>
+      </span>
+      
+      <span class="post-share">
+        <a href="#share" class="icon nova-share"><span class="hidden-xs">Share</span><span class="jiathis_counter_style"></span></a>
+        <a href="#comment" class="icon nova-bubbles"><span class="ds-thread-count" data-thread-key="6ad19d3342e96bae30001bec7cb59864"></span><!-- <span class="hidden-xs">Comment</span> --></a>
+        <a href="#like" class="icon nova-heart2-full"><span class="count"></span><span class="hidden-xs">Like</span></a>
+        <a href="#" class="icon nova-eye"><span class="count"></span><span class="hidden-xs">Views</span></a>
+      </span>
+    </div>
+    <div class="divider"></div>
+  </header>
+  <div class="article-content" itemprop="articleBody" id="post-content">
+    <p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><a href="http://dg2016.duapp.com/wp-content/uploads/2015/05/kali.jpg" target="_blank" rel="external"><img src="http://dg2016.duapp.com/wp-content/uploads/2015/05/kali-300x169.jpg" alt="kali"></a></p>
+<p>&nbsp;</p>
+<p>更多请看<a href="http://os.51cto.com/art/201405/439494_all.htm" target="_blank" rel="external">http://os.51cto.com/art/201405/439494_all.htm</a></p>
+<h3 id="1-更新软件源："><a href="#1-更新软件源：" class="headerlink" title="1.更新软件源："></a>1.更新软件源：</h3><p>先备份软件源<strong>sources.list</strong>文件，然后修改sources.list文件，在终端输入：</p>
+<div class="dp-highlighter"><br><br>1.  leafpad /etc/apt/sources.list<br></div><br>然后添加以下较快的源：<br><div class="dp-highlighter"><br><br>1.  #中科大kali源<br>2.  deb http:<span class="comment">//mirrors.ustc.edu.cn/kali kali main non-free contrib</span><br>3.  deb-src http:<span class="comment">//mirrors.ustc.edu.cn/kali kali main non-free contrib</span><br>4.  deb http:<span class="comment">//mirrors.ustc.edu.cn/kali-security kali/updates main contrib non-free</span><br>5.6.  #阿里云kali源<br>7.  deb http:<span class="comment">//mirrors.aliyun.com/kali kali main non-free contrib</span><br>8.  deb-src http:<span class="comment">//mirrors.aliyun.com/kali kali main non-free contrib</span><br>9.  deb http:<span class="comment">//mirrors.aliyun.com/kali-security kali/updates main contrib non-free</span><br></div><br>然后保存，再到终端更新：<br><div class="dp-highlighter"><br><br>1.  apt-get update               #刷新系统<br>2.  apt-get dist-upgrade      #安装更新<br></div><br>当一切更新完之后，想要修改主题该怎么办呢？<br><br>首先，需要安装一个主题管理软件（<strong>gnome-tweak-tool</strong> ），只需要执行：apt-get install gnome-tweak-tool 就可以了。<br><br>安装完之后，执行：gnome-tweak-tool 命令进行打开Gnome，我们到：<a href="http://gnome-look.org" target="_blank" rel="external">http://gnome-look.org</a> 这个网站，选取我们喜欢的主题。下载下来之后，然后解压复制到主题存放的文件夹下：/usr/share/themes ，之后再回到刚才那个gnome-tweak-tool界面，开始各种设置。<br><br>###  2.安装中文输入法<br><br>从BackTrack系统开始，一直在用经典的iBus，切换快捷键Ctrl+Space(空格键)，安装命令：<br><div class="dp-highlighter"><br><br>1.  apt-get install ibus ibus-pinyin    #经典的ibus输入法<br></div><br>注：安装完成后需要重启。<br><br>### 3.安装flash player<br><br><div class="dp-highlighter"><br><br>1.  apt-get install flashplugin-nonfree<br>2.  update-flashplugin-nonfree –install<br></div><br>注：安装完成后需要重启。<br><br>### 4.安装其他一些工具<br><br><div class="dp-highlighter"><br><br>1.  apt-get install synaptic                   #安装新立得<br>2.  apt-get install software-center      #安装ubuntu软件中心<br>3.  apt-get install file-roller                #安装解压缩软件<br>4.  apt-get install gedit                      #安装gedit编辑软件<br>5.  apt-get install audacious             #audacious音乐播放器<br>6.  apt-get install smplayer              #安装smplayer视频播放器<br></div>
+
+<h3 id="5-安装最新iceweasel，并汉化iceweasel浏览器"><a href="#5-安装最新iceweasel，并汉化iceweasel浏览器" class="headerlink" title="5.安装最新iceweasel，并汉化iceweasel浏览器"></a>5.安装最新iceweasel，并汉化iceweasel浏览器</h3><p>Kali Linux 遵循Debian开发标准，系统安装完成后，自带的浏览器iceweasel默认为英文版，介于强迫症，还是做一个简单的汉化吧，在终端输入：</p>
+<div class="dp-highlighter"><br><br>1.  apt-get install iceweasel-l10n-zh-cn<br></div><br><strong>ps：然后关机重启！</strong><br><br><strong>如何更新到最新版iceweasel浏览器，首先在软件源中添加：</strong><br><div class="dp-highlighter"><br><br>1.  deb http:<span class="comment">//mozilla.debian.net/ wheezy-backports iceweasel-release</span><br></div><br>然后在终端执行以下代码：<br><div class="dp-highlighter"><br><br>1.  apt-get install pkg-mozilla-archive-keyring                    #导入PGP KEY<br>2.  gpg –check-sigs –fingerprint –keyring /etc/apt/trusted.gpg.d/pkg-mozilla-archive-keyring.gpg –keyring /usr/share/keyrings/debian-keyring.gpg pkg-mozilla-maintainers  #新建钥匙环<br>3.  apt-get update &amp;&amp; apt-get install -t wheezy-backports iceweasel &amp;&amp; apt-get install iceweasel-l10n-zh-cn<br>&nbsp;<br><br><strong>确保启动时发出声音</strong><br><br>遵照下列步骤，即可解决Kali Linux中启动时没有声音的问题。<br><br>1.  apt-get install alsa-utils -y<br>在GNOME桌面（默认是Kali桌面）中：<br><br>鼠标右击小小的音量图标，选择Sound Preferences（声音首选项）。<br><br>此外，你还可以依次进入到Applications（应用程序）&gt; System Tools（系统工具）&gt; Preferences（首选项）&gt; System Settings（系统设置）&gt; Sound（声音），即可调出同样的选项。<br><br>将Output volume（输出音量）滑块切换到ON（打开），类似下面的屏幕截图。这就是你要做的。关闭Sound（声音）窗口。<br><br><a href="http://dg2016.duapp.com/wp-content/uploads/2015/05/wKiom1N0IObgDue-AACpKMTi3-c960.jpg" target="_blank" rel="external"><img src="http://dg2016.duapp.com/wp-content/uploads/2015/05/wKiom1N0IObgDue-AACpKMTi3-c960-300x270.jpg" alt="wKiom1N0IObgDue-AACpKMTi3-c960"></a><br><br>&nbsp;<br><br></div>
+  </div>
+  <footer class="article-footer">
+    <time class="article-footer-updated" datetime="2016-09-15T14:57:53.000Z" itemprop="dateModified">
+        Last updated:  <span class="">2016-09-15</span>
+    </time>
+    
+  <!-- JiaThis Button BEGIN -->
+  <div class="jiathis_style clearfix"><a id="share" href="#share"></a>
+      <span class="jiathis_txt icon nova-share">Share：</span>
+      <a class="jiathis_button_tsina">Weibo</a>
+      <a class="jiathis_button_weixin">Wechat</a>
+      <a class="jiathis_button_twitter">Twitter</a>
+      <a class="jiathis_button_copy">Copy Link</a>
+      <a class="jiathis_button_ishare">One Share</a>
+      <a href="http://www.jiathis.com/share?uid=2064663" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">More</a>
+<!--       <a class="jiathis_counter_style"></a> -->
+  </div>
+  <!-- JiaThis Button END -->
+  <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2064663" charset="utf-8" async="async"></script>
+
+  </footer>
+  <span itemprop="author publisher" itemscope="itemscope" itemtype="http://schema.org/Organization">
+    <meta content="http://www.5cc.xyz" itemprop="url">
+    <meta content="Jamling's Blog and Project Site" itemprop="name">
+    <meta content="/image/logo.png" itemprop="logo">
+  </span>
+</article>
+<div>
+  <nav><ul class="pager"><li class="previous"><a href="/2015/06/18/conoha-vps-e8-b4-ad-e4-b9-b0-e6-8a-98-e8-85-be/"><span aria-hidden="true">&larr;</span><span class="hidden-xs">ConoHa vps购买折腾</span></a></li><li class="next"><a href="/2015/04/26/linux-e4-b8-ad-e4-bb-bb-e6-84-8f-e8-bd-af-e4-bb-b6-e9-80-9a-e8-bf-87-e4-bb-a3-e7-90-86-e4-b8-8a-e7-bd-91-ef-bc-88-e9-9d-9evpn-ef-bc-89/"><span aria-hidden="true">&rarr;</span><span class="hidden-xs">Linux中任意软件通过代理上网（非vpn）</span></a></li></ul></nav>
+  
+<!-- Button trigger modal -->
+<blockquote class="donate"><!--
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#DonateModal">
+    Donate
+  </button>-->
+  <p>
+  <a href="#" role="button" data-toggle="modal" data-target="#DonateModal"><img src="/image/donate_button.png">
+  <span>Dear reader, if you feel this good, could you rewark me a `bread` as awark? Thank you very much~</span></a>
+  </p>
+</blockquote>
+<!-- Modal -->
+<div class="modal fade" id="DonateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Donate</h4>
+      </div>
+      <div class="modal-body"><!--
+        <table>
+        <thead>
+          <th class="text-center">支付宝</th>
+          <th class="text-center">微信支付</th>
+        </thead>
+        <tr>
+          <td><img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+          <td><img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+        </tr>
+        </table>-->
+        <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">支付宝</span>
+            <img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="donate" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">微信支付</span>
+            <img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="donate" />
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a name="comment"></a>
+
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="6ad19d3342e96bae30001bec7cb59864" data-title="Kali Linux 新手折腾笔记" data-url="http://www.5cc.xyz/2015/05/16/kali-linux-e6-96-b0-e6-89-8b-e6-8a-98-e8-85-be-e7-ac-94-e8-ae-b0/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"ieclipse"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+
+</div>
+
+    
+  </div>
+  <!-- aside -->
+  <div class="col-sx-12 col-sm-4 col-md-3 col-lg-3">
+    <aside>
+    </aside>
+  </div>
+</div>
+</div>
+  <!-- footer -->
+  <footer id="footer">
+  <div class="divider"></div>
+  <div>&nbsp;</div>
+  <div class="inner text-center">
+    <div id="footer-copyright">
+      &copy; 2016 <a href="http://ieclipse.cn/" target="_blank">Any_冰</a> powered by <a href="http://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Jamling/hexo-theme-nova" target="_blank">Nova</a><br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div>
+      <a href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备15019510号</a>
+    </div>
+  </div>
+</footer>
+
+  <!-- fixed action bar -->
+  
+  <div class="fab" style="bottom: 45px; right: 24px;">
+    <ul class="top-expand" id="top-expand">
+      <li><a class="fab-item large red" href="#top"><i class="icon nova-top"></i></a></li>
+      <li><a class="fab-item large yellow " href="http://www.jiathis.com/share?uid=2064663" target="_blank"><i class="icon nova-share"></i></a></li>
+    </ul>
+    <a class="fab-item large red " onclick="$('#top-expand').toggle();">
+      <i class="icon nova-list-ul"></i>
+    </a>
+  </div>
+  <!-- after footer, some 3rd script place here -->
+    <script type="text/javascript">
+    var hljs_labels = {
+        left: "Code",
+        right: ":",
+        copy: "Copy to clipboard"
+    }
+    </script>
+    <script src="/js/hljs.js"></script>
+    <script src="/js/script.js"></script>
+    
+    <!-- 安装自动推送JS代码的网页，在页面被访问时，页面URL将立即被推送给百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    
+    <!-- 新建的搜索框代码，建立使用你自己的代码替换-->
+<script type="text/javascript">
+(function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=11812712506721118476' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();
+</script>
+    
+<!-- LeanClound官方Javascript SDK -->
+<script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
+<script>
+  AV.init({
+    appId : 'rYUER9KxmGUXSpfEtu7wCFMo-gzGzoHsz',
+    appKey : 'k7hzTkcS0blxgry4VT9rJjYj'
+  });
+
+  var lc_config = {
+    pageId : '6ad19d3342e96bae30001bec7cb59864',
+    url : 'http://www.5cc.xyz/2015/05/16/kali-linux-e6-96-b0-e6-89-8b-e6-8a-98-e8-85-be-e7-ac-94-e8-ae-b0/' || '2015/05/16/kali-linux-e6-96-b0-e6-89-8b-e6-8a-98-e8-85-be-e7-ac-94-e8-ae-b0/',
+    title : 'Kali Linux 新手折腾笔记'
+  };
+  
+  var lc_table = 'Counter' || 'Counter';
+
+  (function() {
+    var query = new AV.Query(lc_table);
+    query.select(['-ACL']);
+    query.equalTo('pageId', lc_config.pageId);
+    query.first({
+      success: function(results) {
+        // results is an array of AV.Object.
+        if (typeof results === 'undefined') {
+          insert(results);
+          return;
+        }
+        console.log(results._serverData);
+        update(results);
+        show(results);
+      },
+      error: function(error) {
+        // error is an instance of AV.Error.
+        console.log(error);
+      }
+    });
+
+    function insert(data) {
+      if (!data) {
+        console.log('data is null new object');
+        var M = AV.Object.extend(lc_table);
+        data = new M();
+        data.set('views', 1);
+      }
+      for ( var key in lc_config) {
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log('created objectId is ' + data.id);
+      }, function(error) {
+        console.log("create object failed");
+        console.log(error);
+      });
+    }
+
+    function update(data) {
+      data.increment('views', 1);
+      for ( var key in lc_config) {
+        if (key !== 'pageId')
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log("update to " + data.get('views'));
+      }, function(error) {
+        console.log("update object failed");
+        console.log(error);
+      });
+    }
+    
+    function show(data) {
+      $(".post-share .nova-eye .count").html(data.get('views'));
+    }
+  })();
+</script>
+
+</body>
+</html>

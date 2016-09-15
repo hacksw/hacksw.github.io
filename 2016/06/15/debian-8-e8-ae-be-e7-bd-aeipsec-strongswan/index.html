@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<head>
+  <meta charset="utf-8">
+  <title>Debian 8 设置IPSEC Strongswan</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="debian,Debian 8 设置IPSEC Strongswan">
+  <meta name="description" content="Debian 8 出来了，可是openswan 也没人维护了，之前配置的L2TP直接报废，强制安装降级openswan 不是个办法，刚好看到strongswan 维护的很好，貌似支持IOS8的CISCO VPN， 干脆就试验一把, 参考了这个文章里的配置，不过我其实用不到证书，也非常麻烦，所以作了一些改进，不过证书方面还是按照这篇文章里面的设置了。https://www.zeitgeist.se/2013/11/22/strongswan-howto-create-your-own-vpn/">
+   
+
+  <meta name="og:type" content="article">
+  <meta name="og:site_name" content="Jamling's Blog and Project Site">
+  <meta name="og:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="og:title" content="Debian 8 设置IPSEC Strongswan">
+  <meta name="og:url" content="http://www.5cc.xyz/2016/06/15/debian-8-e8-ae-be-e7-bd-aeipsec-strongswan/">
+  <meta name="og:description" content="Debian 8 出来了，可是openswan 也没人维护了，之前配置的L2TP直接报废，强制安装降级openswan 不是个办法，刚好看到strongswan 维护的很好，貌似支持IOS8的CISCO VPN， 干脆就试验一把, 参考了这个文章里的配置，不过我其实用不到证书，也非常麻烦，所以作了一些改进，不过证书方面还是按照这篇文章里面的设置了。https://www.zeitgeist.se/2013/11/22/strongswan-howto-create-your-own-vpn/">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="Jamling's Blog and Project Site">
+  <meta name="twitter:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="twitter:title" content="Debian 8 设置IPSEC Strongswan">
+  <meta name="twitter:creator" content="@JamlingLi">
+  <meta name="twitter:description" content="Debian 8 出来了，可是openswan 也没人维护了，之前配置的L2TP直接报废，强制安装降级openswan 不是个办法，刚好看到strongswan 维护的很好，貌似支持IOS8的CISCO VPN， 干脆就试验一把, 参考了这个文章里的配置，不过我其实用不到证书，也非常麻烦，所以作了一些改进，不过证书方面还是按照这篇文章里面的设置了。https://www.zeitgeist.se/2013/11/22/strongswan-howto-create-your-own-vpn/">
+
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.5cc.xyz/2016/06/15/debian-8-e8-ae-be-e7-bd-aeipsec-strongswan/index.html">
+  <!-- Alternative links -->
+  <!-- CSS and JS-->
+  <script src="//cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/sidr/2.2.1/jquery.sidr.min.js"></script>
+<script src="/js/jquery.bootstrap-autohidingnavbar.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/sidr/2.2.1/stylesheets/jquery.sidr.dark.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.css">
+<script src="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.js"></script>
+<script src="//cdn.bootcss.com/zclip/1.1.2/jquery.zclip.min.js"></script>
+<link rel="stylesheet" href="/css/nova_font.css">
+<link rel="stylesheet" href="/css/bs/nova.css">
+
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="Tell YOU">
+  <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+  <!-- header -->
+  <header>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse_" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/" id="logo"><img src="/image/logo.png" height="50"></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+        <li><a href="/" class="main-nav">Home</a></li><li><a href="/p/" class="main-nav">Projects</a></li><li><a href="/categories/" class="main-nav">Category</a></li><li><a href="/archives/" class="main-nav">Archives</a></li><li><a href="/donate/" class="main-nav">Donate</a></li><li><a href="/about/" class="main-nav">About</a></li>
+        </ul>
+        <!-- search input -->
+        
+
+<!-- 百度站内搜索（已通过站点验证） -->
+<form class="navbar-form navbar-left" role="search"
+  action="//search.ieclipse.cn/cse/search">
+  <div class="form-group search">
+    <input type="text" name="q" id="bdcsMain" class="form-control primary" aria-label="..." placeholder="Search">
+    <input type="hidden" name="s" value="11812712506721118476">
+    <input type="hidden" name="nsid" value="0">
+    <!-- 
+    <input name="tn" type="hidden" value="SE_zzsearchcode_shhzc78w">
+    <input name="cl" type="hidden" value="3">
+    <input name="ct" type="hidden" value="2097152">
+    <input name="si" type="hidden" value="ieclipse.cn">
+    <input name="ie" type="hidden" value="utf-8">
+    -->
+  </div>
+</form>
+
+        <ul class="nav navbar-nav navbar-right">
+        </ul>
+      </div>
+    </div>
+
+    <script>
+        <!-- mobile -->
+    	$('.navbar-toggle').sidr({
+	      name: 'sidr-main',
+	      source: '#bs-example-navbar-collapse-1'
+	    });
+    	$('body').click(function(){
+    	  $.sidr('close', 'sidr-main');
+    	});
+    	
+    	$(".navbar-fixed-top").autoHidingNavbar({
+    	  // see next for specifications
+    	});
+    </script>
+  </nav>
+</header>
+
+  <!-- main -->
+  
+<div class="container container-fluid">
+<div class="row">
+  <div class="col-sx-12 col-sm-8 col-md-9 col-lg-9">
+    
+    
+    <article class="article post" itemscope="itemscope" itemtype="http://schema.org/Article">
+  <header class="article-header">
+    <div class="page-path"><span class="post-category"><span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>Path: <a class="category-item" href="/">Blog</a><a class="category-item" href="/categories/debian/">debian</a></span></div>
+    <div class="divider"></div>
+      <h1 class="article-title" itemprop="name">Debian 8 设置IPSEC Strongswan</h1>
+    <div class="post-header clearfix">
+      <span class="post-date"><span class="hidden-xs icon nova-calendar">Post at: </span>
+      <time datetime="2016-06-15T14:54:24.000Z" itemprop="datePublished"><time datetime="2016-06-15T14:54:24.000Z">2016-06-15</time></time>
+      </span>
+      
+      <span class="post-share">
+        <a href="#share" class="icon nova-share"><span class="hidden-xs">Share</span><span class="jiathis_counter_style"></span></a>
+        <a href="#comment" class="icon nova-bubbles"><span class="ds-thread-count" data-thread-key="73f2e4624d643ec39f651092c20e83ce"></span><!-- <span class="hidden-xs">Comment</span> --></a>
+        <a href="#like" class="icon nova-heart2-full"><span class="count"></span><span class="hidden-xs">Like</span></a>
+        <a href="#" class="icon nova-eye"><span class="count"></span><span class="hidden-xs">Views</span></a>
+      </span>
+    </div>
+    <div class="divider"></div>
+  </header>
+  <div class="article-content" itemprop="articleBody" id="post-content">
+    <p>Debian 8 出来了，可是openswan 也没人维护了，之前配置的L2TP直接报废，强制安装降级openswan 不是个办法，刚好看到strongswan 维护的很好，貌似支持IOS8的CISCO VPN， 干脆就试验一把, 参考了这个文章里的配置，不过我其实用不到证书，也非常麻烦，所以作了一些改进，不过证书方面还是按照这篇文章里面的设置了。<br><a href="https://www.zeitgeist.se/2013/11/22/strongswan-howto-create-your-own-vpn/" target="_blank" rel="external">https://www.zeitgeist.se/2013/11/22/strongswan-howto-create-your-own-vpn/</a></p>
+<p>首先当然是要安装stongswan 拉</p>
+<p><code>apt-get install strongswan libcharon-extra-plugins</code></p>
+<p>经过实验，Debian 7 也是完美支持的不过要特别安装</p>
+<pre><code># echo &quot;deb http://ftp.debian.org/debian wheezy-backports main&quot; \
+    &amp;gt; /etc/apt/sources.list.d/wheezy-backports.list
+# apt-get update
+# apt-get -t wheezy-backports install strongswan libcharon-extra-plugins
+`&lt;/pre&gt;
+然后检查一下ipsec的版本是不是安装好了
+
+`ipsec version`
+
+接下来就是建立Strongswan 密钥和证书了
+&lt;pre&gt;`# cd /etc/ipsec.d/
+# ipsec pki --gen --type rsa --size 4096 \
+    --outform pem \
+    &amp;gt; private/strongswanKey.pem
+# chmod 600 private/strongswanKey.pem
+# ipsec pki --self --ca --lifetime 3650 \
+    --in private/strongswanKey.pem --type rsa \
+    --dn &quot;C=CH, O=strongSwan, CN=strongSwan Root CA&quot; \
+    --outform pem \
+    &amp;gt; cacerts/strongswanCert.pem
+`&lt;/pre&gt;
+然后是服务器端的证书 替换文章中的vpn.zeitgeist.se 为自己服务器的域名，如果域名不一致会造成无法连接。
+&lt;pre&gt;`# cd /etc/ipsec.d/
+# ipsec pki --gen --type rsa --size 2048 \
+    --outform pem \
+    &amp;gt; private/vpnHostKey.pem
+# chmod 600 private/vpnHostKey.pem
+# ipsec pki --pub --in private/vpnHostKey.pem --type rsa | \
+    ipsec pki --issue --lifetime 730 \
+    --cacert cacerts/strongswanCert.pem \
+    --cakey private/strongswanKey.pem \
+    --dn &quot;C=CH, O=strongSwan, CN=vpn.zeitgeist.se&quot; \
+    --san vpn.zeitgeist.se \
+    --flag serverAuth --flag ikeIntermediate \
+    --outform pem &amp;gt; certs/vpnHostCert.pem
+`&lt;/pre&gt;
+然后就是生成客户端证书了， 我生成了但是没有用， 只要ios上vpn， 可以用cisco的密码连接而不用证书， 文章里也生成了p12 证书，也是比较方便。
+&lt;pre&gt;`# cd /etc/ipsec.d/
+# ipsec pki --gen --type rsa --size 2048 \
+    --outform pem \
+    &amp;gt; private/AlexanderKey.pem
+# chmod 600 private/AlexanderKey.pem
+# ipsec pki --pub --in private/AlexanderKey.pem --type rsa | \
+    ipsec pki --issue --lifetime 730 \
+    --cacert cacerts/strongswanCert.pem \
+    --cakey private/strongswanKey.pem \
+    --dn &quot;C=CH, O=strongSwan, CN=alexander@zeitgeist.se&quot; \
+    --san alexander@zeitgeist.se \
+    --outform pem &amp;gt; certs/AlexanderCert.pem
+
+# cd /etc/ipsec.d/
+# openssl pkcs12 -export -inkey private/AlexanderKey.pem \
+    -in certs/AlexanderCert.pem -name &quot;Alexander&apos;s VPN Certificate&quot; \
+    -certfile cacerts/strongswanCert.pem \
+    -caname &quot;strongSwan Root CA&quot; \
+    -out Alexander.p12
+`&lt;/pre&gt;
+接下来就是关键中的关键了。 ipsec的配置 修改ipsec.conf 相对于原文章我主要修改了这段 conn CiscoIPSec 让普通的IOS CISCO 客户端通过密码也可以联入IPSEC VPN
+&lt;pre&gt;`# ipsec.conf - strongSwan IPsec configuration file
+
+config setup  
+    # uniqueids=never
+    charondebug=&quot;cfg 2, dmn 2, ike 2, net 2&quot;
+
+conn %default  
+    keyexchange=ikev2
+    ike=aes128-sha256-ecp256,aes256-sha384-ecp384,aes128-sha256-modp2048,aes128-sha1-modp2048,aes256-sha384-modp4096,aes256-sha256-modp4096,aes256-sha1-modp4096,aes128-sha256-modp1536,aes128-sha1-modp1536,aes256-sha384-modp2048,aes256-sha256-modp2048,aes256-sha1-modp2048,aes128-sha256-modp1024,aes128-sha1-modp1024,aes256-sha384-modp1536,aes256-sha256-modp1536,aes256-sha1-modp1536,aes256-sha384-modp1024,aes256-sha256-modp1024,aes256-sha1-modp1024!
+    esp=aes128gcm16-ecp256,aes256gcm16-ecp384,aes128-sha256-ecp256,aes256-sha384-ecp384,aes128-sha256-modp2048,aes128-sha1-modp2048,aes256-sha384-modp4096,aes256-sha256-modp4096,aes256-sha1-modp4096,aes128-sha256-modp1536,aes128-sha1-modp1536,aes256-sha384-modp2048,aes256-sha256-modp2048,aes256-sha1-modp2048,aes128-sha256-modp1024,aes128-sha1-modp1024,aes256-sha384-modp1536,aes256-sha256-modp1536,aes256-sha1-modp1536,aes256-sha384-modp1024,aes256-sha256-modp1024,aes256-sha1-modp1024,aes128gcm16,aes256gcm16,aes128-sha256,aes128-sha1,aes256-sha384,aes256-sha256,aes256-sha1!
+    dpdaction=clear
+    dpddelay=300s
+    rekey=no
+    left=%any
+    leftsubnet=0.0.0.0/0
+    leftcert=vpnHostCert.pem
+    right=%any
+    rightdns=8.8.8.8,8.8.4.4
+    rightsourceip=172.16.16.0/24
+
+conn IPSec-IKEv2  
+    keyexchange=ikev2
+    auto=add
+
+conn IPSec-IKEv2-EAP  
+    also=&quot;IPSec-IKEv2&quot;
+    rightauth=eap-mschapv2
+    rightsendcert=never
+    eap_identity=%any
+
+conn CiscoIPSec  
+        keyexchange=ikev1
+        leftsendcert=never
+        #do not need server side cert
+        leftauth=psk
+        rightauth=psk
+        #use PSK as client server auth type
+        rightauth2=xauth
+        #use xauth as user login auth type
+        auto=add
+`&lt;/pre&gt;
+接着修改密码文件， 替换中间 topsecretpassword1， topsecretpassword2 ，evenmoretopsecretpassword 到自己设定的密码就可以了。
+&lt;pre&gt;`/etc/ipsec.secrets
+
+： PSK &quot;topsecretpassword1&quot;
+: RSA vpnHostKey.pem
+user1 : EAP &quot;topsecretpassword2&quot;  
+user1 : XAUTH &quot;evenmoretopsecretpassword&quot;  
+`&lt;/pre&gt;
+然后热倒入一下密码
+
+`#ipsec rereadsecrets`
+
+一般这样就七七八八差不多了， 最后就是给iptables 设置规则， 最简单的就是IPV4 转发, xxx.xxx.xxx.xxx 改成服务器IP。
+&lt;pre&gt;`# echo 1 &amp;gt; /proc/sys/net/ipv4/ip_forward
+# echo 0 &amp;gt; /proc/sys/net/ipv4/conf/all/accept_redirects
+# echo 0 &amp;gt; /proc/sys/net/ipv4/conf/all/send_redirects
+# iptables -t nat -A POSTROUTING -o eth0 ! -p esp \
+    -j SNAT --to-source xxx.xxx.xxx.xxx
+
+# iptables -A INPUT -p udp --dport 500 --j ACCEPT
+# iptables -A INPUT -p udp --dport 4500 --j ACCEPT
+# iptables -A INPUT -p esp -j ACCEPT
+</code></pre><p>最后，重起一下 ipsec 吧，万事俱备了。</p>
+<p><code># service ipsec restart</code></p>
+<p>IOS8 CISCO 客户端的配置就非常方便了<br>新建VPN 并设置Cisco 类型，填入服务器地址，用户名，密码和PSK 密码，就可以以不需要客户端证书而是直接密码方式进行VPN连接了。</p>
+
+  </div>
+  <footer class="article-footer">
+    <time class="article-footer-updated" datetime="2016-09-15T14:57:53.000Z" itemprop="dateModified">
+        Last updated:  <span class="">2016-09-15</span>
+    </time>
+    
+  <!-- JiaThis Button BEGIN -->
+  <div class="jiathis_style clearfix"><a id="share" href="#share"></a>
+      <span class="jiathis_txt icon nova-share">Share：</span>
+      <a class="jiathis_button_tsina">Weibo</a>
+      <a class="jiathis_button_weixin">Wechat</a>
+      <a class="jiathis_button_twitter">Twitter</a>
+      <a class="jiathis_button_copy">Copy Link</a>
+      <a class="jiathis_button_ishare">One Share</a>
+      <a href="http://www.jiathis.com/share?uid=2064663" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">More</a>
+<!--       <a class="jiathis_counter_style"></a> -->
+  </div>
+  <!-- JiaThis Button END -->
+  <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2064663" charset="utf-8" async="async"></script>
+
+  </footer>
+  <span itemprop="author publisher" itemscope="itemscope" itemtype="http://schema.org/Organization">
+    <meta content="http://www.5cc.xyz" itemprop="url">
+    <meta content="Jamling's Blog and Project Site" itemprop="name">
+    <meta content="/image/logo.png" itemprop="logo">
+  </span>
+</article>
+<div>
+  <nav><ul class="pager"><li class="previous"><a href="/2016/06/15/ubuntu-e5-ae-89-e8-a3-85-e5-92-8c-e9-85-8d-e7-bd-aestrongswan/"><span aria-hidden="true">&larr;</span><span class="hidden-xs">Ubuntu安装和配置strongSwan</span></a></li><li class="next"><a href="/2016/05/16/e5-a6-82-e4-bd-95-e5-9c-a8sea-e5-ae-89-e8-a3-85xsser-me/"><span aria-hidden="true">&rarr;</span><span class="hidden-xs">如何在sea安装xsser.me</span></a></li></ul></nav>
+  
+<!-- Button trigger modal -->
+<blockquote class="donate"><!--
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#DonateModal">
+    Donate
+  </button>-->
+  <p>
+  <a href="#" role="button" data-toggle="modal" data-target="#DonateModal"><img src="/image/donate_button.png">
+  <span>Dear reader, if you feel this good, could you rewark me a `bread` as awark? Thank you very much~</span></a>
+  </p>
+</blockquote>
+<!-- Modal -->
+<div class="modal fade" id="DonateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Donate</h4>
+      </div>
+      <div class="modal-body"><!--
+        <table>
+        <thead>
+          <th class="text-center">支付宝</th>
+          <th class="text-center">微信支付</th>
+        </thead>
+        <tr>
+          <td><img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+          <td><img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+        </tr>
+        </table>-->
+        <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">支付宝</span>
+            <img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="donate" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">微信支付</span>
+            <img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="donate" />
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a name="comment"></a>
+
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="73f2e4624d643ec39f651092c20e83ce" data-title="Debian 8 设置IPSEC Strongswan" data-url="http://www.5cc.xyz/2016/06/15/debian-8-e8-ae-be-e7-bd-aeipsec-strongswan/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"ieclipse"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+
+</div>
+
+    
+  </div>
+  <!-- aside -->
+  <div class="col-sx-12 col-sm-4 col-md-3 col-lg-3">
+    <aside>
+    </aside>
+  </div>
+</div>
+</div>
+  <!-- footer -->
+  <footer id="footer">
+  <div class="divider"></div>
+  <div>&nbsp;</div>
+  <div class="inner text-center">
+    <div id="footer-copyright">
+      &copy; 2016 <a href="http://ieclipse.cn/" target="_blank">Any_冰</a> powered by <a href="http://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Jamling/hexo-theme-nova" target="_blank">Nova</a><br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div>
+      <a href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备15019510号</a>
+    </div>
+  </div>
+</footer>
+
+  <!-- fixed action bar -->
+  
+  <div class="fab" style="bottom: 45px; right: 24px;">
+    <ul class="top-expand" id="top-expand">
+      <li><a class="fab-item large red" href="#top"><i class="icon nova-top"></i></a></li>
+      <li><a class="fab-item large yellow " href="http://www.jiathis.com/share?uid=2064663" target="_blank"><i class="icon nova-share"></i></a></li>
+    </ul>
+    <a class="fab-item large red " onclick="$('#top-expand').toggle();">
+      <i class="icon nova-list-ul"></i>
+    </a>
+  </div>
+  <!-- after footer, some 3rd script place here -->
+    <script type="text/javascript">
+    var hljs_labels = {
+        left: "Code",
+        right: ":",
+        copy: "Copy to clipboard"
+    }
+    </script>
+    <script src="/js/hljs.js"></script>
+    <script src="/js/script.js"></script>
+    
+    <!-- 安装自动推送JS代码的网页，在页面被访问时，页面URL将立即被推送给百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    
+    <!-- 新建的搜索框代码，建立使用你自己的代码替换-->
+<script type="text/javascript">
+(function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=11812712506721118476' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();
+</script>
+    
+<!-- LeanClound官方Javascript SDK -->
+<script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
+<script>
+  AV.init({
+    appId : 'rYUER9KxmGUXSpfEtu7wCFMo-gzGzoHsz',
+    appKey : 'k7hzTkcS0blxgry4VT9rJjYj'
+  });
+
+  var lc_config = {
+    pageId : '73f2e4624d643ec39f651092c20e83ce',
+    url : 'http://www.5cc.xyz/2016/06/15/debian-8-e8-ae-be-e7-bd-aeipsec-strongswan/' || '2016/06/15/debian-8-e8-ae-be-e7-bd-aeipsec-strongswan/',
+    title : 'Debian 8 设置IPSEC Strongswan'
+  };
+  
+  var lc_table = 'Counter' || 'Counter';
+
+  (function() {
+    var query = new AV.Query(lc_table);
+    query.select(['-ACL']);
+    query.equalTo('pageId', lc_config.pageId);
+    query.first({
+      success: function(results) {
+        // results is an array of AV.Object.
+        if (typeof results === 'undefined') {
+          insert(results);
+          return;
+        }
+        console.log(results._serverData);
+        update(results);
+        show(results);
+      },
+      error: function(error) {
+        // error is an instance of AV.Error.
+        console.log(error);
+      }
+    });
+
+    function insert(data) {
+      if (!data) {
+        console.log('data is null new object');
+        var M = AV.Object.extend(lc_table);
+        data = new M();
+        data.set('views', 1);
+      }
+      for ( var key in lc_config) {
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log('created objectId is ' + data.id);
+      }, function(error) {
+        console.log("create object failed");
+        console.log(error);
+      });
+    }
+
+    function update(data) {
+      data.increment('views', 1);
+      for ( var key in lc_config) {
+        if (key !== 'pageId')
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log("update to " + data.get('views'));
+      }, function(error) {
+        console.log("update object failed");
+        console.log(error);
+      });
+    }
+    
+    function show(data) {
+      $(".post-share .nova-eye .count").html(data.get('views'));
+    }
+  })();
+</script>
+
+</body>
+</html>

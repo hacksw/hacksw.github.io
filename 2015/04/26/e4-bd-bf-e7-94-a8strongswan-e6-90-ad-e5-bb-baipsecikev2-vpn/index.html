@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<head>
+  <meta charset="utf-8">
+  <title>使用Strongswan搭建IPSec/IKEv2 VPN</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="centos,使用Strongswan搭建IPSec/IKEv2 VPN">
+  <meta name="description" content="本来Strongswan搭建IKEv2 VPN有一篇很好的教程（在nsshell.com上），但是貌似nsshell.com貌似挂了（反正我打不开），于是我就做个搬运，把教程拿过来。。正好原文中有一两处遗漏，我也好补上去。">
+   
+
+  <meta name="og:type" content="article">
+  <meta name="og:site_name" content="Jamling's Blog and Project Site">
+  <meta name="og:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="og:title" content="使用Strongswan搭建IPSec/IKEv2 VPN">
+  <meta name="og:url" content="http://www.5cc.xyz/2015/04/26/e4-bd-bf-e7-94-a8strongswan-e6-90-ad-e5-bb-baipsecikev2-vpn/">
+  <meta name="og:description" content="本来Strongswan搭建IKEv2 VPN有一篇很好的教程（在nsshell.com上），但是貌似nsshell.com貌似挂了（反正我打不开），于是我就做个搬运，把教程拿过来。。正好原文中有一两处遗漏，我也好补上去。">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="Jamling's Blog and Project Site">
+  <meta name="twitter:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="twitter:title" content="使用Strongswan搭建IPSec/IKEv2 VPN">
+  <meta name="twitter:creator" content="@JamlingLi">
+  <meta name="twitter:description" content="本来Strongswan搭建IKEv2 VPN有一篇很好的教程（在nsshell.com上），但是貌似nsshell.com貌似挂了（反正我打不开），于是我就做个搬运，把教程拿过来。。正好原文中有一两处遗漏，我也好补上去。">
+
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.5cc.xyz/2015/04/26/e4-bd-bf-e7-94-a8strongswan-e6-90-ad-e5-bb-baipsecikev2-vpn/index.html">
+  <!-- Alternative links -->
+  <!-- CSS and JS-->
+  <script src="//cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/sidr/2.2.1/jquery.sidr.min.js"></script>
+<script src="/js/jquery.bootstrap-autohidingnavbar.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/sidr/2.2.1/stylesheets/jquery.sidr.dark.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.css">
+<script src="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.js"></script>
+<script src="//cdn.bootcss.com/zclip/1.1.2/jquery.zclip.min.js"></script>
+<link rel="stylesheet" href="/css/nova_font.css">
+<link rel="stylesheet" href="/css/bs/nova.css">
+
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="Tell YOU">
+  <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+  <!-- header -->
+  <header>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse_" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/" id="logo"><img src="/image/logo.png" height="50"></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+        <li><a href="/" class="main-nav">Home</a></li><li><a href="/p/" class="main-nav">Projects</a></li><li><a href="/categories/" class="main-nav">Category</a></li><li><a href="/archives/" class="main-nav">Archives</a></li><li><a href="/donate/" class="main-nav">Donate</a></li><li><a href="/about/" class="main-nav">About</a></li>
+        </ul>
+        <!-- search input -->
+        
+
+<!-- 百度站内搜索（已通过站点验证） -->
+<form class="navbar-form navbar-left" role="search"
+  action="//search.ieclipse.cn/cse/search">
+  <div class="form-group search">
+    <input type="text" name="q" id="bdcsMain" class="form-control primary" aria-label="..." placeholder="Search">
+    <input type="hidden" name="s" value="11812712506721118476">
+    <input type="hidden" name="nsid" value="0">
+    <!-- 
+    <input name="tn" type="hidden" value="SE_zzsearchcode_shhzc78w">
+    <input name="cl" type="hidden" value="3">
+    <input name="ct" type="hidden" value="2097152">
+    <input name="si" type="hidden" value="ieclipse.cn">
+    <input name="ie" type="hidden" value="utf-8">
+    -->
+  </div>
+</form>
+
+        <ul class="nav navbar-nav navbar-right">
+        </ul>
+      </div>
+    </div>
+
+    <script>
+        <!-- mobile -->
+    	$('.navbar-toggle').sidr({
+	      name: 'sidr-main',
+	      source: '#bs-example-navbar-collapse-1'
+	    });
+    	$('body').click(function(){
+    	  $.sidr('close', 'sidr-main');
+    	});
+    	
+    	$(".navbar-fixed-top").autoHidingNavbar({
+    	  // see next for specifications
+    	});
+    </script>
+  </nav>
+</header>
+
+  <!-- main -->
+  
+<div class="container container-fluid">
+<div class="row">
+  <div class="col-sx-12 col-sm-8 col-md-9 col-lg-9">
+    
+    
+    <article class="article post" itemscope="itemscope" itemtype="http://schema.org/Article">
+  <header class="article-header">
+    <div class="page-path"><span class="post-category"><span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>Path: <a class="category-item" href="/">Blog</a><a class="category-item" href="/categories/centos/">centos</a></span></div>
+    <div class="divider"></div>
+      <h1 class="article-title" itemprop="name">使用Strongswan搭建IPSec/IKEv2 VPN</h1>
+    <div class="post-header clearfix">
+      <span class="post-date"><span class="hidden-xs icon nova-calendar">Post at: </span>
+      <time datetime="2015-04-26T13:08:45.000Z" itemprop="datePublished"><time datetime="2015-04-26T13:08:45.000Z">2015-04-26</time></time>
+      </span>
+      
+      <span class="post-share">
+        <a href="#share" class="icon nova-share"><span class="hidden-xs">Share</span><span class="jiathis_counter_style"></span></a>
+        <a href="#comment" class="icon nova-bubbles"><span class="ds-thread-count" data-thread-key="d4c6728e13da102df252e04106b8f0a3"></span><!-- <span class="hidden-xs">Comment</span> --></a>
+        <a href="#like" class="icon nova-heart2-full"><span class="count"></span><span class="hidden-xs">Like</span></a>
+        <a href="#" class="icon nova-eye"><span class="count"></span><span class="hidden-xs">Views</span></a>
+      </span>
+    </div>
+    <div class="divider"></div>
+  </header>
+  <div class="article-content" itemprop="articleBody" id="post-content">
+    <p>本来Strongswan搭建IKEv2 VPN有一篇很好的教程（在nsshell.com上），但是貌似nsshell.com貌似挂了（反正我打不开），于是我就做个搬运，把教程拿过来。。正好原文中有一两处遗漏，我也好补上去。</p>
+<p><strong>重要说明：本文原本只是给自己留一个参考，但似乎已经有很多人参考了这篇文章。一个月来我已经人工帮助了将近10个人无偿排查疑难问题。而作为一个学生，并没有多余的经历做这些事情。因此以后请不要找我问如何搭建VPN，谢谢。</strong></p>
+<p>条件：<br>RAM大小合适的VPS或者服务器（96MB RAM就足够了，64MB RAM未测试）<br>可以是OpenVZ，但注意看教程中标注的针对OpenVZ的特殊步骤。</p>
+<p>1.准备工作<br>请在虚拟机或服务器上安装好Ubuntu操作系统，32位、64位均可，建议14.04 LTS，并执行以下命令：</p>
+<pre><code>apt-&lt;span class=&quot;hljs-keyword&quot;&gt;get&lt;/span&gt; update
+apt-&lt;span class=&quot;hljs-keyword&quot;&gt;get&lt;/span&gt; install libpam0g-dev libssl-dev make gcc
+`&lt;/pre&gt;
+将PAM库和SSL库安装在系统中
+
+2.下载最新的strongswan源代码并编译
+&lt;pre class=&quot;  language-markup&quot;&gt;`&lt;span class=&quot;hljs-title&quot;&gt;wget&lt;/span&gt; [&lt;span class=&quot;hljs-url&quot;&gt;http://download.strongswan.org/strongswan.tar.gz&lt;/span&gt;](http://download.strongswan.org/strongswan.tar.gz)
+tar xzf strongswan.tar.gz
+cd strongswan-*
+`&lt;/pre&gt;
+OpenVZ使用以下参数
+&lt;pre class=&quot;  language-markup&quot;&gt;`./configure  --enable-eap-identity --enable-eap-md5 \
+--enable-eap-mschapv2 --enable-eap-tls --enable-eap-ttls --enable-eap-peap  \
+--enable-eap-tnc --enable-eap-&lt;span class=&quot;hljs-keyword&quot;&gt;dynamic&lt;/span&gt; --enable-eap-radius --enable-xauth-eap  \
+--enable-xauth-pam  --enable-dhcp  --enable-openssl  --enable-addrblock --enable-unity  \
+--enable-certexpire --enable-radattr --enable-tools --enable-openssl --disable-gmp --enable-kernel-libipsec
+`&lt;/pre&gt;
+其它服务器执行
+&lt;pre class=&quot;  language-markup&quot;&gt;`./configure  --enable-eap-identity --enable-eap-md5 \
+--enable-eap-mschapv2 --enable-eap-tls --enable-eap-ttls --enable-eap-peap  \
+--enable-eap-tnc --enable-eap-&lt;span class=&quot;hljs-keyword&quot;&gt;dynamic&lt;/span&gt; --enable-eap-radius --enable-xauth-eap  \
+--enable-xauth-pam  --enable-dhcp  --enable-openssl  --enable-addrblock --enable-unity  \
+--enable-certexpire --enable-radattr --enable-tools --enable-openssl --disable-gmp
+`&lt;/pre&gt;
+等待这个过程结束后，执行以下命令：
+&lt;pre class=&quot;  language-markup&quot;&gt;`make; make install
+`&lt;/pre&gt;
+耐心地等待编译，性能不同编译所需时间也有所不同。
+
+完成后使用命令`ipsec version`检查是否出现版本号等信息，如下图
+![](https://hjc.im/content/images/2014/11/Capture.PNG)
+若出现`ipsec: command not found`则代表没有成功编译安装。
+
+3.配置strongswan和证书
+
+生成CA证书
+生成私钥
+&lt;pre class=&quot;  language-markup&quot;&gt;`&lt;span class=&quot;hljs-title&quot;&gt;ipsec&lt;/span&gt; pki --gen --outform pem &amp;gt; ca.pem  
+`&lt;/pre&gt;
+利用私钥，签名CA证书
+&lt;pre class=&quot;  language-markup&quot;&gt;`&lt;span class=&quot;hljs-title&quot;&gt;ipsec&lt;/span&gt; pki --self --in ca.pem --dn &lt;span class=&quot;hljs-string&quot;&gt;&quot;C=com, O=myvpn, CN=VPN CA&quot;&lt;/span&gt; --ca --outform pem &amp;gt;ca.cert.pem
+`&lt;/pre&gt;
+服务器证书 生成私钥
+&lt;pre class=&quot;  language-markup&quot;&gt;`&lt;span class=&quot;hljs-title&quot;&gt;ipsec&lt;/span&gt; pki --gen --outform pem &amp;gt; server.pem
+`&lt;/pre&gt;
+用CA证书签发服务器证书
+
+首先确认访问服务器的IP地址或域名，连接时**不可使用其它地址，只能使用证书中的地址，请将下面一句命令中的123.123.123.123替换为自己服务器的IP地址或域名，连接时使用**，一共需要替换**两处**。
+&lt;pre class=&quot;  language-markup&quot;&gt;`&lt;span class=&quot;hljs-title&quot;&gt;ipsec&lt;/span&gt; pki --pub --in server.pem | ipsec pki --issue --cacert ca.cert.pem \
+--cakey ca.pem --dn &lt;span class=&quot;hljs-string&quot;&gt;&quot;C=com, O=myvpn, CN=123.123.123.123&quot;&lt;/span&gt; \
+--san=&lt;span class=&quot;hljs-string&quot;&gt;&quot;123.123.123.123&quot;&lt;/span&gt; --flag serverAuth --flag ikeIntermediate \
+--outform pem &amp;gt; server.cert.pem
+`&lt;/pre&gt;
+客户端证书 生成私钥
+&lt;pre class=&quot;  language-markup&quot;&gt;`&lt;span class=&quot;hljs-title&quot;&gt;ipsec&lt;/span&gt; pki --gen --outform pem &amp;gt; client.pem
+`&lt;/pre&gt;
+利用CA签名客户端证书
+&lt;pre class=&quot;  language-markup&quot;&gt;`&lt;span class=&quot;hljs-title&quot;&gt;ipsec&lt;/span&gt; pki --pub --in client.pem | ipsec pki --issue --cacert ca.cert.pem --cakey ca.pem --dn &lt;span class=&quot;hljs-string&quot;&gt;&quot;C=com, O=myvpn, CN=VPN Client&quot;&lt;/span&gt; --outform pem &amp;gt; client.cert.pem
+`&lt;/pre&gt;
+生成pkcs12证书
+&lt;pre class=&quot;  language-markup&quot;&gt;`openssl pkcs12 -&lt;span class=&quot;hljs-keyword&quot;&gt;export&lt;/span&gt; -inkey client.pem -&lt;span class=&quot;hljs-keyword&quot;&gt;in&lt;/span&gt; client.cert.pem -name &lt;span class=&quot;hljs-string&quot;&gt;&quot;client&quot;&lt;/span&gt; -certfile ca.cert.pem -caname &lt;span class=&quot;hljs-string&quot;&gt;&quot;VPN CA&quot;&lt;/span&gt;  -out client.cert.p12
+`&lt;/pre&gt;
+安装证书
+&lt;pre class=&quot;  language-markup&quot;&gt;`cp -r ca.cert.pem /usr/&lt;span class=&quot;hljs-built_in&quot;&gt;local&lt;/span&gt;/etc/ipsec.d/cacerts/
+cp -r server.cert.pem /usr/&lt;span class=&quot;hljs-built_in&quot;&gt;local&lt;/span&gt;/etc/ipsec.d/certs/
+cp -r server.pem /usr/&lt;span class=&quot;hljs-built_in&quot;&gt;local&lt;/span&gt;/etc/ipsec.d/private/
+cp -r client.cert.pem /usr/&lt;span class=&quot;hljs-built_in&quot;&gt;local&lt;/span&gt;/etc/ipsec.d/certs/
+cp -r client.pem  /usr/&lt;span class=&quot;hljs-built_in&quot;&gt;local&lt;/span&gt;/etc/ipsec.d/private/
+`&lt;/pre&gt;
+证书安装完成，接下来配置strongswan，编辑`/usr/local/etc/ipsec.conf`
+&lt;pre class=&quot;  language-markup&quot;&gt;`&lt;span class=&quot;hljs-title&quot;&gt;config&lt;/span&gt; setup
+    uniqueids=never 
+
+conn iOS_cert
+    keyexchange=ikev1
+    &lt;span class=&quot;hljs-comment&quot;&gt;# strongswan version &amp;gt;= 5.0.2, compatible with iOS 6.0,6.0.1&lt;/span&gt;
+    fragmentation=&lt;span class=&quot;hljs-built_in&quot;&gt;yes&lt;/span&gt;
+    left=%defaultroute
+    leftauth=pubkey
+    leftsubnet=&lt;span class=&quot;hljs-number&quot;&gt;0.0.0.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;
+    leftcert=server.cert.pem
+    right=%any
+    rightauth=pubkey
+    rightauth2=xauth
+    rightsourceip=&lt;span class=&quot;hljs-number&quot;&gt;10.31.2.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;24&lt;/span&gt;
+    rightcert=client.cert.pem
+    auto=add
+
+conn android_xauth_psk
+    keyexchange=ikev1
+    left=%defaultroute
+    leftauth=psk
+    leftsubnet=&lt;span class=&quot;hljs-number&quot;&gt;0.0.0.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;
+    right=%any
+    rightauth=psk
+    rightauth2=xauth
+    rightsourceip=&lt;span class=&quot;hljs-number&quot;&gt;10.31.2.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;24&lt;/span&gt;
+    auto=add
+
+conn networkmanager-strongswan
+    keyexchange=ikev2
+    left=%defaultroute
+    leftauth=pubkey
+    leftsubnet=&lt;span class=&quot;hljs-number&quot;&gt;0.0.0.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;
+    leftcert=server.cert.pem
+    right=%any
+    rightauth=pubkey
+    rightsourceip=&lt;span class=&quot;hljs-number&quot;&gt;10.31.2.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;24&lt;/span&gt;
+    rightcert=client.cert.pem
+    auto=add
+
+conn windows7
+    keyexchange=ikev2
+    ike=aes256-sha1-modp1024! 
+    rekey=&lt;span class=&quot;hljs-built_in&quot;&gt;no&lt;/span&gt;
+    left=%defaultroute
+    leftauth=pubkey
+    leftsubnet=&lt;span class=&quot;hljs-number&quot;&gt;0.0.0.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;
+    leftcert=server.cert.pem
+    right=%any
+    rightauth=eap-mschapv2
+    rightsourceip=&lt;span class=&quot;hljs-number&quot;&gt;10.31.2.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;24&lt;/span&gt;
+    rightsendcert=never
+    eap_identity=%any
+    auto=add
+`&lt;/pre&gt;
+编辑`/usr/local/etc/strongswan.conf`
+&lt;pre class=&quot;  language-markup&quot;&gt;` &lt;span class=&quot;hljs-title&quot;&gt;charon&lt;/span&gt; {
+         &lt;span class=&quot;hljs-title&quot;&gt;load_modular&lt;/span&gt; = &lt;span class=&quot;hljs-built_in&quot;&gt;yes&lt;/span&gt;
+         duplicheck.enable = &lt;span class=&quot;hljs-built_in&quot;&gt;no&lt;/span&gt;
+         compress = &lt;span class=&quot;hljs-built_in&quot;&gt;yes&lt;/span&gt;
+         plugins {
+                 &lt;span class=&quot;hljs-title&quot;&gt;include&lt;/span&gt; strongswan.d/charon/&lt;span class=&quot;hljs-regexp&quot;&gt;*.conf&lt;/span&gt;
+         }
+         dns1 = &lt;span class=&quot;hljs-number&quot;&gt;8.8.8.8&lt;/span&gt;
+         dns2 = &lt;span class=&quot;hljs-number&quot;&gt;8.8.4.4&lt;/span&gt;
+         nbns1 = &lt;span class=&quot;hljs-number&quot;&gt;8.8.8.8&lt;/span&gt;
+         nbns2 = &lt;span class=&quot;hljs-number&quot;&gt;8.8.4.4&lt;/span&gt;
+ }
+ include strongswan.d/&lt;span class=&quot;hljs-regexp&quot;&gt;*.conf&lt;/span&gt;
+`&lt;/pre&gt;
+编辑`/usr/local/etc/ipsec.secrets`中的用户名、密码
+&lt;pre class=&quot;  language-markup&quot;&gt;`: RSA server.pem
+: PSK &lt;span class=&quot;hljs-string&quot;&gt;&quot;mykey&quot;&lt;/span&gt;
+: XAUTH &lt;span class=&quot;hljs-string&quot;&gt;&quot;mykey&quot;&lt;/span&gt;
+[用户名] %any : EAP &lt;span class=&quot;hljs-string&quot;&gt;&quot;[密码]&quot;&lt;/span&gt;
+`&lt;/pre&gt;
+注意将PSK、XAUTH处的&quot;mykey&quot;编辑为**唯一且私密的字符串**，并且将[用户名]改为自己想要的登录名，[密码]改为自己想要的密码（[]符号去掉），可以添加多行，得到多个用户。
+
+4.修改系统转发以及防火墙配置
+首先编辑`/etc/sysctl.conf`，将`net.ipv4.ip_forward=1`一行前面的`#`号去掉，保存后执行`sysctl -p`。
+接下来修改iptables。
+OpenVZ执行：
+&lt;pre class=&quot;  language-markup&quot;&gt;`&lt;span class=&quot;hljs-title&quot;&gt;iptables&lt;/span&gt; -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -s &lt;span class=&quot;hljs-number&quot;&gt;10.31.0.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;24&lt;/span&gt;  -j ACCEPT
+iptables -A FORWARD -s &lt;span class=&quot;hljs-number&quot;&gt;10.31.1.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;24&lt;/span&gt;  -j ACCEPT
+iptables -A FORWARD -s &lt;span class=&quot;hljs-number&quot;&gt;10.31.2.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;24&lt;/span&gt;  -j ACCEPT
+iptables -A INPUT -i venet0 -p esp -j ACCEPT
+iptables -A INPUT -i venet0 -p udp --dport &lt;span class=&quot;hljs-number&quot;&gt;500&lt;/span&gt; -j ACCEPT
+iptables -A INPUT -i venet0 -p tcp --dport &lt;span class=&quot;hljs-number&quot;&gt;500&lt;/span&gt; -j ACCEPT
+iptables -A INPUT -i venet0 -p udp --dport &lt;span class=&quot;hljs-number&quot;&gt;4500&lt;/span&gt; -j ACCEPT
+iptables -A INPUT -i venet0 -p udp --dport &lt;span class=&quot;hljs-number&quot;&gt;1701&lt;/span&gt; -j ACCEPT
+iptables -A INPUT -i venet0 -p tcp --dport &lt;span class=&quot;hljs-number&quot;&gt;1723&lt;/span&gt; -j ACCEPT
+iptables -A FORWARD -j REJECT
+iptables -t nat -A POSTROUTING -s &lt;span class=&quot;hljs-number&quot;&gt;10.31.0.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;24&lt;/span&gt; -o venet0 -j MASQUERADE
+iptables -t nat -A POSTROUTING -s &lt;span class=&quot;hljs-number&quot;&gt;10.31.1.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;24&lt;/span&gt; -o venet0 -j MASQUERADE
+iptables -t nat -A POSTROUTING -s &lt;span class=&quot;hljs-number&quot;&gt;10.31.2.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;24&lt;/span&gt; -o venet0 -j MASQUERADE
+`&lt;/pre&gt;
+其它服务器执行
+&lt;pre class=&quot;  language-markup&quot;&gt;`&lt;span class=&quot;hljs-title&quot;&gt;iptables&lt;/span&gt; -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -s &lt;span class=&quot;hljs-number&quot;&gt;10.31.0.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;24&lt;/span&gt;  -j ACCEPT
+iptables -A FORWARD -s &lt;span class=&quot;hljs-number&quot;&gt;10.31.1.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;24&lt;/span&gt;  -j ACCEPT
+iptables -A FORWARD -s &lt;span class=&quot;hljs-number&quot;&gt;10.31.2.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;24&lt;/span&gt;  -j ACCEPT
+iptables -A INPUT -i eth0 -p esp -j ACCEPT
+iptables -A INPUT -i eth0 -p udp --dport &lt;span class=&quot;hljs-number&quot;&gt;500&lt;/span&gt; -j ACCEPT
+iptables -A INPUT -i eth0 -p tcp --dport &lt;span class=&quot;hljs-number&quot;&gt;500&lt;/span&gt; -j ACCEPT
+iptables -A INPUT -i eth0 -p udp --dport &lt;span class=&quot;hljs-number&quot;&gt;4500&lt;/span&gt; -j ACCEPT
+iptables -A INPUT -i eth0 -p udp --dport &lt;span class=&quot;hljs-number&quot;&gt;1701&lt;/span&gt; -j ACCEPT
+iptables -A INPUT -i eth0 -p tcp --dport &lt;span class=&quot;hljs-number&quot;&gt;1723&lt;/span&gt; -j ACCEPT
+iptables -A FORWARD -j REJECT
+iptables -t nat -A POSTROUTING -s &lt;span class=&quot;hljs-number&quot;&gt;10.31.0.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;24&lt;/span&gt; -o eth0 -j MASQUERADE
+iptables -t nat -A POSTROUTING -s &lt;span class=&quot;hljs-number&quot;&gt;10.31.1.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;24&lt;/span&gt; -o eth0 -j MASQUERADE
+iptables -t nat -A POSTROUTING -s &lt;span class=&quot;hljs-number&quot;&gt;10.31.2.0&lt;/span&gt;/&lt;span class=&quot;hljs-number&quot;&gt;24&lt;/span&gt; -o eth0 -j MASQUERADE
+`&lt;/pre&gt;
+接下来（公共部分）保存iptables配置并配置开机自动载入
+&lt;pre class=&quot;  language-markup&quot;&gt;`iptables-save &amp;gt; /etc/iptables.rules
+cat &amp;gt; /etc/network/&lt;span class=&quot;hljs-keyword&quot;&gt;if&lt;/span&gt;-up.d/iptables&amp;lt;&amp;lt;EOF
+&lt;span class=&quot;hljs-shebang&quot;&gt;#!/bin/sh&lt;/span&gt;
+iptables-restore &amp;lt; /etc/iptables.rules
+EOF
+chmod +x /etc/network/&lt;span class=&quot;hljs-keyword&quot;&gt;if&lt;/span&gt;-up.d/iptables
+</code></pre><p>5.尝试连接<br>WP8.1手机安装ca.cert.pem，进入设置-VPN添加IKEv2连接，地址为<strong>证书中的地址或IP</strong>，通过用户名-密码连接。<br>Windows连接也是一样，但注意<strong>将证书导入本地计算机而不是当前用户的“受信任的证书颁发机构”</strong>。<br>iOS/Android/Mac OS X设备添加Cisco IPSec PSK验证方式，预共享密钥是<code>/usr/local/etc/ipsec.secrets</code>中PSK后的字符串（不含引号），用户名密码同上，<strong>可以通过任意域名或IP连接，不需要证书</strong></p>
+
+  </div>
+  <footer class="article-footer">
+    <time class="article-footer-updated" datetime="2016-09-15T14:57:53.000Z" itemprop="dateModified">
+        Last updated:  <span class="">2016-09-15</span>
+    </time>
+    
+  <!-- JiaThis Button BEGIN -->
+  <div class="jiathis_style clearfix"><a id="share" href="#share"></a>
+      <span class="jiathis_txt icon nova-share">Share：</span>
+      <a class="jiathis_button_tsina">Weibo</a>
+      <a class="jiathis_button_weixin">Wechat</a>
+      <a class="jiathis_button_twitter">Twitter</a>
+      <a class="jiathis_button_copy">Copy Link</a>
+      <a class="jiathis_button_ishare">One Share</a>
+      <a href="http://www.jiathis.com/share?uid=2064663" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">More</a>
+<!--       <a class="jiathis_counter_style"></a> -->
+  </div>
+  <!-- JiaThis Button END -->
+  <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2064663" charset="utf-8" async="async"></script>
+
+  </footer>
+  <span itemprop="author publisher" itemscope="itemscope" itemtype="http://schema.org/Organization">
+    <meta content="http://www.5cc.xyz" itemprop="url">
+    <meta content="Jamling's Blog and Project Site" itemprop="name">
+    <meta content="/image/logo.png" itemprop="logo">
+  </span>
+</article>
+<div>
+  <nav><ul class="pager"><li class="previous"><a href="/2015/04/26/centos6-4-e5-ae-89-e8-a3-85-e6-90-ad-e5-bb-bapptp-vpn-e6-9c-8d-e5-8a-a1/"><span aria-hidden="true">&larr;</span><span class="hidden-xs">centos6.4安装搭建pptp vpn服务</span></a></li><li class="next"><a href="/2015/04/26/e6-90-ac-e7-93-a6-e5-b7-a5-e7-a7-91-e5-ad-a6-e4-b8-8a-e7-bd-91-vpn-e4-b8-80-e9-94-ae-e5-ae-89-e8-a3-85-e5-8c-85-e4-bb-a5-e6-b5-8b-e8-83-bd-e5-ae-89-e8-a3-85-e6-88-90-e5-8a-9f/"><span aria-hidden="true">&rarr;</span><span class="hidden-xs">搬瓦工 科学上网 vpn一键安装包(以测能安装成功)</span></a></li></ul></nav>
+  
+<!-- Button trigger modal -->
+<blockquote class="donate"><!--
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#DonateModal">
+    Donate
+  </button>-->
+  <p>
+  <a href="#" role="button" data-toggle="modal" data-target="#DonateModal"><img src="/image/donate_button.png">
+  <span>Dear reader, if you feel this good, could you rewark me a `bread` as awark? Thank you very much~</span></a>
+  </p>
+</blockquote>
+<!-- Modal -->
+<div class="modal fade" id="DonateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Donate</h4>
+      </div>
+      <div class="modal-body"><!--
+        <table>
+        <thead>
+          <th class="text-center">支付宝</th>
+          <th class="text-center">微信支付</th>
+        </thead>
+        <tr>
+          <td><img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+          <td><img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+        </tr>
+        </table>-->
+        <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">支付宝</span>
+            <img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="donate" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">微信支付</span>
+            <img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="donate" />
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a name="comment"></a>
+
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="d4c6728e13da102df252e04106b8f0a3" data-title="使用Strongswan搭建IPSec/IKEv2 VPN" data-url="http://www.5cc.xyz/2015/04/26/e4-bd-bf-e7-94-a8strongswan-e6-90-ad-e5-bb-baipsecikev2-vpn/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"ieclipse"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+
+</div>
+
+    
+  </div>
+  <!-- aside -->
+  <div class="col-sx-12 col-sm-4 col-md-3 col-lg-3">
+    <aside>
+    </aside>
+  </div>
+</div>
+</div>
+  <!-- footer -->
+  <footer id="footer">
+  <div class="divider"></div>
+  <div>&nbsp;</div>
+  <div class="inner text-center">
+    <div id="footer-copyright">
+      &copy; 2016 <a href="http://ieclipse.cn/" target="_blank">Any_冰</a> powered by <a href="http://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Jamling/hexo-theme-nova" target="_blank">Nova</a><br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div>
+      <a href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备15019510号</a>
+    </div>
+  </div>
+</footer>
+
+  <!-- fixed action bar -->
+  
+  <div class="fab" style="bottom: 45px; right: 24px;">
+    <ul class="top-expand" id="top-expand">
+      <li><a class="fab-item large red" href="#top"><i class="icon nova-top"></i></a></li>
+      <li><a class="fab-item large yellow " href="http://www.jiathis.com/share?uid=2064663" target="_blank"><i class="icon nova-share"></i></a></li>
+    </ul>
+    <a class="fab-item large red " onclick="$('#top-expand').toggle();">
+      <i class="icon nova-list-ul"></i>
+    </a>
+  </div>
+  <!-- after footer, some 3rd script place here -->
+    <script type="text/javascript">
+    var hljs_labels = {
+        left: "Code",
+        right: ":",
+        copy: "Copy to clipboard"
+    }
+    </script>
+    <script src="/js/hljs.js"></script>
+    <script src="/js/script.js"></script>
+    
+    <!-- 安装自动推送JS代码的网页，在页面被访问时，页面URL将立即被推送给百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    
+    <!-- 新建的搜索框代码，建立使用你自己的代码替换-->
+<script type="text/javascript">
+(function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=11812712506721118476' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();
+</script>
+    
+<!-- LeanClound官方Javascript SDK -->
+<script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
+<script>
+  AV.init({
+    appId : 'rYUER9KxmGUXSpfEtu7wCFMo-gzGzoHsz',
+    appKey : 'k7hzTkcS0blxgry4VT9rJjYj'
+  });
+
+  var lc_config = {
+    pageId : 'd4c6728e13da102df252e04106b8f0a3',
+    url : 'http://www.5cc.xyz/2015/04/26/e4-bd-bf-e7-94-a8strongswan-e6-90-ad-e5-bb-baipsecikev2-vpn/' || '2015/04/26/e4-bd-bf-e7-94-a8strongswan-e6-90-ad-e5-bb-baipsecikev2-vpn/',
+    title : '使用Strongswan搭建IPSec/IKEv2 VPN'
+  };
+  
+  var lc_table = 'Counter' || 'Counter';
+
+  (function() {
+    var query = new AV.Query(lc_table);
+    query.select(['-ACL']);
+    query.equalTo('pageId', lc_config.pageId);
+    query.first({
+      success: function(results) {
+        // results is an array of AV.Object.
+        if (typeof results === 'undefined') {
+          insert(results);
+          return;
+        }
+        console.log(results._serverData);
+        update(results);
+        show(results);
+      },
+      error: function(error) {
+        // error is an instance of AV.Error.
+        console.log(error);
+      }
+    });
+
+    function insert(data) {
+      if (!data) {
+        console.log('data is null new object');
+        var M = AV.Object.extend(lc_table);
+        data = new M();
+        data.set('views', 1);
+      }
+      for ( var key in lc_config) {
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log('created objectId is ' + data.id);
+      }, function(error) {
+        console.log("create object failed");
+        console.log(error);
+      });
+    }
+
+    function update(data) {
+      data.increment('views', 1);
+      for ( var key in lc_config) {
+        if (key !== 'pageId')
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log("update to " + data.get('views'));
+      }, function(error) {
+        console.log("update object failed");
+        console.log(error);
+      });
+    }
+    
+    function show(data) {
+      $(".post-share .nova-eye .count").html(data.get('views'));
+    }
+  })();
+</script>
+
+</body>
+</html>

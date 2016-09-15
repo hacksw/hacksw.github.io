@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<head>
+  <meta charset="utf-8">
+  <title>Centos 7 安装 l2tp/ipsec vpn</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="便宜vps,Centos 7 安装 l2tp/ipsec vpn">
+  <meta name="description" content="1.安装 l2tp ipsec 所需要的软件包
+yum install epel-release">
+   
+
+  <meta name="og:type" content="article">
+  <meta name="og:site_name" content="Jamling's Blog and Project Site">
+  <meta name="og:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="og:title" content="Centos 7 安装 l2tp/ipsec vpn">
+  <meta name="og:url" content="http://www.5cc.xyz/2015/09/29/centos-7-e5-ae-89-e8-a3-85-l2tpipsec-vpn/">
+  <meta name="og:description" content="1.安装 l2tp ipsec 所需要的软件包
+yum install epel-release">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="Jamling's Blog and Project Site">
+  <meta name="twitter:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="twitter:title" content="Centos 7 安装 l2tp/ipsec vpn">
+  <meta name="twitter:creator" content="@JamlingLi">
+  <meta name="twitter:description" content="1.安装 l2tp ipsec 所需要的软件包
+yum install epel-release">
+
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.5cc.xyz/2015/09/29/centos-7-e5-ae-89-e8-a3-85-l2tpipsec-vpn/index.html">
+  <!-- Alternative links -->
+  <!-- CSS and JS-->
+  <script src="//cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/sidr/2.2.1/jquery.sidr.min.js"></script>
+<script src="/js/jquery.bootstrap-autohidingnavbar.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/sidr/2.2.1/stylesheets/jquery.sidr.dark.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.css">
+<script src="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.js"></script>
+<script src="//cdn.bootcss.com/zclip/1.1.2/jquery.zclip.min.js"></script>
+<link rel="stylesheet" href="/css/nova_font.css">
+<link rel="stylesheet" href="/css/bs/nova.css">
+
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="Tell YOU">
+  <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+  <!-- header -->
+  <header>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse_" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/" id="logo"><img src="/image/logo.png" height="50"></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+        <li><a href="/" class="main-nav">Home</a></li><li><a href="/p/" class="main-nav">Projects</a></li><li><a href="/categories/" class="main-nav">Category</a></li><li><a href="/archives/" class="main-nav">Archives</a></li><li><a href="/donate/" class="main-nav">Donate</a></li><li><a href="/about/" class="main-nav">About</a></li>
+        </ul>
+        <!-- search input -->
+        
+
+<!-- 百度站内搜索（已通过站点验证） -->
+<form class="navbar-form navbar-left" role="search"
+  action="//search.ieclipse.cn/cse/search">
+  <div class="form-group search">
+    <input type="text" name="q" id="bdcsMain" class="form-control primary" aria-label="..." placeholder="Search">
+    <input type="hidden" name="s" value="11812712506721118476">
+    <input type="hidden" name="nsid" value="0">
+    <!-- 
+    <input name="tn" type="hidden" value="SE_zzsearchcode_shhzc78w">
+    <input name="cl" type="hidden" value="3">
+    <input name="ct" type="hidden" value="2097152">
+    <input name="si" type="hidden" value="ieclipse.cn">
+    <input name="ie" type="hidden" value="utf-8">
+    -->
+  </div>
+</form>
+
+        <ul class="nav navbar-nav navbar-right">
+        </ul>
+      </div>
+    </div>
+
+    <script>
+        <!-- mobile -->
+    	$('.navbar-toggle').sidr({
+	      name: 'sidr-main',
+	      source: '#bs-example-navbar-collapse-1'
+	    });
+    	$('body').click(function(){
+    	  $.sidr('close', 'sidr-main');
+    	});
+    	
+    	$(".navbar-fixed-top").autoHidingNavbar({
+    	  // see next for specifications
+    	});
+    </script>
+  </nav>
+</header>
+
+  <!-- main -->
+  
+<div class="container container-fluid">
+<div class="row">
+  <div class="col-sx-12 col-sm-8 col-md-9 col-lg-9">
+    
+    
+    <article class="article post" itemscope="itemscope" itemtype="http://schema.org/Article">
+  <header class="article-header">
+    <div class="page-path"><span class="post-category"><span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>Path: <a class="category-item" href="/">Blog</a><a class="category-item" href="/categories/便宜vps/">便宜vps</a></span></div>
+    <div class="divider"></div>
+      <h1 class="article-title" itemprop="name">Centos 7 安装 l2tp/ipsec vpn</h1>
+    <div class="post-header clearfix">
+      <span class="post-date"><span class="hidden-xs icon nova-calendar">Post at: </span>
+      <time datetime="2015-09-29T14:20:51.000Z" itemprop="datePublished"><time datetime="2015-09-29T14:20:51.000Z">2015-09-29</time></time>
+      </span>
+      
+      <span class="post-share">
+        <a href="#share" class="icon nova-share"><span class="hidden-xs">Share</span><span class="jiathis_counter_style"></span></a>
+        <a href="#comment" class="icon nova-bubbles"><span class="ds-thread-count" data-thread-key="41684ff5e890d9cf0f638b68af5316eb"></span><!-- <span class="hidden-xs">Comment</span> --></a>
+        <a href="#like" class="icon nova-heart2-full"><span class="count"></span><span class="hidden-xs">Like</span></a>
+        <a href="#" class="icon nova-eye"><span class="count"></span><span class="hidden-xs">Views</span></a>
+      </span>
+    </div>
+    <div class="divider"></div>
+  </header>
+  <div class="article-content" itemprop="articleBody" id="post-content">
+    <h2 id="1-安装-l2tp-ipsec-所需要的软件包"><a href="#1-安装-l2tp-ipsec-所需要的软件包" class="headerlink" title="1.安装 l2tp ipsec 所需要的软件包"></a>1.安装 l2tp ipsec 所需要的软件包</h2><blockquote>
+<p>yum install epel-release</p>
+<p>yum install openswan xl2tpd ppp lsof</p>
+</blockquote>
+<h2 id="2-设置ipsec"><a href="#2-设置ipsec" class="headerlink" title="2.设置ipsec"></a>2.设置ipsec</h2><blockquote>
+<h3 id="2-1-编辑-etc-ipsec-conf"><a href="#2-1-编辑-etc-ipsec-conf" class="headerlink" title="2.1 编辑 /etc/ipsec.conf"></a>2.1 编辑 /etc/ipsec.conf</h3><blockquote>
+<p>vi /etc/ipsec.conf</p>
+<p>把下面xx.xxx.xxx.xxx换成你自己主机实际的外网固定IP。其他的不动。</p>
+<p>&nbsp;</p>
+<p>config setup</p>
+<p>protostack=netkey</p>
+<p>dumpdir=/var/run/pluto/</p>
+<p>nat_traversal=yes</p>
+<p>virtual_private=%v4:10.0.0.0/8,%v4:192.168.0.0/16,%v4:172.16.0.0/12,%v4:25.0.0.0/8,%v4:100.64.0.0/10,%v6:fd00::/8,%v6:fe80::/10</p>
+<p>conn L2TP-PSK-NAT</p>
+<p>rightsubnet=vhost:%priv</p>
+<p>also=L2TP-PSK-noNAT</p>
+<p>conn L2TP-PSK-noNAT</p>
+<p>authby=secret</p>
+<p>pfs=no</p>
+<p>auto=add</p>
+<p>keyingtries=3</p>
+<p>dpddelay=30</p>
+<p>dpdtimeout=120</p>
+<p>dpdaction=clear</p>
+<p>rekey=no</p>
+<p>ikelifetime=8h</p>
+<p>keylife=1h</p>
+<p>type=transport</p>
+<p>left=xxx.xxx.xxx.xxx</p>
+<p>leftprotoport=17/1701</p>
+<p>right=%any</p>
+<p>rightprotoport=17/%any</p>
+</blockquote>
+<h3 id="2-2-编辑-etc-ipsec-secrets"><a href="#2-2-编辑-etc-ipsec-secrets" class="headerlink" title="2.2 编辑/etc/ipsec.secrets"></a>2.2 编辑/etc/ipsec.secrets</h3><blockquote>
+<p>vi /etc/ipsec.secrets</p>
+<p>include /etc/ipsec.d/*.secrets</p>
+<p>/etc/ipsec.secrets 文件里面默认有一句包含 /etc/ipsec.d/<em>.secrets 的语句.所以可以直接在 /etc/ipsec.d 目录下新建一自己的个 </em>.secrets 文件.也可以直接把它注释掉,添加下面的配置语句.</p>
+<p>vi /etc/ipsec.d/my.secrets</p>
+<p>&nbsp;</p>
+<pre>xxx.xxx.xxx.xxx %any: PSK "kuaile"</pre>
+
+<p>&nbsp;</p>
+<p>xx.xxx.xxx.xxx换成你自己VPS实际的外网固定IP, YourPsk你自己定一个，到时候连VPN的时候用，比如可以填csdn.net, 注意空格。</p>
+</blockquote>
+<h3 id="2-3-修改-添加-etc-sysctl-conf"><a href="#2-3-修改-添加-etc-sysctl-conf" class="headerlink" title="2.3 修改/添加 /etc/sysctl.conf"></a>2.3 修改/添加 /etc/sysctl.conf</h3><blockquote>
+<p>vi /etc/sysctl.conf</p>
+<p>确保下面的字段都有，对应的值或下面一样。省事的话直接在/etc/sysctl.conf的末尾直接把下面内容的粘过去。</p>
+<p>&nbsp;</p>
+<pre>net.ipv4.ip_forward = 1</pre>
+
+<pre>net.ipv4.conf.default.accept_redirects = 0</pre>
+
+<pre>net.ipv4.conf.default.send_redirects = 0
+
+net.ipv4.conf.eth0.rp_filter = 0</pre>
+
+<pre>net.ipv4.conf.default.rp_filter = 0</pre>
+
+
+</blockquote>
+<h3 id="2-4-让修改后的sysctl-conf生效"><a href="#2-4-让修改后的sysctl-conf生效" class="headerlink" title="2.4 让修改后的sysctl.conf生效"></a>2.4 让修改后的sysctl.conf生效</h3><h3 id="sysctl-p"><a href="#sysctl-p" class="headerlink" title="sysctl -p"></a>sysctl -p</h3><h3 id="2-5-验证ipsec运行状态"><a href="#2-5-验证ipsec运行状态" class="headerlink" title="2.5 验证ipsec运行状态"></a>2.5 验证ipsec运行状态</h3><blockquote>
+<p>ipsec setup start</p>
+<p>ipsec verify</p>
+<p>verify的内容如下所示，那么就离成功不远了。没有 红色 的fail 就可以了.</p>
+<p>&nbsp;</p>
+<p>[root@Centos7 ~]# ipsec verify</p>
+<p>Verifying installed system and configuration files</p>
+<p>Version check and ipsec on-path                       [OK]</p>
+<p>Libreswan 3.8 (netkey) on 3.10.0-123.9.3.el7.x86_64</p>
+<p>Checking for IPsec support in kernel                  [OK]</p>
+<p>NETKEY: Testing XFRM related proc values</p>
+<p>ICMP default/send_redirects                  [OK]</p>
+<p>ICMP default/accept_redirects                [OK]</p>
+<p>XFRM larval drop                             [OK]</p>
+<p>Pluto ipsec.conf syntax                               [OK]</p>
+<p>Hardware random device                                [N/A]</p>
+<p>Checking rp_filter                                    [OK]</p>
+<p>Checking that pluto is running                        [OK]</p>
+<p>Pluto listening for IKE on udp 500                   [OK]</p>
+<p>Pluto listening for IKE/NAT-T on udp 4500            [OK]</p>
+<p>Pluto ipsec.secret syntax                            [OK]</p>
+<p>Checking NAT and MASQUERADEing                        [TEST INCOMPLETE]</p>
+<p>Checking ‘ip’ command                                 [OK]</p>
+<p>Checking ‘iptables’ command                           [OK]</p>
+<p>Checking ‘prelink’ command does not interfere with FIPSChecking for obsolete ipsec.conf options              [OK]</p>
+<p>Opportunistic Encryption                              [DISABLED]</p>
+<p>[root@Centos7 ~]#</p>
+</blockquote>
+</blockquote>
+<h2 id="3-设置-l2tp"><a href="#3-设置-l2tp" class="headerlink" title="3. 设置 l2tp"></a>3. 设置 l2tp</h2><blockquote>
+<h3 id="3-1-编辑-etc-xl2tpd-xl2tpd-conf"><a href="#3-1-编辑-etc-xl2tpd-xl2tpd-conf" class="headerlink" title="3.1 编辑 /etc/xl2tpd/xl2tpd.conf"></a>3.1 编辑 /etc/xl2tpd/xl2tpd.conf</h3><blockquote>
+<p>vim /etc/xl2tpd/xl2tpd.conf</p>
+<p>&nbsp;</p>
+<p>[global]</p>
+<p>ipsec saref = yes</p>
+<p>listen-addr = xxx.xxx.xxx.xxx         ;这里是你的主机外网ip地址,;号是注释,和一般的配置文件不同</p>
+<p>; Use refinfo of 22 if using an SAref kernel patch based on openswan 2.6.35 or</p>
+<p>;  when using any of the SAref kernel patches for kernels up to 2.6.35.</p>
+<p>; saref refinfo = 30</p>
+<p>;</p>
+<p>force userspace = yes</p>
+<p>;</p>
+<p>; debug tunnel = yes</p>
+<p>[lns default]</p>
+<p>ip range = 10.0.10.2-10.0.10.100      ;这里是VPN client的内网ip地址范围</p>
+<p>local ip = 10.0.10.1                  ;这里是VPN server的内网地址</p>
+<p>refuse chap = yes</p>
+<p>refuse pap = yes</p>
+<p>require authentication = yes</p>
+<p>name = LinuxVPNserver</p>
+<p>ppp debug = yes</p>
+<p>pppoptfile = /etc/ppp/options.xl2tpd</p>
+<p>length bit = yes</p>
+<p>###</p>
+</blockquote>
+<h3 id="3-2-编辑-etc-ppp-options-xl2tpd"><a href="#3-2-编辑-etc-ppp-options-xl2tpd" class="headerlink" title="3.2 编辑 /etc/ppp/options.xl2tpd"></a>3.2 编辑 /etc/ppp/options.xl2tpd</h3><blockquote>
+<p>vi /etc/ppp/options.xl2tpd</p>
+<p>&nbsp;</p>
+<p>name l2tpd</p>
+<p>require-mschap-v2</p>
+<p>ms-dns 8.8.8.8</p>
+<p>ms-dns 8.8.4.4</p>
+<p>ipcp-accept-local</p>
+<p>ipcp-accept-remote</p>
+<p>#ms-dns  8.8.8.8</p>
+<p>noccp</p>
+<p>auth</p>
+<p>crtscts</p>
+<p>idle 1800</p>
+<p>mtu 1410</p>
+<p>mru 1410</p>
+<p>nodefaultroute</p>
+<p>debug</p>
+<p>lock</p>
+<p>proxyarp</p>
+<p>connect-delay 5000</p>
+<p>&nbsp;</p>
+<h3 id="3-3-配置用户名-密码-编辑-etc-ppp-chap-secrets"><a href="#3-3-配置用户名-密码-编辑-etc-ppp-chap-secrets" class="headerlink" title="3.3 配置用户名,密码:编辑 /etc/ppp/chap-secrets"></a>3.3 配置用户名,密码:编辑 /etc/ppp/chap-secrets</h3><p>vim /etc/ppp/chap-secrets</p>
+<p>client和secret自己填，server和IP留<em>号，l2tp 可以用上面自己设定的 l2tpd .</em> 通用</p>
+<h1 id="Secrets-for-authentication-using-CHAP"><a href="#Secrets-for-authentication-using-CHAP" class="headerlink" title="Secrets for authentication using CHAP"></a>Secrets for authentication using CHAP</h1><h1 id="client-server-secret-IP-addresses"><a href="#client-server-secret-IP-addresses" class="headerlink" title="client        server  secret                  IP addresses"></a>client        server  secret                  IP addresses</h1><p>username <em> userpass </em></p>
+</blockquote>
+<h3 id="3-4-启动xl2tp"><a href="#3-4-启动xl2tp" class="headerlink" title="3.4 启动xl2tp"></a>3.4 启动xl2tp</h3><blockquote>
+<p><pre>service xl2tpd start</pre><br>&nbsp;</p>
+</blockquote>
+</blockquote>
+<h2 id="4-开放端口以及转发"><a href="#4-开放端口以及转发" class="headerlink" title="4. 开放端口以及转发"></a>4. 开放端口以及转发</h2><blockquote>
+<p>原样执行下面所有命令</p>
+<p>&nbsp;</p>
+<p>/sbin/iptables -A INPUT -p udp -m policy –dir in –pol ipsec -m udp –dport 1701 -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -p udp -m udp –dport 1701 -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -p udp -m udp –dport 500 -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -p udp -m udp –dport 4500 -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -p esp -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -m policy –dir in –pol ipsec -j ACCEPT</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>/sbin/iptables -A FORWARD -d 10.0.10.0/24 -j ACCEPT</p>
+<p>/sbin/iptables -A FORWARD -s 10.0.10.0/24 -j ACCEPT</p>
+<p>/sbin/iptables -A FORWARD -i ppp+ -m state –state NEW,RELATED,ESTABLISHED -j ACCEPT</p>
+<p>/sbin/iptables -A FORWARD -m state –state RELATED,ESTABLISHED -j ACCEPT</p>
+<p>&nbsp;</p>
+<p>/sbin/iptables -t nat -A POSTROUTING -s 10.0.10.0/24 -o eth0 -j MASQUERADE</p>
+<p>&nbsp;<br>&nbsp;<br>再执行下面保存iptables</p>
+<p>service iptables save</p>
+<p>service iptables restart<br>&nbsp;<br>添加开机自启动</p>
+<p>systemd enabled ipsec</p>
+<p>systemd enabled xl2tpd<br>如果连接不上的话, 先关掉iptalbes试试 service iptables stop</p>
+</blockquote>
+<p>如果这时还连不上了，那么就是iptables的问题了</p>
+<p>特别注意iptables里的顺序， INPUT和FORWARD里的REJECT一定是写在最后面，否则写在他们之后的port就都被REJECT了！</p>
+<p>下面是我自己的iptables，可供参考</p>
+<p>##########################################################################################</p>
+<p>&nbsp;</p>
+<blockquote>
+<blockquote>
+<p>#! /bin/bash</p>
+<p>/sbin/iptables -F INPUT</p>
+<p>/sbin/iptables -Z INPUT</p>
+<p>/sbin/iptables -P INPUT ACCEPT</p>
+<p>/sbin/iptables -A INPUT -m state –state INVALID -j DROP</p>
+<p>/sbin/iptables -A INPUT -p icmp -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -i lo -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -p tcp -m state –state NEW,RELATED,ESTABLISHED -m tcp –dport 22 -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -p tcp -m state –state NEW,RELATED,ESTABLISHED -m tcp –dport 80 -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -p tcp -m state –state NEW,RELATED,ESTABLISHED -m tcp –dport 1723 -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -p gre -m state –state NEW,RELATED,ESTABLISHED -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -p udp -m policy –dir in –pol ipsec -m udp –dport 1701 -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -p udp -m udp –dport 1701 -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -p udp -m udp –dport 500 -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -p udp -m udp –dport 4500 -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -p esp -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -m policy –dir in –pol ipsec -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -m state –state RELATED,ESTABLISHED -j ACCEPT</p>
+<p>/sbin/iptables -A INPUT -j REJECT –reject-with icmp-host-prohibited</p>
+<p>/sbin/iptables -F FORWARD</p>
+<p>/sbin/iptables -Z FORWARD</p>
+<p>/sbin/iptables -P FORWARD ACCEPT</p>
+<p>/sbin/iptables -A FORWARD -m state –state INVALID -j DROP</p>
+<p>#/sbin/iptables -A FORWARD -m policy –dir in –pol ipsec -j ACCEPT</p>
+<p>/sbin/iptables -A FORWARD -d 10.0.10.0/24 -j ACCEPT</p>
+<p>/sbin/iptables -A FORWARD -s 10.0.10.0/24 -j ACCEPT</p>
+<p>/sbin/iptables -A FORWARD -i ppp+ -m state –state NEW,RELATED,ESTABLISHED -j ACCEPT</p>
+<p>/sbin/iptables -A FORWARD -m state –state RELATED,ESTABLISHED -j ACCEPT</p>
+<p>/sbin/iptables -A FORWARD -j REJECT –reject-with icmp-host-prohibited</p>
+<p>/sbin/iptables -F OUTPUT</p>
+<p>/sbin/iptables -Z OUTPUT</p>
+<p>/sbin/iptables -P OUTPUT ACCEPT</p>
+<p>/sbin/iptables -A OUTPUT -m state –state INVALID -j DROP</p>
+<p>/sbin/iptables -F -t nat</p>
+<p>/sbin/iptables -Z -t nat</p>
+<p>/sbin/iptables -t nat -A POSTROUTING -s 10.0.10.0/24 -o eth0 -j MASQUERADE</p>
+</blockquote>
+</blockquote>
+
+  </div>
+  <footer class="article-footer">
+    <time class="article-footer-updated" datetime="2016-09-15T14:57:53.000Z" itemprop="dateModified">
+        Last updated:  <span class="">2016-09-15</span>
+    </time>
+    
+  <!-- JiaThis Button BEGIN -->
+  <div class="jiathis_style clearfix"><a id="share" href="#share"></a>
+      <span class="jiathis_txt icon nova-share">Share：</span>
+      <a class="jiathis_button_tsina">Weibo</a>
+      <a class="jiathis_button_weixin">Wechat</a>
+      <a class="jiathis_button_twitter">Twitter</a>
+      <a class="jiathis_button_copy">Copy Link</a>
+      <a class="jiathis_button_ishare">One Share</a>
+      <a href="http://www.jiathis.com/share?uid=2064663" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">More</a>
+<!--       <a class="jiathis_counter_style"></a> -->
+  </div>
+  <!-- JiaThis Button END -->
+  <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2064663" charset="utf-8" async="async"></script>
+
+  </footer>
+  <span itemprop="author publisher" itemscope="itemscope" itemtype="http://schema.org/Organization">
+    <meta content="http://www.5cc.xyz" itemprop="url">
+    <meta content="Jamling's Blog and Project Site" itemprop="name">
+    <meta content="/image/logo.png" itemprop="logo">
+  </span>
+</article>
+<div>
+  <nav><ul class="pager"><li class="previous"><a href="/2015/09/29/shadowsocks-e4-b8-80-e9-94-ae-e5-ae-89-e8-a3-85-e8-84-9a-e6-9c-ac-ef-bc-88centos67-e3-80-81ubuntu-e3-80-81debian-ef-bc-89/"><span aria-hidden="true">&larr;</span><span class="hidden-xs">Shadowsocks一键安装脚本（CentOS6,7、Ubuntu、Debian）</span></a></li><li class="next"><a href="/2015/09/29/e6-90-ac-e7-93-a6-e5-b7-a5shadowsocks-e6-9c-8d-e5-8a-a1-e5-99-a8tcp-e4-bc-98-e5-8c-96/"><span aria-hidden="true">&rarr;</span><span class="hidden-xs">搬瓦工shadowsocks服务器TCP优化</span></a></li></ul></nav>
+  
+<!-- Button trigger modal -->
+<blockquote class="donate"><!--
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#DonateModal">
+    Donate
+  </button>-->
+  <p>
+  <a href="#" role="button" data-toggle="modal" data-target="#DonateModal"><img src="/image/donate_button.png">
+  <span>Dear reader, if you feel this good, could you rewark me a `bread` as awark? Thank you very much~</span></a>
+  </p>
+</blockquote>
+<!-- Modal -->
+<div class="modal fade" id="DonateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Donate</h4>
+      </div>
+      <div class="modal-body"><!--
+        <table>
+        <thead>
+          <th class="text-center">支付宝</th>
+          <th class="text-center">微信支付</th>
+        </thead>
+        <tr>
+          <td><img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+          <td><img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+        </tr>
+        </table>-->
+        <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">支付宝</span>
+            <img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="donate" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">微信支付</span>
+            <img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="donate" />
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a name="comment"></a>
+
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="41684ff5e890d9cf0f638b68af5316eb" data-title="Centos 7 安装 l2tp/ipsec vpn" data-url="http://www.5cc.xyz/2015/09/29/centos-7-e5-ae-89-e8-a3-85-l2tpipsec-vpn/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"ieclipse"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+
+</div>
+
+    
+  </div>
+  <!-- aside -->
+  <div class="col-sx-12 col-sm-4 col-md-3 col-lg-3">
+    <aside>
+    </aside>
+  </div>
+</div>
+</div>
+  <!-- footer -->
+  <footer id="footer">
+  <div class="divider"></div>
+  <div>&nbsp;</div>
+  <div class="inner text-center">
+    <div id="footer-copyright">
+      &copy; 2016 <a href="http://ieclipse.cn/" target="_blank">Any_冰</a> powered by <a href="http://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Jamling/hexo-theme-nova" target="_blank">Nova</a><br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div>
+      <a href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备15019510号</a>
+    </div>
+  </div>
+</footer>
+
+  <!-- fixed action bar -->
+  
+  <div class="fab" style="bottom: 45px; right: 24px;">
+    <ul class="top-expand" id="top-expand">
+      <li><a class="fab-item large red" href="#top"><i class="icon nova-top"></i></a></li>
+      <li><a class="fab-item large yellow " href="http://www.jiathis.com/share?uid=2064663" target="_blank"><i class="icon nova-share"></i></a></li>
+    </ul>
+    <a class="fab-item large red " onclick="$('#top-expand').toggle();">
+      <i class="icon nova-list-ul"></i>
+    </a>
+  </div>
+  <!-- after footer, some 3rd script place here -->
+    <script type="text/javascript">
+    var hljs_labels = {
+        left: "Code",
+        right: ":",
+        copy: "Copy to clipboard"
+    }
+    </script>
+    <script src="/js/hljs.js"></script>
+    <script src="/js/script.js"></script>
+    
+    <!-- 安装自动推送JS代码的网页，在页面被访问时，页面URL将立即被推送给百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    
+    <!-- 新建的搜索框代码，建立使用你自己的代码替换-->
+<script type="text/javascript">
+(function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=11812712506721118476' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();
+</script>
+    
+<!-- LeanClound官方Javascript SDK -->
+<script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
+<script>
+  AV.init({
+    appId : 'rYUER9KxmGUXSpfEtu7wCFMo-gzGzoHsz',
+    appKey : 'k7hzTkcS0blxgry4VT9rJjYj'
+  });
+
+  var lc_config = {
+    pageId : '41684ff5e890d9cf0f638b68af5316eb',
+    url : 'http://www.5cc.xyz/2015/09/29/centos-7-e5-ae-89-e8-a3-85-l2tpipsec-vpn/' || '2015/09/29/centos-7-e5-ae-89-e8-a3-85-l2tpipsec-vpn/',
+    title : 'Centos 7 安装 l2tp/ipsec vpn'
+  };
+  
+  var lc_table = 'Counter' || 'Counter';
+
+  (function() {
+    var query = new AV.Query(lc_table);
+    query.select(['-ACL']);
+    query.equalTo('pageId', lc_config.pageId);
+    query.first({
+      success: function(results) {
+        // results is an array of AV.Object.
+        if (typeof results === 'undefined') {
+          insert(results);
+          return;
+        }
+        console.log(results._serverData);
+        update(results);
+        show(results);
+      },
+      error: function(error) {
+        // error is an instance of AV.Error.
+        console.log(error);
+      }
+    });
+
+    function insert(data) {
+      if (!data) {
+        console.log('data is null new object');
+        var M = AV.Object.extend(lc_table);
+        data = new M();
+        data.set('views', 1);
+      }
+      for ( var key in lc_config) {
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log('created objectId is ' + data.id);
+      }, function(error) {
+        console.log("create object failed");
+        console.log(error);
+      });
+    }
+
+    function update(data) {
+      data.increment('views', 1);
+      for ( var key in lc_config) {
+        if (key !== 'pageId')
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log("update to " + data.get('views'));
+      }, function(error) {
+        console.log("update object failed");
+        console.log(error);
+      });
+    }
+    
+    function show(data) {
+      $(".post-share .nova-eye .count").html(data.get('views'));
+    }
+  })();
+</script>
+
+</body>
+</html>

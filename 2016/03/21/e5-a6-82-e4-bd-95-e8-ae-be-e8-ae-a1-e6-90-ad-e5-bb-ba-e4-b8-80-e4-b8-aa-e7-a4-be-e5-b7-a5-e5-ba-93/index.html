@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<head>
+  <meta charset="utf-8">
+  <title>如何设计搭建一个社工库</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="记录,如何设计搭建一个社工库">
+  <meta name="description" content="http://le4f.net/post/post/build-social-engineer-evildata-search-engine">
+   
+
+  <meta name="og:type" content="article">
+  <meta name="og:site_name" content="Jamling's Blog and Project Site">
+  <meta name="og:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="og:title" content="如何设计搭建一个社工库">
+  <meta name="og:url" content="http://www.5cc.xyz/2016/03/21/e5-a6-82-e4-bd-95-e8-ae-be-e8-ae-a1-e6-90-ad-e5-bb-ba-e4-b8-80-e4-b8-aa-e7-a4-be-e5-b7-a5-e5-ba-93/">
+  <meta name="og:description" content="http://le4f.net/post/post/build-social-engineer-evildata-search-engine">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="Jamling's Blog and Project Site">
+  <meta name="twitter:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="twitter:title" content="如何设计搭建一个社工库">
+  <meta name="twitter:creator" content="@JamlingLi">
+  <meta name="twitter:description" content="http://le4f.net/post/post/build-social-engineer-evildata-search-engine">
+
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.5cc.xyz/2016/03/21/e5-a6-82-e4-bd-95-e8-ae-be-e8-ae-a1-e6-90-ad-e5-bb-ba-e4-b8-80-e4-b8-aa-e7-a4-be-e5-b7-a5-e5-ba-93/index.html">
+  <!-- Alternative links -->
+  <!-- CSS and JS-->
+  <script src="//cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/sidr/2.2.1/jquery.sidr.min.js"></script>
+<script src="/js/jquery.bootstrap-autohidingnavbar.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/sidr/2.2.1/stylesheets/jquery.sidr.dark.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.css">
+<script src="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.js"></script>
+<script src="//cdn.bootcss.com/zclip/1.1.2/jquery.zclip.min.js"></script>
+<link rel="stylesheet" href="/css/nova_font.css">
+<link rel="stylesheet" href="/css/bs/nova.css">
+
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="Tell YOU">
+  <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+  <!-- header -->
+  <header>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse_" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/" id="logo"><img src="/image/logo.png" height="50"></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+        <li><a href="/" class="main-nav">Home</a></li><li><a href="/p/" class="main-nav">Projects</a></li><li><a href="/categories/" class="main-nav">Category</a></li><li><a href="/archives/" class="main-nav">Archives</a></li><li><a href="/donate/" class="main-nav">Donate</a></li><li><a href="/about/" class="main-nav">About</a></li>
+        </ul>
+        <!-- search input -->
+        
+
+<!-- 百度站内搜索（已通过站点验证） -->
+<form class="navbar-form navbar-left" role="search"
+  action="//search.ieclipse.cn/cse/search">
+  <div class="form-group search">
+    <input type="text" name="q" id="bdcsMain" class="form-control primary" aria-label="..." placeholder="Search">
+    <input type="hidden" name="s" value="11812712506721118476">
+    <input type="hidden" name="nsid" value="0">
+    <!-- 
+    <input name="tn" type="hidden" value="SE_zzsearchcode_shhzc78w">
+    <input name="cl" type="hidden" value="3">
+    <input name="ct" type="hidden" value="2097152">
+    <input name="si" type="hidden" value="ieclipse.cn">
+    <input name="ie" type="hidden" value="utf-8">
+    -->
+  </div>
+</form>
+
+        <ul class="nav navbar-nav navbar-right">
+        </ul>
+      </div>
+    </div>
+
+    <script>
+        <!-- mobile -->
+    	$('.navbar-toggle').sidr({
+	      name: 'sidr-main',
+	      source: '#bs-example-navbar-collapse-1'
+	    });
+    	$('body').click(function(){
+    	  $.sidr('close', 'sidr-main');
+    	});
+    	
+    	$(".navbar-fixed-top").autoHidingNavbar({
+    	  // see next for specifications
+    	});
+    </script>
+  </nav>
+</header>
+
+  <!-- main -->
+  
+<div class="container container-fluid">
+<div class="row">
+  <div class="col-sx-12 col-sm-8 col-md-9 col-lg-9">
+    
+    
+    <article class="article post" itemscope="itemscope" itemtype="http://schema.org/Article">
+  <header class="article-header">
+    <div class="page-path"><span class="post-category"><span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>Path: <a class="category-item" href="/">Blog</a><a class="category-item" href="/categories/记录/">记录</a></span></div>
+    <div class="divider"></div>
+      <h1 class="article-title" itemprop="name">如何设计搭建一个社工库</h1>
+    <div class="post-header clearfix">
+      <span class="post-date"><span class="hidden-xs icon nova-calendar">Post at: </span>
+      <time datetime="2016-03-21T13:16:28.000Z" itemprop="datePublished"><time datetime="2016-03-21T13:16:28.000Z">2016-03-21</time></time>
+      </span>
+      
+      <span class="post-share">
+        <a href="#share" class="icon nova-share"><span class="hidden-xs">Share</span><span class="jiathis_counter_style"></span></a>
+        <a href="#comment" class="icon nova-bubbles"><span class="ds-thread-count" data-thread-key="6213eb9e161b71cd2a220a8716b3cc89"></span><!-- <span class="hidden-xs">Comment</span> --></a>
+        <a href="#like" class="icon nova-heart2-full"><span class="count"></span><span class="hidden-xs">Like</span></a>
+        <a href="#" class="icon nova-eye"><span class="count"></span><span class="hidden-xs">Views</span></a>
+      </span>
+    </div>
+    <div class="divider"></div>
+  </header>
+  <div class="article-content" itemprop="articleBody" id="post-content">
+    <p><a href="http://le4f.net/post/post/build-social-engineer-evildata-search-engine" target="_blank" rel="external">http://le4f.net/post/post/build-social-engineer-evildata-search-engine</a></p>
+<h4 id="如何设计搭建一个社工库"><a href="#如何设计搭建一个社工库" class="headerlink" title="如何设计搭建一个社工库"></a>如何设计搭建一个社工库</h4><p>从初起设计一个社工库，到现在的Beta，前前后后零零整整花了不下一个月的时间，林林总总记录下来，留给需要之人</p>
+<p>泄露数据库格式不一，长相奇葩，因需将用户名、密码、邮箱、哈希等信息按表分列入库，故整理数据是很耗时间的一步</p>
+<h5 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h5><p>选择了Debian x64+Mysql+Mysqlcft+Sphinx+Nginx+PHP</p>
+<p>轻量的sqlite数据库，但查询速度及空间消耗过大，对请求时sqlite处理效率较差</p>
+<p>mangodb，但mangodb在分布计算中有更好的优势而在社工库搭建中优势并不明显</p>
+<p>在mysql和postgresql中，选择历久弥新的mysql</p>
+<p>为方便社工库移植，使用VM建一个虚拟机，所有数据库均在虚拟机中，LNMP环境对外只提供PHP查询接口</p>
+<p>实际测试中，CentOS6.4虚拟机中因断电损失过多数据，并不如预想中稳定，且对CoreSeek版本较老的mmseg中文分词编译会出现各种各样的问题，难以解决。32位的操作系统在sphinx单个索引大小上会有限制，几次折腾后还是迁回了Debian7 X64</p>
+<h5 id="整理数据"><a href="#整理数据" class="headerlink" title="整理数据"></a>整理数据</h5><p>一般使用bash脚本完成。DEMO：</p>
+<p>普通格式：</p>
+<pre><code>#!/bin/bash
+sed &apos;/^[ \t]\{0,\}$/d&apos; $1  sed &apos;s/[\t ]/\t/g&apos;  sed &apos;s/\r//g&apos; sed &apos;/^\s*$/d&apos;  awk -F&quot;\t&quot; &apos;{print &quot;NULL&quot;$1&quot;&quot;$2&quot;&quot;$1&quot;xxxx&quot; }&apos;  iconv -c -f gb18030 -t UTF-8  sort  uniq 
+he`&lt;/pre&gt;
+UCmember格式：
+&lt;pre&gt;`#!/bin/bash
+sed &apos;s/[\r\n ]//g&apos; $1  tr -d &apos;\n&apos;  sed &quot;s/INSERTINTO\`bbs\_uc\_members\`VALUES(//g&quot;  sed &quot;s/&apos;,&apos;/\t/g&quot;  sed &quot;s/,&apos;/\t/g&quot;  sed &quot;s/&apos;,/\t/g&quot; sed &quot;s/&apos;);/\n/g&quot;  awk -F&quot;\t&quot; &apos;{ print &quot;NULL&quot;$2&quot;&quot;$3&quot;&quot;$9&quot;&quot;$4&quot;&quot;$7&quot;xxxx+xxxx+evil++&quot;}&apos;  sed &quot;/+evil++/d&quot;`&lt;/pre&gt;
+PW_MEMBER格式：
+&lt;pre&gt;`#!/bin/bash
+sed &apos;s/[\r\n ]//g&apos; $1  tr -d &apos;\n&apos;  sed &quot;s/INSERTINTO\`pw_members\`VALUES(&apos;/\n/g&quot;  sed &quot;s/&apos;,&apos;/\t/g&quot;  awk -F&quot;\t&quot; &apos;{ print $1&quot;&quot;$2&quot;&quot;$3&quot;&quot;$5&quot;xxxx&quot;}&apos;  sed &quot;/+evil++/d&quot;`&lt;/pre&gt;
+文件内格式不同的处理脚本eg：
+&lt;pre&gt;`#!/bin/bash
+sed &apos;s/\r//g&apos; $1  sed &quot;s/&apos;/[fenhao]/g&quot;  sed &apos;s/[ \t]\{1,\}/\t/g&apos;  sed &apos;s/-/\t/g&apos;  awk -F &quot;\t&quot; &apos;{ if ($2~/@163.com/)
+{
+if ($3~/^$/) {print &quot;NULL&quot;$1&quot;&quot;$2$3&quot;&quot;}
+else {print &quot;NULL&quot;$1&quot;&quot;$3&quot;&quot;}
+}
+else
+{print &quot;NULL&quot;$1&quot;&quot;$2&quot;&quot;}
+}&apos;  iconv -c -f gb18030 -t UTF-8  sort  uniq`&lt;/pre&gt;
+批量按行导入：
+&lt;pre&gt;`#!/bin/bash
+sed &apos;/^[ \t]\{0,\}$/d&apos; $1  sed &apos;s/\r//g&apos;  sed &apos;/^\s*$/d&apos;  awk &apos;{print &quot;NULL&quot;$0&quot;xxxx&quot; }&apos;`&lt;/pre&gt;
+对于数据库设计也尤为重要。测试后、按表存储、单表记录数不超过3W，否则建全文索引时间过长。
+
+##### 库表设计
+
+&lt;pre&gt;`CREATE TABLE `evil_xxxx_1` (
+`id` INT( 10 ) NOT NULL AUTO_INCREMENT,
+`username` VARCHAR( 64 ) ,
+`password` VARCHAR( 64 ) ,
+`passhash` VARCHAR( 64 ) ,
+`email` VARCHAR( 64 )
+);
+
+CREATE TABLE `evil_ucmember_1` (
+`id` INT( 10 ) NOT NULL AUTO_INCREMENT,
+`username` VARCHAR( 64 ) ,
+`password` VARCHAR( 64 ) ,
+`passhash` VARCHAR( 64 ) ,
+`salt` VARCHAR( 16 ) ,
+`email` VARCHAR( 64 ) ,
+`ip` VARCHAR( 32 ) ,
+`site` VARCHAR( 64 ) ,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE `evil_multinfo_1` (
+`id` INT( 10 ) NOT NULL AUTO_INCREMENT,
+`info` VARCHAR( 1024 ) ,
+`site` VARCHAR( 64 ) ,
+PRIMARY KEY (id)
+);`&lt;/pre&gt;
+分表的一个方案：
+&lt;pre&gt;`INSERT INTO evil_xx_1(evil_xx.id,evil_xx.username,evil_xx.password,evil_xx.passhash) SELECT (evil_xx.id,evil_xx.username,evil_xx.password,evil_xx.passhash)FROM evil_xx where user.id &amp;lt;= 30;`&lt;/pre&gt;
+
+##### 命令查询
+
+&lt;pre&gt;`show table status;//查看数据库状态
+desc table; //查看表结构
+set names &apos;utf8&apos;;//设置编码，数据表统一编码UTF-8
+drop index index_name on table_name; //删除索引
+alter table table_name add primary key(id);//添加主键
+alter table table_name drop PRIMARY KEY;//去掉主键
+truncate table table_name;//清空表中数据
+alter table 表名 rename to 新表名;//重命名表
+alter table table_name change Name Name varchar(16);//重命名列及格式
+alter table table_name add column xxxx varchar(64) after aaaa;//添加列
+alter table 表名 drop column 列名;//删除列
+set @t=0;
+update table_name set id=(@t:=@t+1);//重建ID`&lt;/pre&gt;
+
+##### 导入数据
+
+&lt;pre&gt;`load data infile &apos;/tmp/xxxx.sql&apos; 
+into table `evil_xxxx` 
+fields terminated by &apos;&apos;
+lines terminated by &apos;\n&apos;;`&lt;/pre&gt;
+速度相对较快
+
+##### 关于索引
+
+中文全文索引主要依赖mysqlctf和sphinx，测试发现，sphinx对于分词索引速度较快，但分词的原因导致诸如搜索humor却搜索不到humorous的情况，而mysqlctf索引速度相对较慢且无进度信息，但索引大小可控，一般全文索引1G数据库信息对应MYI大小为5-9G
+
+关于Coreseek的编译使用，官方有较多文档
+
+Sphinx配置文件（全文检索包括分词及最小分词5字母）
+&lt;pre&gt;`source evil_xxx
+{
+  type              = mysql
+  sql_host          = localhost
+  sql_user          = ooo
+  sql_pass          = xxx
+  sql_db            = db
+  sql_port          = 3306
+  sql_query_pre     = SET NAMES utf8
+  sql_query         = SELECT id,username,password,passhash,email FROM xxxx
+  sql_query_info    = SELECT * FROM xxxx WHERE id=$id
+}
+
+index evil_xxx
+{
+  source            = evil_xxx
+  path              = /usr/local/coreseek/var/data/evil_xxx
+  docinfo           = extern
+  mlock             = 0
+  morphology        = none
+  min_word_len      = 1
+  html_strip        = 0
+  charset_dictpath  = /usr/local/mmseg3/etc/
+  charset_type      = zh_cn.utf-8
+  ngram_len         = 0
+  min_infix_len     = 5
+  enable_star       = 1//允许模糊搜索
+}`&lt;/pre&gt;
+检索时调用官方API即可
+
+关于MYSQLCFT建立索引的方法
+
+首先是安装插件
+&lt;pre&gt;`wget http://mysqlcft.googlecode.com/files/mysqlcft-1.0.0-x86_64-bin.tar.gz
+tar zxvf mysqlcft-1.0.0-x86_64-bin.tar.gz
+mkdir -p /usr/local/mysqlcft/lib/mysql/plugin/
+cp mysqlcft.so /usr/local/mysqlcft/lib/mysql/plugin/`&lt;/pre&gt;
+登陆mysql后
+&lt;pre&gt;`INSTALL PLUGIN mysqlcft SONAME &apos;mysqlcft.so&apos;;
+SHOW PLUGINS;`&lt;/pre&gt;
+安装OK后建立索引
+&lt;pre&gt;`ALTER IGNORE TABLE 数据库名.表名 ADD FULLTEXT INDEX 全文联合索引名 (字段名1,字段名2) WITH PARSER mysqlcft;`&lt;/pre&gt;
+如
+&lt;pre&gt;`ALTER IGNORE TABLE db.evil_xxxx ADD FULLTEXT INDEX fullindex(username，password,passhash,email) WITH PARSER mysqlcft;`&lt;/pre&gt;
+在搜索时
+&lt;pre&gt;`SELECT * FROM evil_xxxx WHERE MATCH(username,password,passhash,email) AGAINST (&apos;searchinfo&apos; IN BOOLEAN MODE);`&lt;/pre&gt;
+重建索引
+&lt;pre&gt;`REPAIR TABLE 数据库名.表名 QUICK;
+</code></pre><h5 id="几个Tips"><a href="#几个Tips" class="headerlink" title="几个Tips"></a>几个Tips</h5><ul>
+<li>增加来源数据库/网站字段，方便针对查询</li>
+<li>同库分隔符格式不同，正则替换</li>
+<li>数据库引擎选择myisam（而不是INNODB），可使用alter转换</li>
+<li>入库分隔符为避免与密码字符重合，可使用类似==aaaa==等分隔符替换入库</li>
+<li>数据库中有的邮箱在前密码在后，有的密码在前，邮箱在后，使用awk多写几行分支语句</li>
+<li>配置my.cnf文件使得mysql数据处理效率最大化<br>From Le4F’Blog</li>
+</ul>
+
+  </div>
+  <footer class="article-footer">
+    <time class="article-footer-updated" datetime="2016-09-15T14:57:53.000Z" itemprop="dateModified">
+        Last updated:  <span class="">2016-09-15</span>
+    </time>
+    
+  <!-- JiaThis Button BEGIN -->
+  <div class="jiathis_style clearfix"><a id="share" href="#share"></a>
+      <span class="jiathis_txt icon nova-share">Share：</span>
+      <a class="jiathis_button_tsina">Weibo</a>
+      <a class="jiathis_button_weixin">Wechat</a>
+      <a class="jiathis_button_twitter">Twitter</a>
+      <a class="jiathis_button_copy">Copy Link</a>
+      <a class="jiathis_button_ishare">One Share</a>
+      <a href="http://www.jiathis.com/share?uid=2064663" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">More</a>
+<!--       <a class="jiathis_counter_style"></a> -->
+  </div>
+  <!-- JiaThis Button END -->
+  <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2064663" charset="utf-8" async="async"></script>
+
+  </footer>
+  <span itemprop="author publisher" itemscope="itemscope" itemtype="http://schema.org/Organization">
+    <meta content="http://www.5cc.xyz" itemprop="url">
+    <meta content="Jamling's Blog and Project Site" itemprop="name">
+    <meta content="/image/logo.png" itemprop="logo">
+  </span>
+</article>
+<div>
+  <nav><ul class="pager"><li class="previous"><a href="/2016/05/16/e5-a6-82-e4-bd-95-e5-9c-a8sea-e5-ae-89-e8-a3-85xsser-me/"><span aria-hidden="true">&larr;</span><span class="hidden-xs">如何在sea安装xsser.me</span></a></li><li class="next"><a href="/2016/03/18/e6-90-ac-e7-93-a6-e5-b7-a5vpsopenvz-e5-8a-a0-e9-80-9f-e5-88-a9-e5-99-a8finalspeed/"><span aria-hidden="true">&rarr;</span><span class="hidden-xs">搬瓦工VPS/OPENVZ加速利器FINALSPEED</span></a></li></ul></nav>
+  
+<!-- Button trigger modal -->
+<blockquote class="donate"><!--
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#DonateModal">
+    Donate
+  </button>-->
+  <p>
+  <a href="#" role="button" data-toggle="modal" data-target="#DonateModal"><img src="/image/donate_button.png">
+  <span>Dear reader, if you feel this good, could you rewark me a `bread` as awark? Thank you very much~</span></a>
+  </p>
+</blockquote>
+<!-- Modal -->
+<div class="modal fade" id="DonateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Donate</h4>
+      </div>
+      <div class="modal-body"><!--
+        <table>
+        <thead>
+          <th class="text-center">支付宝</th>
+          <th class="text-center">微信支付</th>
+        </thead>
+        <tr>
+          <td><img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+          <td><img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+        </tr>
+        </table>-->
+        <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">支付宝</span>
+            <img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="donate" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">微信支付</span>
+            <img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="donate" />
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a name="comment"></a>
+
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="6213eb9e161b71cd2a220a8716b3cc89" data-title="如何设计搭建一个社工库" data-url="http://www.5cc.xyz/2016/03/21/e5-a6-82-e4-bd-95-e8-ae-be-e8-ae-a1-e6-90-ad-e5-bb-ba-e4-b8-80-e4-b8-aa-e7-a4-be-e5-b7-a5-e5-ba-93/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"ieclipse"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+
+</div>
+
+    
+  </div>
+  <!-- aside -->
+  <div class="col-sx-12 col-sm-4 col-md-3 col-lg-3">
+    <aside>
+    </aside>
+  </div>
+</div>
+</div>
+  <!-- footer -->
+  <footer id="footer">
+  <div class="divider"></div>
+  <div>&nbsp;</div>
+  <div class="inner text-center">
+    <div id="footer-copyright">
+      &copy; 2016 <a href="http://ieclipse.cn/" target="_blank">Any_冰</a> powered by <a href="http://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Jamling/hexo-theme-nova" target="_blank">Nova</a><br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div>
+      <a href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备15019510号</a>
+    </div>
+  </div>
+</footer>
+
+  <!-- fixed action bar -->
+  
+  <div class="fab" style="bottom: 45px; right: 24px;">
+    <ul class="top-expand" id="top-expand">
+      <li><a class="fab-item large red" href="#top"><i class="icon nova-top"></i></a></li>
+      <li><a class="fab-item large yellow " href="http://www.jiathis.com/share?uid=2064663" target="_blank"><i class="icon nova-share"></i></a></li>
+    </ul>
+    <a class="fab-item large red " onclick="$('#top-expand').toggle();">
+      <i class="icon nova-list-ul"></i>
+    </a>
+  </div>
+  <!-- after footer, some 3rd script place here -->
+    <script type="text/javascript">
+    var hljs_labels = {
+        left: "Code",
+        right: ":",
+        copy: "Copy to clipboard"
+    }
+    </script>
+    <script src="/js/hljs.js"></script>
+    <script src="/js/script.js"></script>
+    
+    <!-- 安装自动推送JS代码的网页，在页面被访问时，页面URL将立即被推送给百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    
+    <!-- 新建的搜索框代码，建立使用你自己的代码替换-->
+<script type="text/javascript">
+(function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=11812712506721118476' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();
+</script>
+    
+<!-- LeanClound官方Javascript SDK -->
+<script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
+<script>
+  AV.init({
+    appId : 'rYUER9KxmGUXSpfEtu7wCFMo-gzGzoHsz',
+    appKey : 'k7hzTkcS0blxgry4VT9rJjYj'
+  });
+
+  var lc_config = {
+    pageId : '6213eb9e161b71cd2a220a8716b3cc89',
+    url : 'http://www.5cc.xyz/2016/03/21/e5-a6-82-e4-bd-95-e8-ae-be-e8-ae-a1-e6-90-ad-e5-bb-ba-e4-b8-80-e4-b8-aa-e7-a4-be-e5-b7-a5-e5-ba-93/' || '2016/03/21/e5-a6-82-e4-bd-95-e8-ae-be-e8-ae-a1-e6-90-ad-e5-bb-ba-e4-b8-80-e4-b8-aa-e7-a4-be-e5-b7-a5-e5-ba-93/',
+    title : '如何设计搭建一个社工库'
+  };
+  
+  var lc_table = 'Counter' || 'Counter';
+
+  (function() {
+    var query = new AV.Query(lc_table);
+    query.select(['-ACL']);
+    query.equalTo('pageId', lc_config.pageId);
+    query.first({
+      success: function(results) {
+        // results is an array of AV.Object.
+        if (typeof results === 'undefined') {
+          insert(results);
+          return;
+        }
+        console.log(results._serverData);
+        update(results);
+        show(results);
+      },
+      error: function(error) {
+        // error is an instance of AV.Error.
+        console.log(error);
+      }
+    });
+
+    function insert(data) {
+      if (!data) {
+        console.log('data is null new object');
+        var M = AV.Object.extend(lc_table);
+        data = new M();
+        data.set('views', 1);
+      }
+      for ( var key in lc_config) {
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log('created objectId is ' + data.id);
+      }, function(error) {
+        console.log("create object failed");
+        console.log(error);
+      });
+    }
+
+    function update(data) {
+      data.increment('views', 1);
+      for ( var key in lc_config) {
+        if (key !== 'pageId')
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log("update to " + data.get('views'));
+      }, function(error) {
+        console.log("update object failed");
+        console.log(error);
+      });
+    }
+    
+    function show(data) {
+      $(".post-share .nova-eye .count").html(data.get('views'));
+    }
+  })();
+</script>
+
+</body>
+</html>

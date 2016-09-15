@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<head>
+  <meta charset="utf-8">
+  <title>CentOS下shadowsocks-go一键安装脚本</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="随笔记录,CentOS下shadowsocks-go一键安装脚本">
+  <meta name="description" content="本脚本适用环境：系统支持：CentOS 5 &amp; 6 &amp; 7 32或64位内存要求：≥128M日期：2015年01月08日">
+   
+
+  <meta name="og:type" content="article">
+  <meta name="og:site_name" content="Jamling's Blog and Project Site">
+  <meta name="og:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="og:title" content="CentOS下shadowsocks-go一键安装脚本">
+  <meta name="og:url" content="http://www.5cc.xyz/2015/02/16/centos-e4-b8-8bshadowsocks-go-e4-b8-80-e9-94-ae-e5-ae-89-e8-a3-85-e8-84-9a-e6-9c-ac/">
+  <meta name="og:description" content="本脚本适用环境：系统支持：CentOS 5 &amp; 6 &amp; 7 32或64位内存要求：≥128M日期：2015年01月08日">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="Jamling's Blog and Project Site">
+  <meta name="twitter:image" content="http://www.5cc.xyz/image/logo.png">
+  <meta name="twitter:title" content="CentOS下shadowsocks-go一键安装脚本">
+  <meta name="twitter:creator" content="@JamlingLi">
+  <meta name="twitter:description" content="本脚本适用环境：系统支持：CentOS 5 &amp; 6 &amp; 7 32或64位内存要求：≥128M日期：2015年01月08日">
+
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.5cc.xyz/2015/02/16/centos-e4-b8-8bshadowsocks-go-e4-b8-80-e9-94-ae-e5-ae-89-e8-a3-85-e8-84-9a-e6-9c-ac/index.html">
+  <!-- Alternative links -->
+  <!-- CSS and JS-->
+  <script src="//cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="//cdn.bootcss.com/sidr/2.2.1/jquery.sidr.min.js"></script>
+<script src="/js/jquery.bootstrap-autohidingnavbar.min.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/sidr/2.2.1/stylesheets/jquery.sidr.dark.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css">
+<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
+<script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css">
+<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.css">
+<script src="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.js"></script>
+<script src="//cdn.bootcss.com/zclip/1.1.2/jquery.zclip.min.js"></script>
+<link rel="stylesheet" href="/css/nova_font.css">
+<link rel="stylesheet" href="/css/bs/nova.css">
+
+  <!-- RSS -->
+  <link rel="alternate" href="/atom.xml" title="Tell YOU">
+  <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon" />
+</head>
+<body>
+  <!-- header -->
+  <header>
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse_" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/" id="logo"><img src="/image/logo.png" height="50"></a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+        <li><a href="/" class="main-nav">Home</a></li><li><a href="/p/" class="main-nav">Projects</a></li><li><a href="/categories/" class="main-nav">Category</a></li><li><a href="/archives/" class="main-nav">Archives</a></li><li><a href="/donate/" class="main-nav">Donate</a></li><li><a href="/about/" class="main-nav">About</a></li>
+        </ul>
+        <!-- search input -->
+        
+
+<!-- 百度站内搜索（已通过站点验证） -->
+<form class="navbar-form navbar-left" role="search"
+  action="//search.ieclipse.cn/cse/search">
+  <div class="form-group search">
+    <input type="text" name="q" id="bdcsMain" class="form-control primary" aria-label="..." placeholder="Search">
+    <input type="hidden" name="s" value="11812712506721118476">
+    <input type="hidden" name="nsid" value="0">
+    <!-- 
+    <input name="tn" type="hidden" value="SE_zzsearchcode_shhzc78w">
+    <input name="cl" type="hidden" value="3">
+    <input name="ct" type="hidden" value="2097152">
+    <input name="si" type="hidden" value="ieclipse.cn">
+    <input name="ie" type="hidden" value="utf-8">
+    -->
+  </div>
+</form>
+
+        <ul class="nav navbar-nav navbar-right">
+        </ul>
+      </div>
+    </div>
+
+    <script>
+        <!-- mobile -->
+    	$('.navbar-toggle').sidr({
+	      name: 'sidr-main',
+	      source: '#bs-example-navbar-collapse-1'
+	    });
+    	$('body').click(function(){
+    	  $.sidr('close', 'sidr-main');
+    	});
+    	
+    	$(".navbar-fixed-top").autoHidingNavbar({
+    	  // see next for specifications
+    	});
+    </script>
+  </nav>
+</header>
+
+  <!-- main -->
+  
+<div class="container container-fluid">
+<div class="row">
+  <div class="col-sx-12 col-sm-8 col-md-9 col-lg-9">
+    
+    
+    <article class="article post" itemscope="itemscope" itemtype="http://schema.org/Article">
+  <header class="article-header">
+    <div class="page-path"><span class="post-category"><span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span>Path: <a class="category-item" href="/">Blog</a><a class="category-item" href="/categories/随笔记录/">随笔记录</a></span></div>
+    <div class="divider"></div>
+      <h1 class="article-title" itemprop="name">CentOS下shadowsocks-go一键安装脚本</h1>
+    <div class="post-header clearfix">
+      <span class="post-date"><span class="hidden-xs icon nova-calendar">Post at: </span>
+      <time datetime="2015-02-16T14:16:45.000Z" itemprop="datePublished"><time datetime="2015-02-16T14:16:45.000Z">2015-02-16</time></time>
+      </span>
+      
+      <span class="post-share">
+        <a href="#share" class="icon nova-share"><span class="hidden-xs">Share</span><span class="jiathis_counter_style"></span></a>
+        <a href="#comment" class="icon nova-bubbles"><span class="ds-thread-count" data-thread-key="3fff2a6e458a4b03dd026b72a8e30c89"></span><!-- <span class="hidden-xs">Comment</span> --></a>
+        <a href="#like" class="icon nova-heart2-full"><span class="count"></span><span class="hidden-xs">Like</span></a>
+        <a href="#" class="icon nova-eye"><span class="count"></span><span class="hidden-xs">Views</span></a>
+      </span>
+    </div>
+    <div class="divider"></div>
+  </header>
+  <div class="article-content" itemprop="articleBody" id="post-content">
+    <p><strong>本脚本适用环境：</strong><br>系统支持：CentOS 5 &amp; 6 &amp; 7 32或64位<br>内存要求：≥128M<br>日期：2015年01月08日</p>
+<p><strong>关于本脚本：</strong><br>一键安装 go 版的 shadowsocks 最新版本 1.1.3。据说 go 版本有 buff ，但是我没看到。与 python 版不同的是，其客户端程序能使用多个服务端配置，但是本脚本安装的是服务端。作者默认推荐 aes-128-cfb 加密，基于一致性的决定，脚本还是使用了 aes-256-cfb 加密方式。</p>
+<p><strong>默认配置：</strong><br>服务器端口：8989<br>客户端端口：1080<br>密码：自己设定（如不设定，默认为teddysun.com）</p>
+<p><strong>客户端下载：</strong><br><a href="http://sourceforge.net/projects/shadowsocksgui/files/dist/" target="_blank" rel="external">http://sourceforge.net/projects/shadowsocksgui/files/dist/</a></p>
+<p><strong>使用方法：</strong><br>使用root用户登录，运行以下命令：</p>
+<p><pre class="prettyprint lang-bsh">wget –no-check-certificate <a href="https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-go.sh" target="_blank" rel="external">https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-go.sh</a><br>chmod +x shadowsocks-go.sh<br>./shadowsocks-go.sh 2&gt;&amp;1 | tee shadowsocks-go.log</pre><br>安装完成后，脚本提示如下：</p>
+<p><pre class="prettyprint lang-bsh">Congratulations, shadowsocks-go install completed!<br>Your Server IP:your_server_ip<br>Your Server Port:8989<br>Your Password:your_password<br>Your Local Port:1080<br>Your Encryption Method:aes-256-cfb</pre></p>
+<p>Welcome to visit:<a href="http://teddysun.com/392.html" target="_blank" rel="external">http://teddysun.com/392.html</a><br>Enjoy it!<br><strong>卸载方法：</strong><br>使用 root 用户登录，运行以下命令：</p>
+<p><pre class="prettyprint lang-bsh">./shadowsocks-go.sh uninstall</pre><br><strong>其他事项：</strong><br>客户端配置的参考链接：<a href="http://teddysun.com/339.html" target="_blank" rel="external">http://teddysun.com/339.html</a></p>
+<p>安装完成后即已后台启动 shadowsocks-go ，运行：</p>
+<p><pre class="prettyprint lang-bsh">/etc/init.d/shadowsocks status</pre><br>可以查看 shadowsocks-go 进程是否存在。<br>本脚本安装完成后，会将 shadowsocks-go 加入开机自启动。</p>
+<p><strong>使用命令：</strong><br>启动：/etc/init.d/shadowsocks start<br>停止：/etc/init.d/shadowsocks stop<br>重启：/etc/init.d/shadowsocks restart<br>状态：/etc/init.d/shadowsocks status</p>
+<p><strong>多用户多端口配置文件 sample（2015年01月08日）：</strong><br>配置文件路径：/etc/shadowsocks/config.json</p>
+<p><pre class="prettyprint">{<br>    “port_password”:{<br>         “8989”:”password0”,<br>         “9001”:”password1”,<br>         “9002”:”password2”,<br>         “9003”:”password3”,<br>         “9004”:”password4”<br>    },<br>    “method”:”aes-256-cfb”,<br>    “timeout”:600<br>}</pre><br>官方版本的 sample ，详见<a href="https://github.com/shadowsocks/shadowsocks-go/blob/master/sample-config/server-multi-port.json" target="_blank" rel="external">这里</a>。</p>
+<p><strong>更多版本 shadowsocks 安装：</strong><br><a href="http://teddysun.com/342.html" target="_blank" rel="external">CentOS 下 shadowsocks-python 一键安装脚本</a><br><a href="http://teddysun.com/355.html" target="_blank" rel="external">CentOS 下 shadowsocks-nodejs 一键安装脚本</a><br><a href="http://teddysun.com/357.html" target="_blank" rel="external">CentOS 下 shadowsocks-libev 一键安装脚本</a><br><a href="http://dg2016.duapp.com/?p=22" target="_blank" rel="external">Debian 下 shadowsocks-libev 一键安装脚本</a></p>
+<p><strong>特别说明：</strong><br>1、关于 CentOS 的默认 iptables 防火墙规则 icmp-host-prohibited ，如果安装之后发现已经启动 shadowsocks，本地客户端却不能连接上，请检查 iptables 是不是有如下的一条规则：</p>
+<p><pre class="prettyprint lang-bsh">REJECT     all  –  0.0.0.0/0            0.0.0.0/0           reject-with icmp-host-prohibited</pre><br>运行命令：</p>
+<p><pre class="prettyprint lang-bsh">/etc/init.d/iptables status</pre><br>可以查看。如果有这条规则，则添加的 8989 端口需手动更改一下，放到这条规则的上一行。编辑 /etc/sysconfig/iptables 文件，将：</p>
+<p><pre class="prettyprint lang-bsh">-A INPUT -p tcp -m state –state NEW -m tcp –dport 8989 -j ACCEPT</pre><br>放在：</p>
+<p><pre class="prettyprint lang-bsh">-A INPUT -j REJECT –reject-with icmp-host-prohibited</pre><br>的前面。最终效果如下：</p>
+<p><pre class="prettyprint lang-bsh">-A INPUT -p tcp -m state –state NEW -m tcp –dport 8989 -j ACCEPT<br>-A INPUT -j REJECT –reject-with icmp-host-prohibited</pre><br>编辑完后，重启 iptables 防火墙。命令：/etc/init.d/iptables restart</p>
+<p><strong>更新日志：</strong><br>更新（2015年01月08日）：修改了启动脚本 /etc/init.d/shadowsocks ，按照 CentOS 的 chkconfig 标准语法修改了一下（原来使用的是作者 Github 上自带的）。去掉了以 nobody 用户启动 shadowsocks 的方式，改为直接以当前登录用户直接启动（一般是 root 用户）。开机自启动，以及修改端口号提示无权限的问题已经解决。<br>更新（2015年01月07日）：支持在 CentOS 5，6 及 7 下安装。注意，在 CentOS 7 中默认是没有 iptables 的，如果你开启了 firewalld ，请手动对端口放行。</p>
+<p><strong>参考链接：</strong><br><a href="https://github.com/shadowsocks/shadowsocks-go" target="_blank" rel="external">https://github.com/shadowsocks/shadowsocks-go</a></p>
+
+  </div>
+  <footer class="article-footer">
+    <time class="article-footer-updated" datetime="2016-09-15T14:57:53.000Z" itemprop="dateModified">
+        Last updated:  <span class="">2016-09-15</span>
+    </time>
+    
+  <!-- JiaThis Button BEGIN -->
+  <div class="jiathis_style clearfix"><a id="share" href="#share"></a>
+      <span class="jiathis_txt icon nova-share">Share：</span>
+      <a class="jiathis_button_tsina">Weibo</a>
+      <a class="jiathis_button_weixin">Wechat</a>
+      <a class="jiathis_button_twitter">Twitter</a>
+      <a class="jiathis_button_copy">Copy Link</a>
+      <a class="jiathis_button_ishare">One Share</a>
+      <a href="http://www.jiathis.com/share?uid=2064663" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">More</a>
+<!--       <a class="jiathis_counter_style"></a> -->
+  </div>
+  <!-- JiaThis Button END -->
+  <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=2064663" charset="utf-8" async="async"></script>
+
+  </footer>
+  <span itemprop="author publisher" itemscope="itemscope" itemtype="http://schema.org/Organization">
+    <meta content="http://www.5cc.xyz" itemprop="url">
+    <meta content="Jamling's Blog and Project Site" itemprop="name">
+    <meta content="/image/logo.png" itemprop="logo">
+  </span>
+</article>
+<div>
+  <nav><ul class="pager"><li class="previous"><a href="/2015/02/16/e4-bd-bf-e7-94-a8goagent-e8-ae-a9php-e7-a9-ba-e9-97-b4-e5-8f-98-e6-88-90-e4-bd-a0-e7-9a-84-e4-b8-93-e5-b1-9e-e4-bb-a3-e7-90-86-e6-9c-8d-e5-8a-a1-e5-99-a8-ef-bc-88-e5-9f-ba-e4-ba-8ephp-e7-a9-ba/"><span aria-hidden="true">&larr;</span><span class="hidden-xs">使用GoAgent让PHP空间变成你的专属代理服务器（基于PHP空间自建代理）</span></a></li><li class="next"><a href="/2015/02/16/debian-e4-b8-8bshadowsocks-libev-e4-b8-80-e9-94-ae-e5-ae-89-e8-a3-85-e8-84-9a-e6-9c-ac/"><span aria-hidden="true">&rarr;</span><span class="hidden-xs">Debian下shadowsocks-libev一键安装脚本</span></a></li></ul></nav>
+  
+<!-- Button trigger modal -->
+<blockquote class="donate"><!--
+  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#DonateModal">
+    Donate
+  </button>-->
+  <p>
+  <a href="#" role="button" data-toggle="modal" data-target="#DonateModal"><img src="/image/donate_button.png">
+  <span>Dear reader, if you feel this good, could you rewark me a `bread` as awark? Thank you very much~</span></a>
+  </p>
+</blockquote>
+<!-- Modal -->
+<div class="modal fade" id="DonateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Donate</h4>
+      </div>
+      <div class="modal-body"><!--
+        <table>
+        <thead>
+          <th class="text-center">支付宝</th>
+          <th class="text-center">微信支付</th>
+        </thead>
+        <tr>
+          <td><img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+          <td><img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="img-rounded donate" width="200" height="200"></td>
+        </tr>
+        </table>-->
+        <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">支付宝</span>
+            <img src="/image/donate_alipay.png" alt="使用支付宝扫码打赏" class="donate" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="text-center">
+            <span style="display:block;">微信支付</span>
+            <img src="/image/donate_wechat.png" alt="使用微信扫码打赏" class="donate" />
+          </div>
+        </div>
+        </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <a name="comment"></a>
+
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="3fff2a6e458a4b03dd026b72a8e30c89" data-title="CentOS下shadowsocks-go一键安装脚本" data-url="http://www.5cc.xyz/2015/02/16/centos-e4-b8-8bshadowsocks-go-e4-b8-80-e9-94-ae-e5-ae-89-e8-a3-85-e8-84-9a-e6-9c-ac/"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"ieclipse"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+
+</div>
+
+    
+  </div>
+  <!-- aside -->
+  <div class="col-sx-12 col-sm-4 col-md-3 col-lg-3">
+    <aside>
+    </aside>
+  </div>
+</div>
+</div>
+  <!-- footer -->
+  <footer id="footer">
+  <div class="divider"></div>
+  <div>&nbsp;</div>
+  <div class="inner text-center">
+    <div id="footer-copyright">
+      &copy; 2016 <a href="http://ieclipse.cn/" target="_blank">Any_冰</a> powered by <a href="http://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Jamling/hexo-theme-nova" target="_blank">Nova</a><br>
+      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+    </div>
+    <div>
+      <a href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备15019510号</a>
+    </div>
+  </div>
+</footer>
+
+  <!-- fixed action bar -->
+  
+  <div class="fab" style="bottom: 45px; right: 24px;">
+    <ul class="top-expand" id="top-expand">
+      <li><a class="fab-item large red" href="#top"><i class="icon nova-top"></i></a></li>
+      <li><a class="fab-item large yellow " href="http://www.jiathis.com/share?uid=2064663" target="_blank"><i class="icon nova-share"></i></a></li>
+    </ul>
+    <a class="fab-item large red " onclick="$('#top-expand').toggle();">
+      <i class="icon nova-list-ul"></i>
+    </a>
+  </div>
+  <!-- after footer, some 3rd script place here -->
+    <script type="text/javascript">
+    var hljs_labels = {
+        left: "Code",
+        right: ":",
+        copy: "Copy to clipboard"
+    }
+    </script>
+    <script src="/js/hljs.js"></script>
+    <script src="/js/script.js"></script>
+    
+    <!-- 安装自动推送JS代码的网页，在页面被访问时，页面URL将立即被推送给百度 -->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+    
+    <!-- 新建的搜索框代码，建立使用你自己的代码替换-->
+<script type="text/javascript">
+(function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=11812712506721118476' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();
+</script>
+    
+<!-- LeanClound官方Javascript SDK -->
+<script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
+<script>
+  AV.init({
+    appId : 'rYUER9KxmGUXSpfEtu7wCFMo-gzGzoHsz',
+    appKey : 'k7hzTkcS0blxgry4VT9rJjYj'
+  });
+
+  var lc_config = {
+    pageId : '3fff2a6e458a4b03dd026b72a8e30c89',
+    url : 'http://www.5cc.xyz/2015/02/16/centos-e4-b8-8bshadowsocks-go-e4-b8-80-e9-94-ae-e5-ae-89-e8-a3-85-e8-84-9a-e6-9c-ac/' || '2015/02/16/centos-e4-b8-8bshadowsocks-go-e4-b8-80-e9-94-ae-e5-ae-89-e8-a3-85-e8-84-9a-e6-9c-ac/',
+    title : 'CentOS下shadowsocks-go一键安装脚本'
+  };
+  
+  var lc_table = 'Counter' || 'Counter';
+
+  (function() {
+    var query = new AV.Query(lc_table);
+    query.select(['-ACL']);
+    query.equalTo('pageId', lc_config.pageId);
+    query.first({
+      success: function(results) {
+        // results is an array of AV.Object.
+        if (typeof results === 'undefined') {
+          insert(results);
+          return;
+        }
+        console.log(results._serverData);
+        update(results);
+        show(results);
+      },
+      error: function(error) {
+        // error is an instance of AV.Error.
+        console.log(error);
+      }
+    });
+
+    function insert(data) {
+      if (!data) {
+        console.log('data is null new object');
+        var M = AV.Object.extend(lc_table);
+        data = new M();
+        data.set('views', 1);
+      }
+      for ( var key in lc_config) {
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log('created objectId is ' + data.id);
+      }, function(error) {
+        console.log("create object failed");
+        console.log(error);
+      });
+    }
+
+    function update(data) {
+      data.increment('views', 1);
+      for ( var key in lc_config) {
+        if (key !== 'pageId')
+        data.set(key, lc_config[key]);
+      }
+      data.save().then(function(data) {
+        console.log("update to " + data.get('views'));
+      }, function(error) {
+        console.log("update object failed");
+        console.log(error);
+      });
+    }
+    
+    function show(data) {
+      $(".post-share .nova-eye .count").html(data.get('views'));
+    }
+  })();
+</script>
+
+</body>
+</html>
