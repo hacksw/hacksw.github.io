@@ -1,747 +1,928 @@
 <!DOCTYPE html>
-<html lang="zh-CN" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+<html lang="zh-Hans">
 <head>
-  <meta charset="utf-8">
-  <title>Jamling's Blog and Project Site</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="keywords" content="freebuf,便宜vps,随笔记录,centos,记录,ubuntu,debian,数据库应用,metasploit,apache,kali-linux,隧道技术,linux mint,sock5">
-  <meta name="description" content="Jamling's Open Project include Java, Android, Eclipse and Technology Blog Articles.">
-  
 
-  <meta name="og:type" content="website">
-  <meta name="og:site_name" content="Jamling's Blog and Project Site">
-  <meta name="og:image" content="http://www.5cc.xyz/image/logo.png">
-  <meta name="og:title" content="Home">
-  <meta name="og:url" content="http://www.5cc.xyz/index.html">
-  <meta name="og:description" content="Jamling's Open Project include Java, Android, Eclipse and Technology Blog Articles.">
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:site" content="Jamling's Blog and Project Site">
-  <meta name="twitter:image" content="http://www.5cc.xyz/image/logo.png">
-  <meta name="twitter:title" content="Home">
-  <meta name="twitter:creator" content="@JamlingLi">
-  <meta name="twitter:description" content="Jamling's Open Project include Java, Android, Eclipse and Technology Blog Articles.">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="author" content="Any_冰" />
 
-  <!-- Canonical links -->
-  <link rel="canonical" href="http://www.5cc.xyz/index.html">
-  <!-- Alternative links -->
-  <!-- CSS and JS-->
-  <script src="//cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="//cdn.bootcss.com/sidr/2.2.1/jquery.sidr.min.js"></script>
-<script src="/js/jquery.bootstrap-autohidingnavbar.min.js"></script>
-<link rel="stylesheet" href="//cdn.bootcss.com/sidr/2.2.1/stylesheets/jquery.sidr.dark.min.css">
-<link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css">
-<script src="//cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js"></script>
-<script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
-<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css">
-<link rel="stylesheet" href="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.css">
-<script src="//cdn.bootcss.com/fancybox/2.1.5/helpers/jquery.fancybox-buttons.js"></script>
-<script src="//cdn.bootcss.com/zclip/1.1.2/jquery.zclip.min.js"></script>
-<link rel="stylesheet" href="/css/nova_font.css">
-<link rel="stylesheet" href="/css/bs/nova.css">
 
-  <!-- RSS -->
-  <link rel="alternate" href="/atom.xml" title="Tell YOU">
-  <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon" />
+    
+    
+
+
+<meta name="description" content="hello,every body!~">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tell YOU">
+<meta property="og:url" content="https://www.5cc.xyz/index.html">
+<meta property="og:site_name" content="Tell YOU">
+<meta property="og:description" content="hello,every body!~">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tell YOU">
+<meta name="twitter:description" content="hello,every body!~">
+
+<link rel="apple-touch-icon" href= "/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="Tell YOU" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/favicon.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <style> .article { opacity: 0;} </style>
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>Tell YOU</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: true,
+        isPost: false,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: true
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
 </head>
 <body>
-  <!-- header -->
-  <header>
-  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse_" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a href="/" id="logo"><img src="/image/logo.png" height="50"></a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
-        <li><a href="/" class="main-nav">Home</a></li><li><a href="/p/" class="main-nav">Projects</a></li><li><a href="/categories/" class="main-nav">Category</a></li><li><a href="/archives/" class="main-nav">Archives</a></li><li><a href="/donate/" class="main-nav">Donate</a></li><li><a href="/about/" class="main-nav">About</a></li>
-        </ul>
-        <!-- search input -->
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="/img/avatar.png" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Any_冰</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">~！随手记录生活点点滴滴!~</p>
         
 
-<!-- 百度站内搜索（已通过站点验证） -->
-<form class="navbar-form navbar-left" role="search"
-  action="//search.ieclipse.cn/cse/search">
-  <div class="form-group search">
-    <input type="text" name="q" id="bdcsMain" class="form-control primary" aria-label="..." placeholder="Search">
-    <input type="hidden" name="s" value="11812712506721118476">
-    <input type="hidden" name="nsid" value="0">
-    <!-- 
-    <input name="tn" type="hidden" value="SE_zzsearchcode_shhzc78w">
-    <input name="cl" type="hidden" value="3">
-    <input name="ct" type="hidden" value="2097152">
-    <input name="si" type="hidden" value="ieclipse.cn">
-    <input name="ie" type="hidden" value="utf-8">
-    -->
-  </div>
-</form>
+        
+            <form id="search-form">
+            <input type="text" id="local-search-input" name="q" placeholder="search..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false" />
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+            </form>
+            <div id="local-search-result"></div>
+            <p class='no-result'>No results found <i class='fa fa-spinner fa-pulse'></i></p>
+        
 
-        <ul class="nav navbar-nav navbar-right">
-        </ul>
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:test@fbicn.xyz" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/sock5/">sock5</a></li></ul>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Any_冰</a></h1>
       </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="/img/avatar.png" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Any_冰</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">~！随手记录生活点点滴滴!~</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:test@fbicn.xyz" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我"/>
+</nav>
+      <div class="body-wrap">
+  
+    <article id="post-13-e4-b8-aa-e6-9c-89-e7-94-a8-e7-9a-84-e6-b8-97-e9-80-8f-e6-b5-8b-e8-af-95-e8-b5-84-e6-ba-90-e5-8d-9a-e5-ae-a2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/09/13-e4-b8-aa-e6-9c-89-e7-94-a8-e7-9a-84-e6-b8-97-e9-80-8f-e6-b5-8b-e8-af-95-e8-b5-84-e6-ba-90-e5-8d-9a-e5-ae-a2/" class="article-date">
+      <time datetime="2016-09-09T03:34:45.000Z" itemprop="datePublished">2016-09-09</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/09/13-e4-b8-aa-e6-9c-89-e7-94-a8-e7-9a-84-e6-b8-97-e9-80-8f-e6-b5-8b-e8-af-95-e8-b5-84-e6-ba-90-e5-8d-9a-e5-ae-a2/">13个有用的渗透测试资源博客</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><strong>渗透测试是寻找能够用来攻击应用程序、网络和系统的漏洞的过程，其目的是检测会被黑客攻击的安全脆弱点。渗透测试可以检测如下内容：系统对攻击的反应，存在哪些会被攻击的脆弱点，如果有，系统中哪些数据会被窃取。</strong></p>
+<h2 id="关于渗透测试"><a href="#关于渗透测试" class="headerlink" title="关于渗透测试"></a>关于渗透测试</h2><p>不要将渗透测试等同于简单的漏洞扫描或者安全审计，它还要除此之外的工作。渗透测试有助于寻找非常复杂的攻击向量，找到在开发阶段没能检测出来的漏洞。在遭到入侵之后，也常使用渗透测试，检测攻击者的攻击方法，还原出攻击方法，并阻止与此相同的攻击。</p>
+<p>渗透测试是一些安全审计的主要构成部分，包括<a href="https://www.checkmarx.com/white_papers/how-to-achive-pci-dss-compliance-with-checkmarx-source-code-analysis/" target="_blank" rel="external">PCI-DSS规则</a>，它要求对处理或保存支付信息的系统每年进行渗透测试。渗透测试人员会协同使用人工和自动测试，利用大量的工具进行测试。</p>
+<p>由于安全世界的动态性，以及黑客的变化性，安全专家需要掌握最新的技术、工具和漏洞利用方法，以及渗透测试技术。应用程序安全是一个新领域，物联网、容器、云等新的安全风险不断出现，渗透测试人员需要不断更新自己的知识。</p>
+<p>因此，我们提供13个最有用的渗透测试博客，帮你获取最新知识，激励你的白帽人生。其中一些有好几年的渗透测试历程了。他们都值得你关注和学习。</p>
+<p><a href="http://image.3001.net/images/20160831/14726207762774.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160831/14726207762774.png!small" alt="“If-I-had-6-h-to-chop-down-a-tree-I’d-spend-the-first-four-of-them-sharpening-my-axe.”-1.png"></a></p>
+<h2 id="渗透测试博客和资源排名"><a href="#渗透测试博客和资源排名" class="headerlink" title="渗透测试博客和资源排名"></a>渗透测试博客和资源排名</h2><p><a href="http://carnal0wnage.attackresearch.com/" target="_blank" rel="external">Carnal0wnage</a></p>
+<p>这个博客是由一个攻击研究团队维护的，是渗透测试人员最好的信息来源之一，博客上发布了渗透测试技术、发现、新闻等等。该团队在Black Hat上开设了培训课程。</p>
+<p><a href="https://www.pentestgeek.com/" target="_blank" rel="external">PentestGeek</a></p>
+<p>2012年开始活跃，PentestGeek博客致力于分享作者的经验。通过它也可以了解在大公司工作的经验丰富的渗透测试者的每日工作。</p>
+<p><a href="http://www.darknet.org.uk/" target="_blank" rel="external">Darknet</a></p>
+<p>1999年从一个IRC频道开始发展壮大，目前是一个定期更新的博客，讨论最新的渗透测试新闻、工具和技术，有30,000多个用户。</p>
+<p><a href="http://www.lanmaster53.com/" target="_blank" rel="external">Lanmaster53</a></p>
+<p>Tim Tomes维护的博客，Tim在博客中会详细描述他的研究成果，博客内容覆盖从Linux Shells、DEFCON badge hacking到AppSec hacks。</p>
+<p><a href="http://marcoramilli.blogspot.co.il/" target="_blank" rel="external">Marco Ramilli</a></p>
+<p>Marco是一个安全研究者和白帽黑客。他在教育界也很有名气，在数十年的工作经历中担任了各种教授和研究员职位。他的博客是对他的知识的扩展，Macro在博客上记录他发现的一些绝妙的技术。</p>
+<p><a href="http://www.commonexploits.com/" target="_blank" rel="external">Common Exploits</a></p>
+<p>由Daniel Compton维护，他是有20年的透测试经验的专家，Common Exploits旨在分享Daniel的技术，工具、漏洞利用方面的新闻，以及其它渗透测试领域的内容。</p>
+<p><a href="http://pen-testing.sans.org/blog/pen-testing" target="_blank" rel="external">SANS Penetration Testing Blog</a></p>
+<p>SANS对于应用程序安全方面的人来说是一个非常好的资源。这个博客上可以找到各种渗透测试任务和挑战，用于测试你的能力，也会发布特定的渗透测试工具和技术。</p>
+<p><a href="https://blog.trailofbits.com/" target="_blank" rel="external">Trail of Bits Blog</a></p>
+<p>由维护Trails of Bits的团队写的博客，这是一个在攻防领域都很专业的安全公司，这个博客收集了他们分享的知识，帮助企业改进或修复安全问题。</p>
+<p><a href="http://www.digininja.org/" target="_blank" rel="external">DigiNinja</a></p>
+<p>Digininja对渗透测试者来说是一个必须要知道的资源，主要关注Metasploit、Wifi和网络，Digininja是信息安全领域的人必读的网站。</p>
+<p><a href="https://www.linkedin.com/groups/81676" target="_blank" rel="external">Ethical Hacking LinkedIn Group</a></p>
+<p>最好的获取最新渗透测试新闻的办法是，在你喜欢的社交网站中，加入到一个组里面或者关注渗透测试大牛。Ethical Hacking group是众多社区中的一个，你可以加入并分享你自己的渗透测试资源。</p>
+<p><a href="http://www.ehacking.net/" target="_blank" rel="external">EHacking.net</a></p>
+<p>对所有渗透测试相关人员来说是一个非常棒的资源，Ehacking.net是又一个必须加入到书签的网站。</p>
+<p><a href="http://seclists.org/" target="_blank" rel="external">Seclists.org</a></p>
+<p>现在，依然有一部分信息安全社区依靠邮件列表获取信息，尽管这看起来有些过时。Nmap Security Scanner人员运营着Seclists.org网站，提供了受欢迎的邮件列表的清单。不管是菜鸟还是渗透测试专家都可以找到适合自己的邮件列表。</p>
+<p><a href="http://www.kitploit.com/" target="_blank" rel="external">Kitploit</a></p>
+<p>如果你在寻找特定类型的工具，你可以在Kitploit网站上找到。这里是渗透测试工具的宝库，把它加入到你的书签吧。</p>
+<p><strong>* 参考来源：<a href="https://www.checkmarx.com/2016/07/26/13-helpful-pentesting-resources/" target="_blank" rel="external">checkmarx</a>，felix编译，转载请注明来自FreeBuf黑客与极客（FreeBuf.COM）</strong></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/freebuf/">freebuf</a>
     </div>
 
-    <script>
-        <!-- mobile -->
-    	$('.navbar-toggle').sidr({
-	      name: 'sidr-main',
-	      source: '#bs-example-navbar-collapse-1'
-	    });
-    	$('body').click(function(){
-    	  $.sidr('close', 'sidr-main');
-    	});
-    	
-    	$(".navbar-fixed-top").autoHidingNavbar({
-    	  // see next for specifications
-    	});
-    </script>
-  </nav>
-</header>
 
-  <!-- main -->
-  <div class="container container-fluid">
-  <div class="row">
-  <div class="col-sx-12 col-sm-8 col-md-9 col-lg-9">
+      
+      
+      <div class="clearfix"></div>
+    </div>
     
-    <div itemscope="itemscope" itemtype="http://schema.org/Blog" style="display: none;">
-    <meta content="" itemprop="name"/>
-</div>
-<main>
-          <div class="card hoverable" itemprop="blogPost" itemscope="itemscope" itemtype="http://schema.org/BlogPosting">
-            <div class="card-content">
-              <h3 class="card-title" itemprop="name headline"><a href="/2016/09/09/13-e4-b8-aa-e6-9c-89-e7-94-a8-e7-9a-84-e6-b8-97-e9-80-8f-e6-b5-8b-e8-af-95-e8-b5-84-e6-ba-90-e5-8d-9a-e5-ae-a2/" class="article-title">13个有用的渗透测试资源博客</a></h3>
-              <div class="divider"></div>
-              <div class="section post-header clearfix">
-                <!-- sub element must be span -->
-                <span class="post-date"><time class="icon nova-calendar" itemprop="datePublished" datetime="2016-09-09T03:34:45.000Z"><time datetime="2016-09-09T03:34:45.000Z">2016-09-09</time></time></span>
-                <span class="post-category"><i class="glyphicon glyphicon-folder-close"></i><span class="hidden-xs">Category</span><a class="category-item" href="/categories/freebuf/">freebuf</a></span> 
-                
-              </div>
-              <div class="divider"></div>
-              <div class="excerpt" itemprop="description articleBody">
-              <p><strong>渗透测试是寻找能够用来攻击应用程序、网络和系统的漏洞的过程，其目的是检测会被黑客攻击的安全脆弱点。渗透测试可以检测如下内容：系统对攻击的反应，存在哪些会被攻击的脆弱点，如果有，系统中哪些数据会被窃取。</strong></p>
-              </div>
-            </div>
-            <div class="divider"></div>
-            
-            <div class="card-action" data-tkey="de188e3de67411eda3dfcc41df891f84">
-              <a class="icon nova-share action-item" href="http://www.jiathis.com/send/?webid=&url=http://www.5cc.xyz/2016/09/09/13-e4-b8-aa-e6-9c-89-e7-94-a8-e7-9a-84-e6-b8-97-e9-80-8f-e6-b5-8b-e8-af-95-e8-b5-84-e6-ba-90-e5-8d-9a-e5-ae-a2/&title=13%E4%B8%AA%E6%9C%89%E7%94%A8%E7%9A%84%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E8%B5%84%E6%BA%90%E5%8D%9A%E5%AE%A2&uid=2064663&summary=%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E6%98%AF%E5%AF%BB%E6%89%BE%E8%83%BD%E5%A4%9F%E7%94%A8%E6%9D%A5%" data-toggle="modal" data-target="#share-modal" target="_blank"><span class="hidden-xs">Share</span></a>
-              <a class="icon nova-bubbles action-item" href="/2016/09/09/13-e4-b8-aa-e6-9c-89-e7-94-a8-e7-9a-84-e6-b8-97-e9-80-8f-e6-b5-8b-e8-af-95-e8-b5-84-e6-ba-90-e5-8d-9a-e5-ae-a2/#comment" id="uyan_count_unit"><span class="count"></span><span class="hidden-xs">Comment</span></a>
-              <a class="icon nova-heart2-full action-item fancybox.ajax" onclick="javascript:ds_vote(this, '.card-action', 1, '/2016/09/09/13-e4-b8-aa-e6-9c-89-e7-94-a8-e7-9a-84-e6-b8-97-e9-80-8f-e6-b5-8b-e8-af-95-e8-b5-84-e6-ba-90-e5-8d-9a-e5-ae-a2/#comment')"><span class="count"></span><span class="hidden-xs">Like</span></a>
-              <a class="icon nova-eye action-item" href="/2016/09/09/13-e4-b8-aa-e6-9c-89-e7-94-a8-e7-9a-84-e6-b8-97-e9-80-8f-e6-b5-8b-e8-af-95-e8-b5-84-e6-ba-90-e5-8d-9a-e5-ae-a2/"><span class="count"></span><span class="hidden-xs">Views</span></a>
-              <a class="icon nova-hand-right action-item" href="/2016/09/09/13-e4-b8-aa-e6-9c-89-e7-94-a8-e7-9a-84-e6-b8-97-e9-80-8f-e6-b5-8b-e8-af-95-e8-b5-84-e6-ba-90-e5-8d-9a-e5-ae-a2/" ><span>Read more</span></a>
-            </div>
-            <meta content="http://www.5cc.xyz/2016/09/09/13-e4-b8-aa-e6-9c-89-e7-94-a8-e7-9a-84-e6-b8-97-e9-80-8f-e6-b5-8b-e8-af-95-e8-b5-84-e6-ba-90-e5-8d-9a-e5-ae-a2/" itemprop="url">
-            <meta content="2016-09-15T14:57:53.000Z" itemprop="dateModified">
-          </div>
-          <div class="card hoverable" itemprop="blogPost" itemscope="itemscope" itemtype="http://schema.org/BlogPosting">
-            <div class="card-content">
-              <h3 class="card-title" itemprop="name headline"><a href="/2016/09/09/linux-netfilter-oob-root-e6-8f-90-e6-9d-83-e6-bc-8f-e6-b4-9e-e5-88-86-e6-9e-90/" class="article-title">Linux netfilter OOB root提权漏洞分析</a></h3>
-              <div class="divider"></div>
-              <div class="section post-header clearfix">
-                <!-- sub element must be span -->
-                <span class="post-date"><time class="icon nova-calendar" itemprop="datePublished" datetime="2016-09-09T03:31:38.000Z"><time datetime="2016-09-09T03:31:38.000Z">2016-09-09</time></time></span>
-                <span class="post-category"><i class="glyphicon glyphicon-folder-close"></i><span class="hidden-xs">Category</span><a class="category-item" href="/categories/freebuf/">freebuf</a></span> 
-                
-              </div>
-              <div class="divider"></div>
-              <div class="excerpt" itemprop="description articleBody">
-              <p><strong>* 本文原创作者：肥肥草，本文属FreeBuf原创奖励计划，未经许可禁止转载
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-linux-netfilter-oob-root-e6-8f-90-e6-9d-83-e6-bc-8f-e6-b4-9e-e5-88-86-e6-9e-90" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/09/linux-netfilter-oob-root-e6-8f-90-e6-9d-83-e6-bc-8f-e6-b4-9e-e5-88-86-e6-9e-90/" class="article-date">
+      <time datetime="2016-09-09T03:31:38.000Z" itemprop="datePublished">2016-09-09</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/09/linux-netfilter-oob-root-e6-8f-90-e6-9d-83-e6-bc-8f-e6-b4-9e-e5-88-86-e6-9e-90/">Linux netfilter OOB root提权漏洞分析</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><strong>* 本文原创作者：肥肥草，本文属FreeBuf原创奖励计划，未经许可禁止转载
 </strong></p>
-              </div>
-            </div>
-            <div class="divider"></div>
-            
-            <div class="card-action" data-tkey="8c76d0920035ea4b83f490d2f10f6d8a">
-              <a class="icon nova-share action-item" href="http://www.jiathis.com/send/?webid=&url=http://www.5cc.xyz/2016/09/09/linux-netfilter-oob-root-e6-8f-90-e6-9d-83-e6-bc-8f-e6-b4-9e-e5-88-86-e6-9e-90/&title=Linux%20netfilter%20OOB%20root%E6%8F%90%E6%9D%83%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90&uid=2064663&summary=*%20%E6%9C%AC%E6%96%87%E5%8E%9F%E5%88%9B%E4%BD%9C%E8%80%85%EF%BC%9A%E8%82%A5%E8%82%A5%E8%8D%89%EF%BC" data-toggle="modal" data-target="#share-modal" target="_blank"><span class="hidden-xs">Share</span></a>
-              <a class="icon nova-bubbles action-item" href="/2016/09/09/linux-netfilter-oob-root-e6-8f-90-e6-9d-83-e6-bc-8f-e6-b4-9e-e5-88-86-e6-9e-90/#comment" id="uyan_count_unit"><span class="count"></span><span class="hidden-xs">Comment</span></a>
-              <a class="icon nova-heart2-full action-item fancybox.ajax" onclick="javascript:ds_vote(this, '.card-action', 1, '/2016/09/09/linux-netfilter-oob-root-e6-8f-90-e6-9d-83-e6-bc-8f-e6-b4-9e-e5-88-86-e6-9e-90/#comment')"><span class="count"></span><span class="hidden-xs">Like</span></a>
-              <a class="icon nova-eye action-item" href="/2016/09/09/linux-netfilter-oob-root-e6-8f-90-e6-9d-83-e6-bc-8f-e6-b4-9e-e5-88-86-e6-9e-90/"><span class="count"></span><span class="hidden-xs">Views</span></a>
-              <a class="icon nova-hand-right action-item" href="/2016/09/09/linux-netfilter-oob-root-e6-8f-90-e6-9d-83-e6-bc-8f-e6-b4-9e-e5-88-86-e6-9e-90/" ><span>Read more</span></a>
-            </div>
-            <meta content="http://www.5cc.xyz/2016/09/09/linux-netfilter-oob-root-e6-8f-90-e6-9d-83-e6-bc-8f-e6-b4-9e-e5-88-86-e6-9e-90/" itemprop="url">
-            <meta content="2016-09-15T14:57:53.000Z" itemprop="dateModified">
-          </div>
-          <div class="card hoverable" itemprop="blogPost" itemscope="itemscope" itemtype="http://schema.org/BlogPosting">
-            <div class="card-content">
-              <h3 class="card-title" itemprop="name headline"><a href="/2016/09/09/cowrie-e8-9c-9c-e7-bd-90-e9-83-a8-e7-bd-b2-e6-95-99-e7-a8-8b/" class="article-title">Cowrie蜜罐部署教程</a></h3>
-              <div class="divider"></div>
-              <div class="section post-header clearfix">
-                <!-- sub element must be span -->
-                <span class="post-date"><time class="icon nova-calendar" itemprop="datePublished" datetime="2016-09-09T03:30:48.000Z"><time datetime="2016-09-09T03:30:48.000Z">2016-09-09</time></time></span>
-                <span class="post-category"><i class="glyphicon glyphicon-folder-close"></i><span class="hidden-xs">Category</span><a class="category-item" href="/categories/freebuf/">freebuf</a></span> 
-                
-              </div>
-              <div class="divider"></div>
-              <div class="excerpt" itemprop="description articleBody">
-              <h2 id="0-蜜罐分类："><a href="#0-蜜罐分类：" class="headerlink" title="0.蜜罐分类："></a>0.蜜罐分类：</h2><blockquote>
+<p><strong>著名的ExploitDatabase网站（<a href="http://www.exploit-db.com/" target="_blank" rel="external">www.exploit-db.com</a>）最近贴出了一个netfilter模块的提权POC，作者是Vitaly Nikolenko。OOB！Netfilter！顿感好奇，决定分析一下，现将分析过程和成果分享如下。</strong></p>
+<h2 id="0×0-依葫芦画瓢提权成功"><a href="#0×0-依葫芦画瓢提权成功" class="headerlink" title="0×0 依葫芦画瓢提权成功"></a>0×0 依葫芦画瓢提权成功</h2><p>参照文章的提示，下载Ubuntu16.04并成功安装，uname -a确认版本号为4.4.0-21-generic。</p>
+<p><a href="http://image.3001.net/images/20160826/14721806097863.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721806097863.png!small" alt=""></a></p>
+<p>下载POC，编译，按照提示关闭SMEP，加载ip_tables.ko，运行decr，等到出现“Done!Nowrun.pwn”后运行pwn，成功获得root shell。</p>
+<p><a href="http://image.3001.net/images/20160826/14721806553492.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721806553492.png!small" alt=""></a></p>
+<p><a href="http://image.3001.net/images/20160826/14721806638786.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721806638786.png!small" alt=""></a></p>
+<h2 id="0×01-漏洞初识"><a href="#0×01-漏洞初识" class="headerlink" title="0×01 漏洞初识"></a>0×01 漏洞初识</h2><p>查看pwn.c的代码，可以看出POC采用了常见的通过ptmx提权方法：</p>
+<p><a href="http://image.3001.net/images/20160826/14721806734085.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721806734085.png!small" alt=""></a></p>
+<p>猜测decr中修改了ptmx_fops的release指针，并根据代码可推断出修改后该指针的值为0xff814e30b0。然后pwn中调用close(fd)调用ptmx_fops-&gt;release函数，从而提权。</p>
+<p>事实是否如此呢？</p>
+<p>通过cat/proc/kallsyms查看ptmx_fops的地址为0xffffffff821de3e0，则release指针所在地址为0xffffffff821de3e0 + 13*8 = 0xffffffff821de448。</p>
+<p>通过kgdb进行调试，查看在decr运行之前，0xffffffff821de448的值0xffffffff814e30b0，如下图所示：</p>
+<p><a href="http://image.3001.net/images/20160826/14721806934221.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721806934221.png!small" alt=""></a></p>
+<p>运行decr之后，0xffffffff821de448地址的值，为0x ff814e30b0，如下图所示：</p>
+<p><a href="http://image.3001.net/images/20160826/14721806982781.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721806982781.png!small" alt=""></a></p>
+<p>也就是说，decr运行之后，0xffffffff821de448地址的值由0xffffffff814e30b0被修改为0xff814e30b0，而0xff814e30b0地址是应用层地址，是可控的，在pwn代码中向0xff814e30b0地址写入了提权ShellCode。</p>
+<p>下面的问题就是decr是如何做到的，内核漏洞在哪？</p>
+<h2 id="0×02-定位修改ptmx-fops关键指令"><a href="#0×02-定位修改ptmx-fops关键指令" class="headerlink" title="0×02 定位修改ptmx_fops关键指令"></a>0×02 定位修改ptmx_fops关键指令</h2><p>仔细分析decr.c，无非是设置了ipt_replace、ipt_entry等数据结构，然后调用setsockopt函数设置内核，看完之后仍然毫无头绪，还得从内核着手，看看应用层在调用完setsockopt函数之后内核到底做了那些事。</p>
+<p>一种思路是重新编译内核，这样可以实现源码级的内核调试，但是重新编译之后一些内核参数（如ptmx_fops）地址发生改变，POC可能会运行失败，这样不利于定位修改ptmx_fops的漏洞代码。</p>
+<p>所以还是针对Ubuntu16.04原生的内核进行调试，采用源码分析+动态调试的方法定位修改ptmx_fops的关键指令。本次采用的动态调试方法为vmware双虚拟机kgdb调试方法，具体方法可以通过百度获得，文中不再复述。</p>
+<p>查看ip_tables.c源码，首先找到模块初始化函数ip_tables_init：</p>
+<p><a href="http://image.3001.net/images/20160826/14721807126257.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721807126257.png!small" alt=""></a></p>
+<p>在ip_tables_init中，调用nf_register_sockopt注册处理函数，注册参数如下所示。</p>
+<p><a href="http://image.3001.net/images/20160826/14721807201963.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721807201963.png!small" alt=""></a></p>
+<p>set函数有两个，do_ipt_set_ctl和compat_do_ipt_set_ctl，内核会调用哪一个函数呢？</p>
+<p>通过kgdb双虚拟机调试，分别设置两个函数为断点，发现当应用层调用setsockopt时，内核调用的是compat_do_ipt_set_ctl，如下图所示。</p>
+<p><a href="http://image.3001.net/images/20160826/14721807368122.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721807368122.png!small" alt=""></a></p>
+<p>继续分析，获得如下函数执行路径：</p>
+<pre><code>compat_&lt;span class=&quot;hljs-keyword&quot;&gt;do&lt;/span&gt;_ipt_&lt;span class=&quot;hljs-built_in&quot;&gt;set&lt;/span&gt;_ctl--&amp;gt; compat_&lt;span class=&quot;hljs-keyword&quot;&gt;do&lt;/span&gt;_replace --&amp;gt; translate_compat_table --&amp;gt; check_compat_entry_size_and_hooks
+</code></pre><p>POC代码中提示check_compat_entry_size_and_hooks/check_entry有问题，那么重点分析check_compat_entry_size_and_hooks函数，看是在那一步去修改了ptmx_fops，最好的办法是动态调试。</p>
+<p>经过痛苦的、纯体力活的kgdb汇编代码调试，最终定位到是在compat_release_entry函数中修改了ptmx_fops，并且修改了两次，进一步跟踪定位到是该函数中的两个module_put函数修改了ptmx_fops。</p>
+<p><a href="http://image.3001.net/images/20160826/14721807427692.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721807427692.png!small" alt=""></a></p>
+<p>同时通过打印$rdi（module_put的第一个参数）的值，发现该值为0xffffffff821de10d，如下所示：</p>
+<p><a href="http://image.3001.net/images/20160826/14721807541402.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721807541402.png!small" alt=""></a></p>
+<p>而该值正是decr.c中设置的magicnumber，如下图所示：</p>
+<p><a href="http://image.3001.net/images/20160826/14721807629599.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721807629599.png!small" alt=""></a></p>
+<p>再看module_put函数：</p>
+<p><a href="http://image.3001.net/images/20160826/14721807696298.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721807696298.png!small" alt=""></a></p>
+<p>其中最关键的就是对modue-&gt;refcnt减一。</p>
+<p>refcnt在structmodule结构中的偏移为0×340，因此&amp;module-&gt;refcnt的值为 0xffffffff821de10d + 0×340 = 0xffffffff821de44d， 而ptmx_fops-&gt;tty_release的地址为0xffffffff821de448，因此当执行减一操作后，会将0xffffffff821de44d开始的0xff 0xff 0xff逐步减为0，最终ptmx_fops-&gt;tty_release的值变为0xff814e30b0。</p>
+<p><a href="http://image.3001.net/images/20160826/14721807796432.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721807796432.png!small" alt=""></a></p>
+<p>到此，总算搞明白了，应用层通过构造特殊的ipt_replace、ipt_entry、xt_entry_match、xt_standard_target结构，将一个值为magic number的地址传到内核，并让内核中对该地址的内容执行多次-1操作，从而达到修改ptmx_fops的目的。</p>
+<h2 id="0×03-漏洞成因分析"><a href="#0×03-漏洞成因分析" class="headerlink" title="0×03 漏洞成因分析"></a>0×03 漏洞成因分析</h2><p>通过上节分析知道，该漏洞可以在内核中修改应用层指定的地址，执行递减1的修改操作。那么内核代码中的漏洞到底在哪呢？</p>
+<p>继续分析内核源代码ip_tables.c，既然问题出在ematch-&gt;u.kernel.match-&gt;me和t-&gt;u.kernel.target-&gt;me上，那么转到与之相关的代码处，即compat_copy_entry_from_user函数内部的代码，重点分析以下代码：</p>
+<p><a href="http://image.3001.net/images/20160826/14721807991799.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721807991799.png!small" alt=""></a></p>
+<p>将xt_ematch_foreach函数展开，如下：</p>
+<p><a href="http://image.3001.net/images/20160826/14721808081529.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721808081529.png!small" alt=""></a></p>
+<p>entry-&gt;elems指向的是紧跟在ipt_entry后的xt_entry_match（见如下示意图），即entry-&gt;elems= entry + sizeof(ipt_entry)，而sizeof(ipt_entry) = 112字节。</p>
+<p><a href="http://image.3001.net/images/20160826/14721808182831.gif" target="_blank" rel="external"><img src="http://image.3001.net/images/20160826/14721808182831.gif!small" alt=""></a></p>
+<p>由于应用层设置的target_offset为74，导致判断语句</p>
+<p>(pos)&lt; (struct xt_entry_match <em>)(<span class="hljs-function"><span class="hljs-params">(char </span></span></em>)(entry) + \</p>
+<p><span class="hljs-function"><span class="hljs-params">(entry)</span>-&gt;</span>target_offset); \</p>
+<p>返回的结果为<strong>false</strong>，因此整个循环一次未能执行，也即compat_find_calc_match函数未能执行，本应在compat_find_calc_match函数中设置ematch-&gt;u.kernel.match-&gt;me的指令也未能执行。</p>
+<p>与ematch错误处理情况类似，这段代码中，由于应用层设置的target_offset为74，导致t = compat_ipt_get_target()函数获取的target是错误的，后面尽管通过t-&gt;u.kernel.target= target;设置了target，但设置到了错误的地址，未改变真正的t-&gt;u.kernel.target值。</p>
+<h2 id="0×4漏洞总结"><a href="#0×4漏洞总结" class="headerlink" title="0×4漏洞总结"></a>0×4漏洞总结</h2><p><strong>综上所属，该漏洞是内核netfilter处理setsockopt相关代码（check_compat_entry_size_and_hooks和check_entry函数）在处理应用层传下来的数据时审查不严格，处理逻辑也存在缺陷，使内核在调用module_put函数时操作了应用层传下来的地址，导致内核直接对应用层输入的地址执行减一操作，相当于是内核任意地址写漏洞。</strong></p>
+<p>该漏洞要利用内核模块的module_put函数，而Android系统一般不打开内核模块动态加载功能，因此本文介绍的漏洞利用方法无法在Android系统上成功执行。</p>
+<p>最近爆出和netfilters/getsockopt相关的漏洞不少，如CVE-2016-3134，后期将继续分析其他漏洞。</p>
+<p>欢迎技术交流。本人QQ:16588753，root技术交流群:437812386。</p>
+<p><strong>* 本文原创作者：肥肥草，本文属FreeBuf原创奖励计划，未经许可禁止转载 </strong></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/freebuf/">freebuf</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-cowrie-e8-9c-9c-e7-bd-90-e9-83-a8-e7-bd-b2-e6-95-99-e7-a8-8b" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/09/cowrie-e8-9c-9c-e7-bd-90-e9-83-a8-e7-bd-b2-e6-95-99-e7-a8-8b/" class="article-date">
+      <time datetime="2016-09-09T03:30:48.000Z" itemprop="datePublished">2016-09-09</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/09/cowrie-e8-9c-9c-e7-bd-90-e9-83-a8-e7-bd-b2-e6-95-99-e7-a8-8b/">Cowrie蜜罐部署教程</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="0-蜜罐分类："><a href="#0-蜜罐分类：" class="headerlink" title="0.蜜罐分类："></a>0.蜜罐分类：</h2><blockquote>
 <p>低交互：模拟服务和漏洞以便收集信息和恶意软件，但是攻击者无法和该系统进行交互；</p>
-              </div>
-            </div>
-            <div class="divider"></div>
-            
-            <div class="card-action" data-tkey="68ac995def0b7c67eb643914e9f6ebd4">
-              <a class="icon nova-share action-item" href="http://www.jiathis.com/send/?webid=&url=http://www.5cc.xyz/2016/09/09/cowrie-e8-9c-9c-e7-bd-90-e9-83-a8-e7-bd-b2-e6-95-99-e7-a8-8b/&title=Cowrie%E8%9C%9C%E7%BD%90%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B&uid=2064663&summary=0.%E8%9C%9C%E7%BD%90%E5%88%86%E7%B1%BB%EF%BC%9A%0A%E4%BD%8E%E4%BA%A4%E4%BA%92%EF%BC%9A%E6%A8%A1%E6%8" data-toggle="modal" data-target="#share-modal" target="_blank"><span class="hidden-xs">Share</span></a>
-              <a class="icon nova-bubbles action-item" href="/2016/09/09/cowrie-e8-9c-9c-e7-bd-90-e9-83-a8-e7-bd-b2-e6-95-99-e7-a8-8b/#comment" id="uyan_count_unit"><span class="count"></span><span class="hidden-xs">Comment</span></a>
-              <a class="icon nova-heart2-full action-item fancybox.ajax" onclick="javascript:ds_vote(this, '.card-action', 1, '/2016/09/09/cowrie-e8-9c-9c-e7-bd-90-e9-83-a8-e7-bd-b2-e6-95-99-e7-a8-8b/#comment')"><span class="count"></span><span class="hidden-xs">Like</span></a>
-              <a class="icon nova-eye action-item" href="/2016/09/09/cowrie-e8-9c-9c-e7-bd-90-e9-83-a8-e7-bd-b2-e6-95-99-e7-a8-8b/"><span class="count"></span><span class="hidden-xs">Views</span></a>
-              <a class="icon nova-hand-right action-item" href="/2016/09/09/cowrie-e8-9c-9c-e7-bd-90-e9-83-a8-e7-bd-b2-e6-95-99-e7-a8-8b/" ><span>Read more</span></a>
-            </div>
-            <meta content="http://www.5cc.xyz/2016/09/09/cowrie-e8-9c-9c-e7-bd-90-e9-83-a8-e7-bd-b2-e6-95-99-e7-a8-8b/" itemprop="url">
-            <meta content="2016-09-15T14:57:53.000Z" itemprop="dateModified">
-          </div>
-          <div class="card hoverable" itemprop="blogPost" itemscope="itemscope" itemtype="http://schema.org/BlogPosting">
-            <div class="card-content">
-              <h3 class="card-title" itemprop="name headline"><a href="/2016/09/09/e4-b8-80-e8-b5-b7-e7-9c-8b-e7-9c-8b-e9-a6-96-e5-b1-8axpwn-e5-a4-a7-e4-bc-9a-e9-83-bd-e7-a0-b4-e8-a7-a3-e4-ba-86-e5-95-a5-ef-bc-9f/" class="article-title">一起看看首届XPwn大会都破解了啥？</a></h3>
-              <div class="divider"></div>
-              <div class="section post-header clearfix">
-                <!-- sub element must be span -->
-                <span class="post-date"><time class="icon nova-calendar" itemprop="datePublished" datetime="2016-09-09T03:26:43.000Z"><time datetime="2016-09-09T03:26:43.000Z">2016-09-09</time></time></span>
-                <span class="post-category"><i class="glyphicon glyphicon-folder-close"></i><span class="hidden-xs">Category</span><a class="category-item" href="/categories/freebuf/">freebuf</a></span> 
-                
-              </div>
-              <div class="divider"></div>
-              <div class="excerpt" itemprop="description articleBody">
-              <ul>
+<p>中等交互：在一个特有的控制环境中模拟一个生产服务，允许攻击者的部分交互；</p>
+<p>高交互：攻击者可以几乎自由的访问系统资源直至系统重新清除恢复。<br><a href="http://image.3001.net/images/20160816/14713429741384.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160816/14713429741384.png!small" alt="Clipboard Image.png"></a></p>
+</blockquote>
+<h2 id="1-cowrie简介"><a href="#1-cowrie简介" class="headerlink" title="1.cowrie简介"></a><strong>1.cowrie简介</strong></h2><p><strong>它是一个具有中等交互的SSH蜜罐，安装在Linux中，它可以获取攻击者用于暴力破解的字典、输入的命令以及上传或下载的恶意文件。攻击者在上传恶意文件后，执行恶意文件的操作均会失败，所以对蜜罐本身来说比较安全。</strong></p>
+<p><a href="http://image.3001.net/images/20160816/14713421328918.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160816/14713421328918.png!small" alt="Clipboard Image.png"></a></p>
+<h2 id="2-cowrie安装部署"><a href="#2-cowrie安装部署" class="headerlink" title="2.cowrie安装部署"></a>2.cowrie安装部署</h2><p>以下步骤均为root权限执行</p>
+<p>l 添加非root用户</p>
+<pre><code>adduser cowrie –p &lt;span class=&quot;hljs-strong&quot;&gt;*****&lt;/span&gt;**(设置密码，一路回车即可)
+`&lt;/pre&gt;
+l 安装各种python相关包
+&lt;pre&gt;`apt-&lt;span class=&quot;hljs-keyword&quot;&gt;get&lt;/span&gt; install python-twistedpython-crypto python-pyasn1 python-gmpy2 python-mysqldb python-zope.&lt;span class=&quot;hljs-keyword&quot;&gt;interface&lt;/span&gt;
+`&lt;/pre&gt;
+l 安装virtualenv
+&lt;pre&gt;`apt-&lt;span class=&quot;hljs-keyword&quot;&gt;get&lt;/span&gt; install virtualenv
+`&lt;/pre&gt;
+l 下载cowire
+&lt;pre&gt;`&lt;span class=&quot;hljs-built_in&quot;&gt;cd&lt;/span&gt; /optgit &lt;span class=&quot;hljs-built_in&quot;&gt;clone&lt;/span&gt; http://github.com/micheloosterhof/cowrie
+`&lt;/pre&gt;
+l 配置python虚拟环境
+&lt;pre&gt;`cd &lt;span class=&quot;hljs-meta-keyword&quot;&gt;/opt/&lt;/span&gt;cowrie-master（cowrie-master就是我cowrie蜜罐的目录，如果目录不一致，重命名即可）virtualenv cowrie-envsource cowrie-env&lt;span class=&quot;hljs-meta-keyword&quot;&gt;/bin/&lt;/span&gt;activate(cowrie-env) $ pip install twistedcryptography pyopenssl gmpy2
+`&lt;/pre&gt;
+l 改变/opt/cowrie-master的拥有者
+&lt;pre&gt;`&lt;span class=&quot;hljs-keyword&quot;&gt;chown&lt;/span&gt; -R cowrie:cowrie /opt/cowrie-master
+`&lt;/pre&gt;
+l 建立cowrie配置文件
+&lt;pre&gt;`&lt;span class=&quot;hljs-selector-tag&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;hljs-selector-tag&quot;&gt;cowrie&lt;/span&gt;&lt;span class=&quot;hljs-selector-class&quot;&gt;.cfg&lt;/span&gt;&lt;span class=&quot;hljs-selector-class&quot;&gt;.dist&lt;/span&gt; &lt;span class=&quot;hljs-selector-tag&quot;&gt;cowrie&lt;/span&gt;&lt;span class=&quot;hljs-selector-class&quot;&gt;.cfg&lt;/span&gt;
+`&lt;/pre&gt;
+l 修改日志的umask为0022（默认为0077）
+&lt;pre&gt;`&lt;span class=&quot;hljs-built_in&quot;&gt;cd&lt;/span&gt; /opt/cowrie-mastervi start.sh
+`&lt;/pre&gt;
+[![Clipboard Image.png](http://image.3001.net/images/20160816/14713422633445.png!small)](http://image.3001.net/images/20160816/14713422633445.png)
+
+l 修改蜜罐的SSH端口（默认为2222）
+&lt;pre&gt;`&lt;span class=&quot;hljs-built_in&quot;&gt;cd&lt;/span&gt; /opt/cowrie-mastervi cowrie.cfg
+`&lt;/pre&gt;
+将linsten_port改为62223即可（最好大于60000，以防止被nmap默认扫描到）
+
+[![Clipboard Image.png](http://image.3001.net/images/20160816/14713422921080.png!small)](http://image.3001.net/images/20160816/14713422921080.png)
+
+l 将公网访问服务器22端口的请求做端口转发，转发到蜜罐的端口中
+&lt;pre&gt;`&lt;span class=&quot;hljs-attribute&quot;&gt;iptables&lt;/span&gt; -t nat -A PREROUTING -p tcp--dport &lt;span class=&quot;hljs-number&quot;&gt;22&lt;/span&gt; -j REDIRECT --to-port &lt;span class=&quot;hljs-number&quot;&gt;62223&lt;/span&gt;
+`&lt;/pre&gt;
+l 将真正的（非蜜罐）SSH管理端口改为65522
+&lt;pre&gt;`vi &lt;span class=&quot;hljs-meta-keyword&quot;&gt;/etc/&lt;/span&gt;ssh/sshd_config
+`&lt;/pre&gt;
+（备注：在第一次改SSH端口时，在前期测试时强烈建议同时保留22与65522，以防止修改保存后出现故障无法连接65522）
+
+[![Clipboard Image.png](http://image.3001.net/images/20160816/14713423512894.png!small)](http://image.3001.net/images/20160816/14713423512894.png)
+
+此处切换为cowrie用户操作
+
+&lt;span style=&quot;color: #333333;&quot;&gt; 启动蜜罐&lt;/span&gt;
+&lt;pre&gt;`&lt;span class=&quot;hljs-built_in&quot;&gt;cd&lt;/span&gt; /opt/cowrie-master./start.sh
+`&lt;/pre&gt;
+
+## 3\. 数据库安装部署
+
+cowrie中产生的日志杂乱无章，即使放到日志分析工具中也很难制定规则去筛选。然而cowrie具备将攻击IP、时间、历史执行命令等记录直接存在数据库中，下面将说明如何配置数据库。
+
+需要root权限或者sudo
+
+l 安装mysql基础环境
+&lt;pre&gt;`apt-get &lt;span class=&quot;hljs-keyword&quot;&gt;install&lt;/span&gt; libmysqlclient-devpython-dev pip &lt;span class=&quot;hljs-keyword&quot;&gt;install&lt;/span&gt; mysql-python apt-&lt;span class=&quot;hljs-keyword&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;install&lt;/span&gt; mysql-&lt;span class=&quot;hljs-keyword&quot;&gt;server&lt;/span&gt; python-mysqldb
+`&lt;/pre&gt;
+[![Clipboard Image.png](http://image.3001.net/images/20160816/1471342497649.png!small)](http://image.3001.net/images/20160816/1471342497649.png)
+
+l 配置数据库与表
+
+使用root用户建立名为cowrie的数据库并将该库中的所有表授权给cowrie
+&lt;pre&gt;`&lt;span class=&quot;hljs-selector-tag&quot;&gt;mysql&lt;/span&gt; &lt;span class=&quot;hljs-selector-tag&quot;&gt;-u&lt;/span&gt; &lt;span class=&quot;hljs-selector-tag&quot;&gt;root&lt;/span&gt; &lt;span class=&quot;hljs-selector-tag&quot;&gt;-pEnter&lt;/span&gt; &lt;span class=&quot;hljs-selector-tag&quot;&gt;password&lt;/span&gt;: ******* &lt;span class=&quot;hljs-selector-tag&quot;&gt;mysql&lt;/span&gt;&amp;gt;&lt;span class=&quot;hljs-selector-tag&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;hljs-selector-tag&quot;&gt;DATABASE&lt;/span&gt; &lt;span class=&quot;hljs-selector-tag&quot;&gt;cowrie&lt;/span&gt;;&lt;span class=&quot;hljs-selector-tag&quot;&gt;mysql&lt;/span&gt;&amp;gt; &lt;span class=&quot;hljs-selector-tag&quot;&gt;GRANT&lt;/span&gt; &lt;span class=&quot;hljs-selector-tag&quot;&gt;ALL&lt;/span&gt; &lt;span class=&quot;hljs-selector-tag&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;hljs-selector-tag&quot;&gt;cowrie&lt;/span&gt;.* &lt;span class=&quot;hljs-selector-tag&quot;&gt;TOcowrie&lt;/span&gt;@&lt;span class=&quot;hljs-keyword&quot;&gt;localhost&lt;/span&gt; IDENTIFIED BY &lt;span class=&quot;hljs-string&quot;&gt;&apos;your_password&apos;&lt;/span&gt;;&lt;span class=&quot;hljs-selector-tag&quot;&gt;mysql&lt;/span&gt;&amp;gt;&lt;span class=&quot;hljs-selector-tag&quot;&gt;exit&lt;/span&gt;
+`&lt;/pre&gt;
+此时进入cowrie安装目录中，使用cowrie用户登录数据库，进入cowrie库中，将/opt/cowrie/ doc/sql/mysql.sql作为数据源即可制成多个表。
+&lt;pre&gt;`&lt;span class=&quot;hljs-built_in&quot;&gt;cd&lt;/span&gt; /opt/cowrie-master mysql -u cowrie –pEnter password: ******* mysql&amp;gt;USE cowrie;mysql&amp;gt;&lt;span class=&quot;hljs-built_in&quot;&gt;source&lt;/span&gt; ./doc/sql/mysql.sqlmysql&amp;gt;&lt;span class=&quot;hljs-built_in&quot;&gt;exit&lt;/span&gt;
+`&lt;/pre&gt;
+停止cowrie，修改配置文件中的数据库配置，使配置文件中的密码与cowrie数据库用户密码一致。
+&lt;pre&gt;`./&lt;span class=&quot;hljs-keyword&quot;&gt;stop&lt;/span&gt;.shvi cowrie.cfg
+`&lt;/pre&gt;
+[![Clipboard Image.png](http://image.3001.net/images/20160816/14713425641004.png!small)](http://image.3001.net/images/20160816/14713425641004.png)
+
+保存后退出，并su到cowrie用户重启蜜罐
+&lt;pre&gt;`./&lt;span class=&quot;hljs-keyword&quot;&gt;start&lt;/span&gt;.sh
+</code></pre><p>cowrie库中的数据表如下：</p>
+<p><a href="http://image.3001.net/images/20160816/14713425861902.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160816/14713425861902.png!small" alt="Clipboard Image.png"></a></p>
+<h2 id="4-配置文件说明"><a href="#4-配置文件说明" class="headerlink" title="4. 配置文件说明"></a>4. 配置文件说明</h2><p>data/userdb.txt——设置外部连接蜜罐时的密码，可以设置稍微复杂但是在攻击字典里，诱使攻击者进行暴力破解并获取其行为。</p>
+<p><a href="http://image.3001.net/images/20160816/14713427507623.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160816/14713427507623.png!small" alt="Clipboard Image.png"></a></p>
+<p>log/cowrie.json与 log/cowrie.log——均为日志</p>
+<p><a href="http://image.3001.net/images/20160816/14713427565036.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160816/14713427565036.png!small" alt="Clipboard Image.png"></a></p>
+<p>txtcmds/*——均为假的命令，其实打开就会发现完全就是txt</p>
+<p><a href="http://image.3001.net/images/20160816/14713427601224.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160816/14713427601224.png!small" alt="Clipboard Image.png"></a></p>
+<p>dl/*——攻击者上传的文件均会复制到这里</p>
+<p><a href="http://image.3001.net/images/20160816/14713427664682.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160816/14713427664682.png!small" alt="Clipboard Image.png"></a></p>
+<p>honeyfs/etc/motd——自定义欢迎/警告banner</p>
+<p><a href="http://image.3001.net/images/20160816/14713427704917.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160816/14713427704917.png!small" alt="Clipboard Image.png"></a></p>
+<h2 id="5-阶段成果"><a href="#5-阶段成果" class="headerlink" title="5. 阶段成果"></a>5. 阶段成果</h2><p>如果想查询蜜罐中是否有攻击者的痕迹，SSH登录服务器后进入数据库，使用cowrie库，查询auth、sessions、input等表即可。<br>公网恶意IP可以从sessions表中去重获取，算是少量的威胁情报了，部分恶意IP如下。</p>
+<p><a href="http://image.3001.net/images/20160816/14713427888255.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160816/14713427888255.png!small" alt="Clipboard Image.png"></a></p>
+<p>记录攻击者操作如下：</p>
+<p><a href="http://image.3001.net/images/20160816/1471342793187.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160816/1471342793187.png!small" alt="Clipboard Image.png"></a></p>
+<p><a href="http://image.3001.net/images/20160816/14713427975480.png" target="_blank" rel="external"><img src="http://image.3001.net/images/20160816/14713427975480.png!small" alt="Clipboard Image.png"></a></p>
+<p>由上图可以看到攻击者在暴力破解成功后执行的命令，获取到这些恶意文件后进行分析，其大多数均为用于ddos的恶意程序，例如：</p>
+<p><img src="http://image.3001.net/images/20160816/14713428022725.png!small" alt="Clipboard Image.png"><img src="http://image.3001.net/images/20160816/14713428057388.png!small" alt="Clipboard Image.png"></p>
+<p>在长期收集蜜罐中的攻击者信息后，可以制定恶意IP列表直接在防火墙做阻断</p>
+<p><strong>*本文作者：RipZ，转载须注明来自FreeBuf.COM</strong></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/freebuf/">freebuf</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-e4-b8-80-e8-b5-b7-e7-9c-8b-e7-9c-8b-e9-a6-96-e5-b1-8axpwn-e5-a4-a7-e4-bc-9a-e9-83-bd-e7-a0-b4-e8-a7-a3-e4-ba-86-e5-95-a5-ef-bc-9f" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/09/e4-b8-80-e8-b5-b7-e7-9c-8b-e7-9c-8b-e9-a6-96-e5-b1-8axpwn-e5-a4-a7-e4-bc-9a-e9-83-bd-e7-a0-b4-e8-a7-a3-e4-ba-86-e5-95-a5-ef-bc-9f/" class="article-date">
+      <time datetime="2016-09-09T03:26:43.000Z" itemprop="datePublished">2016-09-09</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/09/e4-b8-80-e8-b5-b7-e7-9c-8b-e7-9c-8b-e9-a6-96-e5-b1-8axpwn-e5-a4-a7-e4-bc-9a-e9-83-bd-e7-a0-b4-e8-a7-a3-e4-ba-86-e5-95-a5-ef-bc-9f/">一起看看首届XPwn大会都破解了啥？</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <ul>
 <li>FreeBuf官方报道，作者/ArthurKiller，转载请注明来自FreeBuf（FreeBuf.COM）</li>
 </ul>
 <p><a href="http://image.3001.net/images/20160901/14726823437365.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/14726823437365.jpg!small" alt="592247857235212791.jpg"></a></p>
-              </div>
-            </div>
-            <div class="divider"></div>
-            
-            <div class="card-action" data-tkey="f912c50598c5ba3d0c046df327cbbde1">
-              <a class="icon nova-share action-item" href="http://www.jiathis.com/send/?webid=&url=http://www.5cc.xyz/2016/09/09/e4-b8-80-e8-b5-b7-e7-9c-8b-e7-9c-8b-e9-a6-96-e5-b1-8axpwn-e5-a4-a7-e4-bc-9a-e9-83-bd-e7-a0-b4-e8-a7-a3-e4-ba-86-e5-95-a5-ef-bc-9f/&title=%E4%B8%80%E8%B5%B7%E7%9C%8B%E7%9C%8B%E9%A6%96%E5%B1%8AXPwn%E5%A4%A7%E4%BC%9A%E9%83%BD%E7%A0%B4%E8%A7%A3%E4%BA%86%E5%95%A5%EF%BC%9F&uid=2064663&summary=%0AFreeBuf%E5%AE%98%E6%96%B9%E6%8A%A5%E9%81%93%EF%BC%8C%E4%BD%9C%E8%80%85/ArthurKiller%EF%BC%8C%E8%B" data-toggle="modal" data-target="#share-modal" target="_blank"><span class="hidden-xs">Share</span></a>
-              <a class="icon nova-bubbles action-item" href="/2016/09/09/e4-b8-80-e8-b5-b7-e7-9c-8b-e7-9c-8b-e9-a6-96-e5-b1-8axpwn-e5-a4-a7-e4-bc-9a-e9-83-bd-e7-a0-b4-e8-a7-a3-e4-ba-86-e5-95-a5-ef-bc-9f/#comment" id="uyan_count_unit"><span class="count"></span><span class="hidden-xs">Comment</span></a>
-              <a class="icon nova-heart2-full action-item fancybox.ajax" onclick="javascript:ds_vote(this, '.card-action', 1, '/2016/09/09/e4-b8-80-e8-b5-b7-e7-9c-8b-e7-9c-8b-e9-a6-96-e5-b1-8axpwn-e5-a4-a7-e4-bc-9a-e9-83-bd-e7-a0-b4-e8-a7-a3-e4-ba-86-e5-95-a5-ef-bc-9f/#comment')"><span class="count"></span><span class="hidden-xs">Like</span></a>
-              <a class="icon nova-eye action-item" href="/2016/09/09/e4-b8-80-e8-b5-b7-e7-9c-8b-e7-9c-8b-e9-a6-96-e5-b1-8axpwn-e5-a4-a7-e4-bc-9a-e9-83-bd-e7-a0-b4-e8-a7-a3-e4-ba-86-e5-95-a5-ef-bc-9f/"><span class="count"></span><span class="hidden-xs">Views</span></a>
-              <a class="icon nova-hand-right action-item" href="/2016/09/09/e4-b8-80-e8-b5-b7-e7-9c-8b-e7-9c-8b-e9-a6-96-e5-b1-8axpwn-e5-a4-a7-e4-bc-9a-e9-83-bd-e7-a0-b4-e8-a7-a3-e4-ba-86-e5-95-a5-ef-bc-9f/" ><span>Read more</span></a>
-            </div>
-            <meta content="http://www.5cc.xyz/2016/09/09/e4-b8-80-e8-b5-b7-e7-9c-8b-e7-9c-8b-e9-a6-96-e5-b1-8axpwn-e5-a4-a7-e4-bc-9a-e9-83-bd-e7-a0-b4-e8-a7-a3-e4-ba-86-e5-95-a5-ef-bc-9f/" itemprop="url">
-            <meta content="2016-09-15T14:57:53.000Z" itemprop="dateModified">
-          </div>
-          <div class="card hoverable" itemprop="blogPost" itemscope="itemscope" itemtype="http://schema.org/BlogPosting">
-            <div class="card-content">
-              <h3 class="card-title" itemprop="name headline"><a href="/2016/09/09/github-e4-b8-8a10-e4-b8-aa-e6-9c-80-e5-8f-97-e6-ac-a2-e8-bf-8e-e7-9a-84-e5-ae-89-e5-85-a8-e9-a1-b9-e7-9b-ae/" class="article-title">GitHub上10个最受欢迎的安全项目</a></h3>
-              <div class="divider"></div>
-              <div class="section post-header clearfix">
-                <!-- sub element must be span -->
-                <span class="post-date"><time class="icon nova-calendar" itemprop="datePublished" datetime="2016-09-09T03:18:57.000Z"><time datetime="2016-09-09T03:18:57.000Z">2016-09-09</time></time></span>
-                <span class="post-category"><i class="glyphicon glyphicon-folder-close"></i><span class="hidden-xs">Category</span><a class="category-item" href="/categories/freebuf/">freebuf</a></span> 
-                
-              </div>
-              <div class="divider"></div>
-              <div class="excerpt" itemprop="description articleBody">
-              <p><a href="http://image.3001.net/images/20160907/14732567998627.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160907/14732567998627.jpg!small" alt="1421819031148798.jpg"></a></p>
-              </div>
-            </div>
-            <div class="divider"></div>
-            
-            <div class="card-action" data-tkey="1baa931c7538e57ac7035dd476a19bb8">
-              <a class="icon nova-share action-item" href="http://www.jiathis.com/send/?webid=&url=http://www.5cc.xyz/2016/09/09/github-e4-b8-8a10-e4-b8-aa-e6-9c-80-e5-8f-97-e6-ac-a2-e8-bf-8e-e7-9a-84-e5-ae-89-e5-85-a8-e9-a1-b9-e7-9b-ae/&title=GitHub%E4%B8%8A10%E4%B8%AA%E6%9C%80%E5%8F%97%E6%AC%A2%E8%BF%8E%E7%9A%84%E5%AE%89%E5%85%A8%E9%A1%B9%E7%9B%AE&uid=2064663&summary=" data-toggle="modal" data-target="#share-modal" target="_blank"><span class="hidden-xs">Share</span></a>
-              <a class="icon nova-bubbles action-item" href="/2016/09/09/github-e4-b8-8a10-e4-b8-aa-e6-9c-80-e5-8f-97-e6-ac-a2-e8-bf-8e-e7-9a-84-e5-ae-89-e5-85-a8-e9-a1-b9-e7-9b-ae/#comment" id="uyan_count_unit"><span class="count"></span><span class="hidden-xs">Comment</span></a>
-              <a class="icon nova-heart2-full action-item fancybox.ajax" onclick="javascript:ds_vote(this, '.card-action', 1, '/2016/09/09/github-e4-b8-8a10-e4-b8-aa-e6-9c-80-e5-8f-97-e6-ac-a2-e8-bf-8e-e7-9a-84-e5-ae-89-e5-85-a8-e9-a1-b9-e7-9b-ae/#comment')"><span class="count"></span><span class="hidden-xs">Like</span></a>
-              <a class="icon nova-eye action-item" href="/2016/09/09/github-e4-b8-8a10-e4-b8-aa-e6-9c-80-e5-8f-97-e6-ac-a2-e8-bf-8e-e7-9a-84-e5-ae-89-e5-85-a8-e9-a1-b9-e7-9b-ae/"><span class="count"></span><span class="hidden-xs">Views</span></a>
-              <a class="icon nova-hand-right action-item" href="/2016/09/09/github-e4-b8-8a10-e4-b8-aa-e6-9c-80-e5-8f-97-e6-ac-a2-e8-bf-8e-e7-9a-84-e5-ae-89-e5-85-a8-e9-a1-b9-e7-9b-ae/" ><span>Read more</span></a>
-            </div>
-            <meta content="http://www.5cc.xyz/2016/09/09/github-e4-b8-8a10-e4-b8-aa-e6-9c-80-e5-8f-97-e6-ac-a2-e8-bf-8e-e7-9a-84-e5-ae-89-e5-85-a8-e9-a1-b9-e7-9b-ae/" itemprop="url">
-            <meta content="2016-09-15T14:57:53.000Z" itemprop="dateModified">
-          </div>
+<p><strong>8月31日，第一届XPwn在北京召开。参赛选手成功攻破了小米，索尼，思科，极路由，西门子等众多厂商的相关硬件设备，查找到数十个安全漏洞，并且第一时间将破解方式和解决方案提供给相关厂商。本次大会有10组参赛选手，大会评委团则由国内外顶尖级安全专家与学者组成，分别来自蚂蚁金服、阿里巴巴、腾讯、百度等国内知名互联网公司，以及知名高校和网络安全研究团队。</strong></p>
+<p>本次XPwn大会的主题为「未来安全，探索盛会」。在大会开场白的时候，XCon和 XPwn创始人王英键（网名呆神） 说到：“做安全就是做未来，我们需要重视安全，关注安全和了解安全。未来的安全是什么？它是以什么形态存在？它所具备的威胁是什么？发现问题和解决问题，这个是我们的目标，也是我们的责任。”</p>
+<h2 id="XPwn：老牌安全会议XCON开“新花”"><a href="#XPwn：老牌安全会议XCON开“新花”" class="headerlink" title="XPwn：老牌安全会议XCON开“新花”"></a>XPwn：老牌安全会议XCON开“新花”</h2><p>xPwn是由XCon组委会主办，北京华永兴安科学技术有限公司承办的智能生活产品安全问题研究探索大会。今年将与XCon安全焦点安全技术峰会以及其他的一些安全活动联合举办。 通过xPwn吸引国内外一流的极客、黑客发现并解决智能设备上存在的安全问题，推动厂商及时修正问题，更加重视安全问题，探索更好的安全解决办法，从而提高产品安全质量。</p>
+<p>XPwn2016总的奖金池500万人民币，并且部分获奖优秀选手，除了能获得奖金和荣誉外，组委会另设立一项独家奖励机制：导师+天使基金为破解技术提供孵化能力，让技术产品化、商业化，让好的技术和人才能够创造更大的价值获得更多的回报。XPwn的关注方向为智能终端，智能穿戴，智能家居，智能交通，生活O2O和未来安全。</p>
+<p>XPwn的电子身份凭证有着一股强烈的极客范儿！</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><a href="http://image.3001.net/images/20160901/14726747137475.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/14726747137475.jpg!small" alt="179009695476987169.jpg"></a></h2><p>XPwn大会上面两枚漂亮的欧洲“妹纸”，有着一种说不出的雅典风味。</p>
+<p><a href="http://image.3001.net/images/20160901/14726749894966.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/14726749894966.jpg!small" alt="512774544646863899.jpg"></a></p>
+<p>磁悬浮XPwn标志，“黑科技”味十足。</p>
+<p><a href="http://image.3001.net/images/20160901/14726750806325.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/14726750806325.jpg!small" alt="177040463805313001.jpg"></a></p>
+<p>在现场就坐的参会人员。</p>
+<p><a href="http://image.3001.net/images/20160901/14726753032420.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/14726753032420.jpg!small" alt="123824213255053639.jpg"></a></p>
+<p>XPwn大会上负责现场直播的美女主播们。</p>
+<p><a href="http://image.3001.net/images/20160901/14726753682230.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/14726753682230.jpg!small" alt="374277052004757553.jpg"></a></p>
+<p>XPwn前台接待人员</p>
+<p><a href="http://image.3001.net/images/20160901/1472678712420.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/1472678712420.jpg!small" alt="758027661324424240.jpg"></a></p>
+<h2 id="参赛细节"><a href="#参赛细节" class="headerlink" title="参赛细节"></a>参赛细节</h2><h3 id="智能家居设备（相关品牌：小米）"><a href="#智能家居设备（相关品牌：小米）" class="headerlink" title="智能家居设备（相关品牌：小米）"></a>智能家居设备（相关品牌：小米）</h3><p>小米的智能硬件生态包含多个智能设备，如智能插座、多功能网关等。为便于管理，小米为这些产品设计了一整套基础协议框架，统一实现设备接入、数据传输与控制管理。但是由于某个环节设计不当，导致小米的智能设备可被攻击者远程控制。小米相关负责人表示该漏洞目前已经修复，并且表达了对该研究人员的感谢。</p>
+<p><a href="http://image.3001.net/images/20160901/14726767278249.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/14726767278249.jpg!small" alt="814375586570518326.jpg"></a></p>
+<h3 id="路由器（相关品牌：ikuai，极路由和思科）"><a href="#路由器（相关品牌：ikuai，极路由和思科）" class="headerlink" title="路由器（相关品牌：ikuai，极路由和思科）"></a>路由器（相关品牌：ikuai，极路由和思科）</h3><p>在这个参赛环节，参赛人员展示了ikuai，极路由和思考三款路由器的漏洞利用。针对极路由的漏洞，用户只需点击攻击者编写的恶意网页，攻击者就可以获得路由器的SSH Shell权限。该漏洞涉及到csrf攻击，dns劫持，远程种马，远程获取root权限等。</p>
+<p><a href="http://image.3001.net/images/20160901/14726774697149.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/14726774697149.jpg!small" alt="792668516346234141.jpg"></a></p>
+<p>自从“影子经纪人”爆出NSA的泄露文件后，小编认为近几个月不再会有思科的0day出现。但是在XPwn大会上，Slipper和Kelwin展示了针对思考防火墙的命令执行漏洞，引起了众多评委的注意。</p>
+<p><a href="http://image.3001.net/images/20160901/14726780893203.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/14726780893203.jpg!small" alt="674821066747585439.jpg"></a></p>
+<h3 id="笔记本电脑（相关品牌：索尼）"><a href="#笔记本电脑（相关品牌：索尼）" class="headerlink" title="笔记本电脑（相关品牌：索尼）"></a>笔记本电脑（相关品牌：索尼）</h3><p>BIOS是电脑底层的一个操作系统，在XPwn大会上，404 Team研究人员发现索尼的BIOS系统对BIOS密码采用了64位RSA加密，非常容易遭到破解。专家评委王英键（呆神）评价道：“一般人的电脑都不会设置BIOS密码，但是如果有人对电脑设置BIOS密码，那么他们的电脑内一般都有非常重要的资料。”</p>
+<p><a href="http://image.3001.net/images/20160901/1472679401364.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/1472679401364.jpg!small" alt="324129579757834285.jpg"></a></p>
+<h3 id="贩卖机"><a href="#贩卖机" class="headerlink" title="贩卖机"></a>贩卖机</h3><p>在XPwn大会上，来自百度的小灰灰为我们展示了某贩卖机厂商的安全漏洞。据了解，该贩卖机占据了国内百分之八十的份额，漏洞危害十分广泛。这个参赛漏洞也是全场奖金最高的，该研究人员获得了十余万元人民币的奖金。该贩卖机采用了安卓系统对其进行控制，研究人员首先对控制APP进行了一个逆向分析，查找到了相关的接口和服务器地址，随后进行相关的漏洞挖掘。该贩卖机存在以下几个漏洞。</p>
+<blockquote>
+<p>漏洞一：支付逻辑漏洞</p>
+<p>漏洞二：后台权限绕过访问</p>
+<p>漏洞三：升级漏洞导致官方APP可被任意替换</p>
+<p>漏洞四：大量敏感信息泄露</p>
+<p>漏洞五：wifi劫持</p>
+<p>漏洞六：3G/4G流量劫持</p>
+<p>漏洞七：物理绕过<br><a href="http://image.3001.net/images/20160901/14726799586264.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/14726799586264.jpg!small" alt="919344873364759480.jpg"></a></p>
+</blockquote>
+<h3 id="工控4-0和交换机（相关厂商：西门子）"><a href="#工控4-0和交换机（相关厂商：西门子）" class="headerlink" title="工控4.0和交换机（相关厂商：西门子）"></a>工控4.0和交换机（相关厂商：西门子）</h3><p>XPwn参赛研究人员发现，西门子的工控4.0设备存在设计缺陷。研究人员展示了西门子PLC控制器之间的恶意代码传播。其次还有西门子的交换机存在漏洞，发送恶意数据包即可让交换机部分功能瘫痪。这个两个设备在工业控制领域十分广泛，其影响也不可忽视。</p>
+<p><a href="http://image.3001.net/images/20160901/14726802806766.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/14726802806766.jpg!small" alt="649472093807709865.jpg"></a></p>
+<h3 id="固件中的安全思考（相关品牌：锤子手机）"><a href="#固件中的安全思考（相关品牌：锤子手机）" class="headerlink" title="固件中的安全思考（相关品牌：锤子手机）"></a>固件中的安全思考（相关品牌：锤子手机）</h3><p>来自百度安全实验室的胡明现场演示了如何绕过锤子手机的底层固件，安装第三方系统。</p>
+<p><a href="http://image.3001.net/images/20160901/14726807717236.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/14726807717236.jpg!small" alt="669445700015843287.jpg"></a></p>
+<h2 id="大会亮点"><a href="#大会亮点" class="headerlink" title="大会亮点"></a>大会亮点</h2><h3 id="iOS-10-beta越狱演示"><a href="#iOS-10-beta越狱演示" class="headerlink" title="iOS 10 beta越狱演示"></a><strong>iOS 10 beta越狱演示</strong></h3><p>在大会上，犇众信息联合创始人陈小波（DM）现场演示了iOS 10 beta的越狱视频。通过演示视频，小编了解到他们首先是在iOS 10 beta上安装一个低权限的第三方APP。打开该APP后，它会通过相关iOS漏洞获得root权限，并且成功安装Cydia。</p>
+<p><a href="http://image.3001.net/images/20160901/1472681014789.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/1472681014789.jpg!small" alt="820460690122143711.jpg"></a></p>
+<h3 id="银行APP安全检测"><a href="#银行APP安全检测" class="headerlink" title="银行APP安全检测"></a>银行APP安全检测</h3><p>在现场，某位安全研究人员还演示了国内众多银行的APP漏洞。该研究人员首先是填写指定转款人姓名，联系方式，银行账户，短信验证码等常规操作。看似非常安全和正常的操作，但是到最后钱却转到了另外一个人的账户上。由于该漏洞过于敏感，会议上并没有披露漏洞的细节。</p>
+<p><a href="http://image.3001.net/images/20160901/14726818316577.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/14726818316577.jpg!small" alt="439998310454631692.jpg"></a></p>
+<h2 id="「极客奥运会」圆满落幕"><a href="#「极客奥运会」圆满落幕" class="headerlink" title="「极客奥运会」圆满落幕"></a>「极客奥运会」圆满落幕</h2><p>至此，XPwn已经圆满结束。人们生活对于互联网已经产生依赖，针对互联网安全研究的路上，需要各行各业的不懈努力。主办方介绍，XPwn更关注的不是发现隐患，而是消除隐患。XPwn希望通过这样的活动，联合极客圈的力量，为网络安全护航。</p>
+<p><a href="http://image.3001.net/images/20160901/14726821946939.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160901/14726821946939.jpg!small" alt="20958907836330855.jpg"></a></p>
+<p><strong>* FreeBuf官方报道，作者/ArthurKiller，转载请注明来自FreeBuf（FreeBuf.COM）</strong></p>
 
-
-    <nav> <ul class=pagination><li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li><li class="active"><span class="sronly">1</span><li><a href="/page/2/">2</a></li><li><a href="/page/3/">3</a></li><li><span class="space">&hellip;</span></li><li><a href="/page/15/">15</a></li><li><a href="/page/2/" aria-label="Next" rel="next">&raquo;</a></li></ul> </nav>
-    
-<script>/*
-$(document).ready(function() {
-  $(".fancybox.iframe").fancybox({
-    maxWidth  : 800,
-    maxHeight : 600,
-    fitToView : false,
-    autoSize  : false,
-    closeClick  : false,
-    openEffect  : 'none',
-    closeEffect : 'none',
-    iframe: {
-		security: "restricted",
-		sandbox: "allow-scripts",
-		preload: false
-    },
-    afterLoad: function(){
-		var f = $('.fancybox-iframe');
-		f.attr("security", "restricted");
-		f.attr("sandbox", "allow-scripts");
-		return true;
-    }
-  });
-});*/
-</script>
-</main>
-<div class="modal fade" id="share-modal" tabindex="-1" role="dialog" aria-labelledby="share target">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title icon nova-share" id="exampleModalLabel">&nbsp;Share</h4>
-      </div>
-      <div class="modal-body">
-          <a class="share-item" data-webid="tsina" href="#" target="_blank" onclick="share()">
-            <i class="icon nova-weibo red white-text"></i>
-            Weibo
-          </a> 
-          <a class="share-item" data-webid="twitter" href="#" target="_blank">
-            <i class="icon nova-twitter blue" style="background-color: #E3F2FD"></i>
-            Twitter
-          </a>
-          <a class="share-item" data-webid="cqq" href="#" target="_blank">
-            <i class="icon nova-qq blue"></i>
-            QQ
-          </a>
-          <a class="share-item" data-webid="weixin" href="#" target="_blank">
-            <i class="icon nova-wechat green"></i>
-            Wechat
-          </a>
-          <a class="share-item" data-webid="" href="#" target="_blank">
-            <i class="icon nova-share" style="background-color: #2196F3"></i>
-            More
-          </a>
-      </div>
+      
     </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/freebuf/">freebuf</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
   </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-github-e4-b8-8a10-e4-b8-aa-e6-9c-80-e5-8f-97-e6-ac-a2-e8-bf-8e-e7-9a-84-e5-ae-89-e5-85-a8-e9-a1-b9-e7-9b-ae" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/09/09/github-e4-b8-8a10-e4-b8-aa-e6-9c-80-e5-8f-97-e6-ac-a2-e8-bf-8e-e7-9a-84-e5-ae-89-e5-85-a8-e9-a1-b9-e7-9b-ae/" class="article-date">
+      <time datetime="2016-09-09T03:18:57.000Z" itemprop="datePublished">2016-09-09</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/09/github-e4-b8-8a10-e4-b8-aa-e6-9c-80-e5-8f-97-e6-ac-a2-e8-bf-8e-e7-9a-84-e5-ae-89-e5-85-a8-e9-a1-b9-e7-9b-ae/">GitHub上10个最受欢迎的安全项目</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><a href="http://image.3001.net/images/20160907/14732567998627.jpg" target="_blank" rel="external"><img src="http://image.3001.net/images/20160907/14732567998627.jpg!small" alt="1421819031148798.jpg"></a></p>
+<blockquote>
+<p>开源项目最终还是迎来了属于它的胜利，虽然这胜利姗姗来迟，但终究还是实现了。在信息安全领域，尽管许多公司封锁了它们的专有软件代码，但仍有许多开源项目可供安全专家使用。</p>
+<p>其中，寻找开源安全相关项目的首选就是GitHub。你可以利用GitHub的搜索功能发现有用的工具，但是，GitHub有一个地方可以帮你获寻最热门的安全项目，就是所谓的GitHub Showcases板块，但是在 GitHub上，这个板块却鲜为人知。<br><strong>2014年开始，Showcases设立了最热门安全项目类别 。Showcases上罗列的项目主要按星级罗列，也就是说，通常列表显示的是当今 最流行的项目。</strong></p>
+</blockquote>
+<p>Showcases的“安全”类别包含24个项目。<strong>下面的项目为当下GitHub上最受欢迎的Top10 开源安全项目：</strong></p>
+<h3 id="1-osquery-–-源自Facebook"><a href="#1-osquery-–-源自Facebook" class="headerlink" title="1. osquery – 源自Facebook "></a><strong>1. osquery – 源自Facebook </strong></h3><p><a href="https://github.com/facebook/osquery" target="_blank" rel="external"><strong>osquery</strong></a>是一个高性能关系数据库的操作系统，允许编写SQL查询，探索操作系统数据。借助osquery，SQL表格表现的是抽象概念，比如运行过程、加载的内核模式、开放的网络连接、浏览器插件、硬件事件或文件 hash。</p>
+<h3 id="2-Metasploit-Framework-–-源自Rapid7"><a href="#2-Metasploit-Framework-–-源自Rapid7" class="headerlink" title="2. Metasploit Framework – 源自Rapid7 "></a><strong>2. Metasploit Framework – 源自Rapid7 </strong></h3><p><a href="https://github.com/rapid7/metasploit-framework" target="_blank" rel="external"><strong>Metasploit Framework</strong></a>是开发并执行针对远程目标设备漏洞利用代码的工具。</p>
+<h3 id="3-Infer-–源自Facebook"><a href="#3-Infer-–源自Facebook" class="headerlink" title="3. Infer –源自Facebook "></a><strong>3. Infer –源自Facebook </strong></h3><p><a href="https://github.com/facebook/infer" target="_blank" rel="external"><strong>Facebook Infer</strong></a>是一款静态分析工具，如果你给Infer一些Objective-C、Java或C代码，它会生成一个潜在漏洞列表。在关键漏洞转移至用户手机之前，任何人都可以使用Infer拦截关键漏洞，并帮助防止死机或性能差。</p>
+<h3 id="4-Brakeman-–-源自PresidentBeef"><a href="#4-Brakeman-–-源自PresidentBeef" class="headerlink" title="4. Brakeman – 源自PresidentBeef "></a><strong>4. Brakeman – 源自PresidentBeef </strong></h3><p><a href="https://github.com/presidentbeef/brakeman" target="_blank" rel="external"><strong>Brakeman</strong></a>是一个开源静态分析工具，负责检查Ruby on Rails应用程序的安全漏洞。</p>
+<h3 id="5-Radare2-–-源自the-Radare项目"><a href="#5-Radare2-–-源自the-Radare项目" class="headerlink" title="5. Radare2 – 源自the Radare项目"></a><strong>5. Radare2 – 源自the Radare项目</strong></h3><p><a href="https://github.com/radare/radare2" target="_blank" rel="external"><strong>Radare</strong></a>是一个取证工具以及可编写脚本的命令行十六进制编辑器，可以打开磁盘文件、支持分析二进制、反汇编代码、调试程序以及连接到远程gdb服务器…</p>
+<h3 id="6-OS-X-Auditor-–-源自Jean-Philippe-Teissier"><a href="#6-OS-X-Auditor-–-源自Jean-Philippe-Teissier" class="headerlink" title="6. OS X Auditor – 源自Jean-Philippe Teissier "></a><strong>6. OS X Auditor – 源自Jean-Philippe Teissier </strong></h3><p><a href="https://github.com/jipegit/OSXAuditor" target="_blank" rel="external"><strong>OS X Auditor</strong></a>是一个免费的Mac OS X计算机取证工具，负责分析多类型文件的可疑内容。</p>
+<h3 id="7-BeEF-–-源自BeEF项目"><a href="#7-BeEF-–-源自BeEF项目" class="headerlink" title="7. BeEF – 源自BeEF项目 "></a><strong>7. BeEF – 源自BeEF项目 </strong></h3><p><a href="https://github.com/beefproject/beef" target="_blank" rel="external"><strong>BeEF</strong></a>是The Browser Exploitation Framework的缩写，它是一个 专注网页浏览器的渗透测试工具。</p>
+<h3 id="8-Cuckoo-–-源自Cuckoo沙盒项目"><a href="#8-Cuckoo-–-源自Cuckoo沙盒项目" class="headerlink" title="8. Cuckoo – 源自Cuckoo沙盒项目 "></a><strong>8. Cuckoo – 源自Cuckoo沙盒项目 </strong></h3><p><a href="https://github.com/cuckoosandbox/cuckoo" target="_blank" rel="external"><strong>Cuckoo Sandbox</strong></a>是一个自动动态恶意软件分析系统。这意味着什么呢？简单来说就是，你可以将任何可疑文件丢给它，Cuckoo会在几秒内为你反馈一个详细结果，概括此类文件在在孤立环境中执行时的活动。</p>
+<h3 id="9-Scumblr-–-源自Netflix"><a href="#9-Scumblr-–-源自Netflix" class="headerlink" title="9. Scumblr – 源自Netflix "></a><strong>9. Scumblr – 源自Netflix </strong></h3><p><a href="https://github.com/Netflix/Scumblr" target="_blank" rel="external"><strong>Scumblr</strong></a>是一个Web应用程序，允许执行定期搜索和存/取识别结果的行为。</p>
+<h3 id="10-Moloch-–-源自AOL"><a href="#10-Moloch-–-源自AOL" class="headerlink" title="10. Moloch – 源自AOL "></a><strong>10. Moloch – 源自AOL </strong></h3><p><a href="https://github.com/aol/moloch" target="_blank" rel="external"><strong>Moloch</strong></a>是一个开源的，大规模的数据包捕获、索引和数据库系统。为PCAP浏览、搜索和导出提供了一个简单的Web接口。API接口都是公开的，允许直接下载PCAP数据和JSON格式的会话数据。通过使用HTTPS和HTTP摘要密码支持或通过使用前面的Apache实现安全。Moloch并不是为了取代IDS，而是与之合作，储存并索引标准PACP格式中的所有网络流量，提供快速访问。Moloch可以在多个系统部署，处理数万gigabits（G比特）/sec（秒）的流量。</p>
+<p><strong>以上就是当前GitHub上最受欢迎的开源安全项目。您可以定期查看<a href="https://github.com/showcases/security?s=stars" target="_blank" rel="external">Showcases板块</a>， 了解最流行的项目及分析各类项目的变化趋势。</strong></p>
+<p><strong>* 参考来源：<a href="http://news.softpedia.com/news/the-top-10-most-popular-security-projects-on-github-507934.shtml" target="_blank" rel="external">softpedia</a>，米雪儿编译，转载请注明来自FreeBuf.COM</strong></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/freebuf/">freebuf</a>
+    </div>
+
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
+  
 </div>
-<script>
-$('#share-modal').on('show.bs.modal', function (event) {
-	var button = $(event.relatedTarget); // Button that triggered the modal
-	var href = button.attr('href');
-  $('a[data-webid]').each(function(i){
-    var url = href.replace(/webid=\w*/, 'webid=' + $(this).data('webid'));
-    $(this).attr("href", url);
-  });
-});
-
-function share(){
-    $('#share-modal').modal('hide')
-}
-</script>
-    
-<script>
-  var ds_short_name = 'ieclipse';
-
-  // load comments/likes count 
-  function ds_load_comments(selector, options) {
-    var o = options || {};
-
-    var tkeys;
-    $(selector).each(function(i) {
-      var tkey = $(this).data('tkey');
-      if (tkeys) {
-        tkeys += ',' + tkey;
-      }
-      else {
-        tkeys = tkey;
-      }
-    });
-    var url = "http://api.duoshuo.com/threads/counts.jsonp";
-    var label = {
-
-    };
-    $.ajax({
-      url : url,
-      dataType : "jsonp",
-      type : 'get',
-      data : {
-        short_name : ds_short_name,
-        threads : tkeys
-      },
-      jsonp : 'callback',
-      success : function(data) {
-        var r = data.response;
-        $(selector).each(function(i) {
-          var tkey = $(this).data('tkey');
-          $(this).data("tid", r[tkey].thread_id);
-          if (o.p) {
-            for ( var key in o.p) {
-              var c = r[tkey][key];
-              var str = c <= 0 ? '' : c + '';
-              $(this).find(o.p[key]).html(str);
-            }
-          }
-        });
-      }
-    });//end ajax;
-  }
-
-  // vote, need login first.
-  function ds_vote(obj, selector, vote, url) {
-    var p = $(obj).parents(selector);
-    var tid = p.data("tid");
-    if (tid) {
-      $.ajax({
-        url : 'http://' + ds_short_name + '.duoshuo.com/api/threads/vote.json',
-        type : 'post',
-        //dataType: 'jsonp',
-        data : {
-          short_name : ds_short_name,
-          vote : vote,
-          thread_id : tid
-        },
-        //jsonp: 'callback',
-        success : function(data) {
-          console.log(data);
-          try {
-            var old = $(p.likes).html();
-            var i = parseInt(old) + 1;
-            $(p.likes).html(i + '');
-          } catch (e) {
-            location.href = url;
-          }
-        },
-        error : function(xhr, msg, error) {
-          console.log(msg + ':' + error);
-          location.href = url;
-        }
-      });
-    }
-  }
-  ds_load_comments('.card-action', {
-    style : 'hidden-xs',
-    p : {
-      comments : '.nova-bubbles .count',
-      likes : '.nova-heart2-full .count',
-      views : '.nova-eye .count'
-    }
-  });
-</script>
-
-    
-<script>
-  $(document).ready(function() {
-    // load views count from leanclound
-    // make sure you are created Counter table on leanclound
-    function lc_load_views(selector, options) {
-      var o = options || {};
-      var tkeys = [];
-      $(selector).each(function(i) {
-        var tkey = $(this).data('tkey');
-        tkeys.push(tkey);
-      });
-
-      var query = new AV.Query(lc_table);
-      query.select([ '-ACL', '-createdAt', '-updatedAt', '-url' ]);
-      query.containedIn('pageId', tkeys);
-      query.find().then(function(results) {
-        $(selector).each(function(i) {
-          var tkey = $(this).data('tkey');
-          for (var i = 0; i < results.length; i++) {
-            var t = results[i];
-            if (t.get('pageId') === tkey) {
-              var c = t.get('views') + '';
-              $(this).find(o.p.views).html(c);
-            }
-          }
-        });
-      }, function(error) {
-      });
-    }
-
-    lc_load_views('.card-action', {
-      style : 'hidden-xs',
-      p : {
-        views : '.nova-eye .count'
-      }
-    });
-  });
-</script>
-
-    
-  </div>
-  <!-- aside -->
-  <div class="col-sx-12 col-sm-4 col-md-3 col-lg-3">
-    <aside>
-      
-      
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Announce</h3>
-      </div>
-      <div class="panel-body">
-        本站评论系统已由友言切换为多说，原有的友言评论数据在友言云端数据迁移完毕之后再导入，在此期间，原先的评论暂不可见，请见谅！
-      </div>
-    </div>
-      
-      
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Recent Visitors</h3>
-      </div>
-      <ul class="ds-recent-visitors" data-num-items="12"><li class="text-center">Loading...</li></ul>
-    </div>
-      
-      
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">About</h3>
-      </div>
-      <div class="panel-body text-center">
-        <div>欢迎点击以下图标关注我或与我互动！</div>
-        <div id="widget-about" class="h3 text-center">
-          <a class="orange black-text icon-item" href="https://github.com/Jamling" title="Jamling on Github" target="_blank">
-			<i class="icon nova-github-alt icon-font"></i>
-		  </a>
-          <a class="red white-text  icon-item" href="http://weibo.com/Jamling" title="Jamling on Weibo" target="_blank">
-		    <i class="icon nova-weibo icon-font"></i>
-		  </a>
-          <a class="blue white-text  icon-item" href="https://twitter.com/JamlingLi" title="Jamling on Twitter" target="_blank">
-		    <i class="icon nova-twitter icon-font"></i>
-		  </a>
-          <a class="green white-text  icon-item" href="mailto:li.jamling@gmail.com" title="mail to Jamling" target="_blank">
-            <i class="icon nova-email icon-font" style="font-size: 22px"></i>
-          </a>
-          <!-- 剩下的自己加 -->
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2016 Any_冰
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
         </div>
-      </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit"  title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
     </div>
-      
-      
-    <div class="panel panel-primary hidden-xs" id="category">
-      <div class="panel-heading">
-        <h3 class="panel-title">Category</h3>
-      </div>
-      
-      <!-- use category tree -->
-      <ul class="list-group"><li class="list-group-item"><a class="list-group-link" href="/categories/apache/">apache</a><span class="badge">1</span></li><li class="list-group-item"><a class="list-group-link" href="/categories/centos/">centos</a><span class="badge">7</span></li><li class="list-group-item"><a class="list-group-link" href="/categories/debian/">debian</a><span class="badge">1</span></li><li class="list-group-item"><a class="list-group-link" href="/categories/freebuf/">freebuf</a><span class="badge">5</span></li><li class="list-group-item"><a class="list-group-link" href="/categories/kali-linux/">kali-linux</a><span class="badge">2</span></li><li class="list-group-item"><a class="list-group-link" href="/categories/linux-mint/">linux mint</a><span class="badge">4</span></li><li class="list-group-item"><a class="list-group-link" href="/categories/metasploit/">metasploit</a><span class="badge">5</span></li><li class="list-group-item"><a class="list-group-link" href="/categories/ubuntu/">ubuntu</a><span class="badge">2</span></li><li class="list-group-item"><a class="list-group-link" href="/categories/便宜vps/">便宜vps</a><span class="badge">6</span></li><li class="list-group-item"><a class="list-group-link" href="/categories/数据库应用/">数据库应用</a><span class="badge">3</span></li><li class="list-group-item"><a class="list-group-link" href="/categories/记录/">记录</a><span class="badge">26</span></li><li class="list-group-item"><a class="list-group-link" href="/categories/随笔记录/">随笔记录</a><span class="badge">12</span></li><li class="list-group-item"><a class="list-group-link" href="/categories/隧道技术/">隧道技术</a><span class="badge">1</span></li></ul>
-    </div>
-    
-      
-      
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Tags</h3>
-      </div>
-      
-      <div class="panel-body">
-      <a href="/tags/sock5/" style="font-size: 10px; color: #795548">sock5</a>
-      </div>
-    </div>
-      
-      
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Hot Posts</h3>
-      </div>
-      <div  class="list-group" id="top-threads" data-range="weekly" data-num-items="5">
-        <div class="text-center">Loading...</div>
-      </div>
-    </div>
-    <script>
-      var ds_top_url = 'http://api.duoshuo.com/sites/listTopThreads.jsonp';
-      var ds_top_dom = $('#top-threads');
-      var ds_top_param = ds_top_dom.data();
-      ds_top_param.short_name = 'ieclipse';
-      $.ajax({
-        url : ds_top_url,
-        dataType : "jsonp",
-        type : 'get',
-        data : ds_top_param,
-        jsonp : 'callback',
-        success : function(data) {
-          if (data.code==0) {
-            var arr = data.response;
-            if (arr.length == 0) {
-              ds_top_dom.html('<div class="text-center">No hot post</div>');  
-            } else {
-              ds_top_dom.html('');  
-              for(var i =0; i<arr.length;i++){
-                var a = $('<a></a>').text(arr[i].title).attr('href', arr[i].url).addClass('list-group-item');
-                ds_top_dom.append(a);
-              }
-            }
-          }
-        },
-        error: function (xhr, msg, e) {
-          ds_top_dom.html('<div class="text-center">Load failed</div>');
-        }
-      });
-    </script>
-      
-      
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Recent Comments</h3>
-      </div>
-      <ul class="ds-recent-comments"><li class="text-center">Loading...</li></ul>
-    </div>
-      
-      
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">Links</h3>
-      </div>
-      <div class="list-group" id="widget-links">
-      <a class="list-group-item has-icon" href="http://www.ieclipse.cn" title="Jamling's Blog" target="_blank"><img src="/image/logo.png" alt="Jamling's Blog">Jamling's Blog</a>
-      </div>
-    </div>
-      
-    </aside>
-  </div>
-</div>
-</div>
-<!--多说js加载开始，一个页面只需要加载一次 -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"ieclipse"};
-(function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = 'http://static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-</script>
-<!--多说js加载结束，一个页面只需要加载一次 -->
-  <!-- footer -->
-  <footer id="footer">
-  <div class="divider"></div>
-  <div>&nbsp;</div>
-  <div class="inner text-center">
-    <div id="footer-copyright">
-      &copy; 2016 <a href="http://ieclipse.cn/" target="_blank">Any_冰</a> powered by <a href="http://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Jamling/hexo-theme-nova" target="_blank">Nova</a><br>
-      Documentation licensed under <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
-    </div>
-    <div>
-      <a href="http://www.miitbeian.gov.cn" target="_blank">苏ICP备15019510号</a>
-    </div>
-  </div>
 </footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
 
-  <!-- fixed action bar -->
-  
-  <div class="fab" style="bottom: 45px; right: 24px;">
-    <ul class="top-expand" id="top-expand">
-      <li><a class="fab-item large red" href="#top"><i class="icon nova-top"></i></a></li>
-      <li><a class="fab-item large yellow " href="http://www.jiathis.com/share?uid=2064663" target="_blank"><i class="icon nova-share"></i></a></li>
-    </ul>
-    <a class="fab-item large red " onclick="$('#top-expand').toggle();">
-      <i class="icon nova-list-ul"></i>
-    </a>
-  </div>
-  <!-- after footer, some 3rd script place here -->
-    <script type="text/javascript">
-    var hljs_labels = {
-        left: "Code",
-        right: ":",
-        copy: "Copy to clipboard"
-    }
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
     </script>
-    <script src="/js/hljs.js"></script>
-    <script src="/js/script.js"></script>
-    
-    <!-- 安装自动推送JS代码的网页，在页面被访问时，页面URL将立即被推送给百度 -->
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
 <script>
-(function(){
-    var bp = document.createElement('script');
-    var curProtocol = window.location.protocol.split(':')[0];
-    if (curProtocol === 'https') {
-        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
-    }
-    else {
-        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-    }
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-
+    // Open in New Window
     
-    <!-- 新建的搜索框代码，建立使用你自己的代码替换-->
-<script type="text/javascript">
-(function(){document.write(unescape('%3Cdiv id="bdcs"%3E%3C/div%3E'));var bdcs = document.createElement('script');bdcs.type = 'text/javascript';bdcs.async = true;bdcs.src = 'http://znsv.baidu.com/customer_search/api/js?sid=11812712506721118476' + '&plate_url=' + encodeURIComponent(window.location.href) + '&t=' + Math.ceil(new Date()/3600000);var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(bdcs, s);})();
-</script>
-    
-<!-- LeanClound官方Javascript SDK -->
-<script src="https://cdn1.lncld.net/static/js/av-min-1.2.1.js"></script>
-<script>
-  AV.init({
-    appId : 'rYUER9KxmGUXSpfEtu7wCFMo-gzGzoHsz',
-    appKey : 'k7hzTkcS0blxgry4VT9rJjYj'
-  });
-
-  var lc_config = {
-    pageId : 'd41d8cd98f00b204e9800998ecf8427e',
-    url : '' || 'index.html',
-    title : 'Home'
-  };
-  
-  var lc_table = 'Counter' || 'Counter';
-
-  (function() {
-    var query = new AV.Query(lc_table);
-    query.select(['-ACL']);
-    query.equalTo('pageId', lc_config.pageId);
-    query.first({
-      success: function(results) {
-        // results is an array of AV.Object.
-        if (typeof results === 'undefined') {
-          insert(results);
-          return;
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
         }
-        console.log(results._serverData);
-        update(results);
-        show(results);
-      },
-      error: function(error) {
-        // error is an instance of AV.Error.
-        console.log(error);
-      }
-    });
-
-    function insert(data) {
-      if (!data) {
-        console.log('data is null new object');
-        var M = AV.Object.extend(lc_table);
-        data = new M();
-        data.set('views', 1);
-      }
-      for ( var key in lc_config) {
-        data.set(key, lc_config[key]);
-      }
-      data.save().then(function(data) {
-        console.log('created objectId is ' + data.id);
-      }, function(error) {
-        console.log("create object failed");
-        console.log(error);
-      });
-    }
-
-    function update(data) {
-      data.increment('views', 1);
-      for ( var key in lc_config) {
-        if (key !== 'pageId')
-        data.set(key, lc_config[key]);
-      }
-      data.save().then(function(data) {
-        console.log("update to " + data.get('views'));
-      }, function(error) {
-        console.log("update object failed");
-        console.log(error);
-      });
-    }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
     
-    function show(data) {
-      $(".post-share .nova-eye .count").html(data.get('views'));
-    }
-  })();
 </script>
 
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
 </body>
 </html>
